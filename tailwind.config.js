@@ -31,6 +31,12 @@ export default {
       '30px': '30px',
       '40px': '40px',
     },
+    //반응형 최소 최대 값을 정의합니다.
+    screens: {
+      sm: { min: '320px', max: '768px' },
+      md: { min: '769px', max: '1023px' },
+      lg: { min: '1024px', max: '1200px' },
+    },
   },
   plugins: [],
 };

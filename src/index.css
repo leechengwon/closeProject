@@ -26,6 +26,7 @@ utilities - 레이어는 다른 스타일보다 우선으로 하는 소규모 �
     font-size: 14px;
     font-family: Tenada;
   }
+
   /** Footer를 최하단에 고정시키기 위한 속성 */
   #root {
     display: flex;
@@ -34,10 +35,12 @@ utilities - 레이어는 다른 스타일보다 우선으로 하는 소규모 �
     overflow-x: hidden;
   }
 
-  /** Footer를 최하단에 고정시키기 위한 속성 */
+  /** Footer를 최하단에 고정시키기 위한 속성 최대 최소 가로 사이즈를 정의합니다.*/
   main {
     flex: 1;
+    margin: 0 auto;
   }
+
   /** 이미지의 원본 비율을 유지시키기 위해 디폴트 속성을 100%로 지정  */
   img {
     width: 100%;
