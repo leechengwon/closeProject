@@ -20,6 +20,19 @@ utilities - 레이어는 다른 스타일보다 우선으로 하는 소규모 �
   body,
   #root {
     font-size: 14px;
+    font-family: Tenada;
+  }
+  /** Footer를 최하단에 고정시키기 위한 속성 */
+  #root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /** Footer를 최하단에 고정시키기 위한 속성 */
+  main {
+    flex: 1;
   }
   /** 이미지의 원본 비율을 유지시키기 위해 디폴트 속성을 100%로 지정  */
   img {
