@@ -61,6 +61,7 @@ utilities - 레이어는 다른 스타일보다 우선으로 하는 소규모 �
   button {
     cursor: pointer;
     border-radius: 4px;
+    font-family: Tenada;
   }
 
   /** 모든 인풋에 폰트패밀리와 굵기를 정의합니다.*/
