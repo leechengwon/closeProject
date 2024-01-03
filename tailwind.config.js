@@ -5,9 +5,9 @@ export default {
     extend: {},
     colors: {
       //메인 색상 3가지 입니다.
-      primaryColor: '#21AAEE',
-      secondaryColor: '',
-      tertiaryColor: '',
+      primaryColor: '#3498DB',
+      secondaryColor: '#E74C3C',
+      tertiaryColor: '#27AE60',
       //회색조 색상 입니다.
       grayscaleA: '#fff',
       grayscaleB: '#fbf5f0',
