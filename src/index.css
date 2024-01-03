@@ -68,5 +68,6 @@ utilities - 레이어는 다른 스타일보다 우선으로 하는 소규모 �
   textarea {
     font-family: RubikRegular;
     font-weight: 900;
+    border-radius: 4px;
   }
 }
