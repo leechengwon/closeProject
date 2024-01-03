@@ -56,11 +56,14 @@ utilities - 레이어는 다른 스타일보다 우선으로 하는 소규모 �
     color: initial;
     text-decoration: none;
   }
+
   /** 모든버튼은 커서를 포인트를 얻습니다.*/
   button {
     cursor: pointer;
     border-radius: 4px;
   }
+
+  /** 모든 인풋에 폰트패밀리와 굵기를 정의합니다.*/
   input,
   textarea {
     font-family: RubikRegular;
