@@ -14,6 +14,10 @@ utilities - 레이어는 다른 스타일보다 우선으로 하는 소규모 �
   font-family: 'Tenada';
   src: url('../public/fonts/Tenada.ttf');
 }
+@font-face {
+  font-family: 'RubikRegular';
+  src: url('../public/fonts/RubikRegular.ttf');
+}
 
 @layer base {
   html,
@@ -56,5 +60,10 @@ utilities - 레이어는 다른 스타일보다 우선으로 하는 소규모 �
   button {
     cursor: pointer;
     border-radius: 4px;
+  }
+  input,
+  textarea {
+    font-family: RubikRegular;
+    font-weight: 900;
   }
 }
