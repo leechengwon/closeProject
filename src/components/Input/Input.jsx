@@ -41,7 +41,7 @@ const Input = ({
         value={value}
         {...props}
       />
-      {/* children 없다면 span 태그는 제외됩니다. */}
+      {/* errorMsg 없다면 span 태그는 제외됩니다. */}
       {!errorMsg ? null : (
         <span
           className={`${ErrorStatus[status]} font-RubikRegular text-10px text-[red]`}
