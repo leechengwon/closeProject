@@ -21,9 +21,11 @@ export default {
     //폰트 글씨테를 커스컴합니다.
     fontFamily: {
       tenada: ['Tenada'],
+      RubikRegular: ['RubikRegular'],
     },
     //폰트사이즈를 커스텀합니다.
     fontSize: {
+      '10px': '10px',
       '12px': '12px',
       '14px': '14px',
       '16px': '16px',
