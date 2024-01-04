@@ -19,7 +19,7 @@ const Input = ({
   value,
   label,
   disabled = false,
-  status = 'false',
+  status = 'true',
   errorMsg,
   size,
   ...props
@@ -29,9 +29,9 @@ const Input = ({
       {/* 라벨이없다면 라벨 태그는 제외됩니다. */}
       {!label ? null : <label className="text-12px ">{label}</label>}
       <input
-        className={`${className} ${InputStatusColor[status]} ${
+        className={`${className ? className : ''} ${InputStatusColor[status]} ${
           SIZE[size] || SIZE.sm
-        } w-full border-solid`}
+        } w-full`}
         type={type}
         placeholder={placeholder}
         onChange={onChange}
@@ -70,8 +70,9 @@ const SIZE = {
 
 /** props status 블리언 inputBorder 테두리 색상을 결정해줍니다. */
 const InputStatusColor = {
-  true: 'border-primaryColor border-[1px] ',
-  false: 'border-[red] border-[1px] ',
+  true: 'border-primaryColor border-[1px] border-solid focus:outline-none  focus:border-primaryColor',
+  false:
+    'border-[red] border-[1px] border-solid focus:outline-none  focus:border-[red]',
 };
 
 /** props status 블리언 상태값에 따라 에러 메세지를 보여주는것을 결정합니다. */
