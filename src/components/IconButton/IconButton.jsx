@@ -5,9 +5,17 @@
  * @property {string} type - 버튼의 타입을 정의합니다. 기본값은 button입니다.
  * @property {string} shape - 버튼의 모양을 정의합니다. kakao, add, nav, back, reading, instagram, facebook, youtube, top를 사용할 수 있습니다.
  * @property {function} onClick - 버튼의 클릭 이벤트를 정의합니다.
+ * @property {function} onChange - 버튼의 변경 이벤트를 정의합니다.
  * @returns
  */
-const IconButton = ({ className, type = 'button', shape, onClick }) => {
+const IconButton = ({
+  className,
+  type = 'button',
+  shape,
+  onClick,
+  onChange,
+  ...props
+}) => {
   return (
     <div className="flex items-center justify-center">
       <button
@@ -15,6 +23,8 @@ const IconButton = ({ className, type = 'button', shape, onClick }) => {
         type={type}
         shape={shape}
         onClick={onClick}
+        onChange={onChange}
+        {...props}
       />
     </div>
   );
