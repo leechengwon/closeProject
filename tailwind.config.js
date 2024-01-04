@@ -18,7 +18,7 @@ export default {
       grayscaleG: '#1b1b1b',
       grayscaleH: '#000',
     },
-    //폰트 글씨테를 커스컴합니다.
+    //폰트 글씨체를 커스컴합니다.
     fontFamily: {
       tenada: ['Tenada'],
       RubikRegular: ['RubikRegular'],
