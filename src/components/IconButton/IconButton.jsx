@@ -36,7 +36,7 @@ const SHAPE = {
   kakao:
     "h-16 w-16 rounded-full bg-[url('../money-protector/images/IconButton/kakao_button.png')] bg-center bg-no-repeat",
   add: "h-16 w-16 rounded-full bg-secondaryColor bg-[url('../money-protector/svg/IconButton/add_button.svg')] bg-auto bg-center bg-no-repeat",
-  nav: "h-8 w-8 rotate-2 bg-[url('../money-protector/images/IconButton/nav_button.png')] bg-center bg-no-repeat transition-all duration-500 hover:bg-[url('../money-protector/images/IconButton/nav_close_button.png')] hover:bg-center hover:bg-no-repeat",
+  nav: "h-8 w-8 rotate-2 bg-[url('../money-protector/images/IconButton/nav_button.png')] bg-center bg-no-repeat",
   back: "h-8 w-8 bg-[url('../money-protector/images/IconButton/back_button.png')] bg-center bg-no-repeat",
   reading:
     "h-8 w-8 bg-[url('../money-protector/svg/IconButton/header_reading_glasses.svg')] bg-center bg-no-repeat",
