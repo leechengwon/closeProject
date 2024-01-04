@@ -25,7 +25,7 @@ const Input = ({
   ...props
 }) => {
   return (
-    <div className="flex w-[300px] flex-col gap-[1px]">
+    <div className="w-full">
       {/* 라벨이없다면 라벨 태그는 제외됩니다. */}
       {!label ? null : <label className="text-12px ">{label}</label>}
       <input
