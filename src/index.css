@@ -33,12 +33,20 @@ utilities - 레이어는 다른 스타일보다 우선으로 하는 소규모 �
     flex-direction: column;
     min-height: 100vh;
     overflow-x: hidden;
+    background-color: #fbf5f0;
   }
 
-  /** Footer를 최하단에 고정시키기 위한 속성 최대 최소 가로 사이즈를 정의합니다.*/
+  /**
+  1.Footer를 최하단에 고정시키기 위한 속성 최대 최소 가로 사이즈를 정의합니다.
+  2.최대 최하 width를 정의합니다.
+  3.width 100%를 적용합니다.
+  */
   main {
     flex: 1;
     margin: 0 auto;
+    max-width: 1200px;
+    min-width: 320px;
+    width: 100%;
   }
 
   /** 이미지의 원본 비율을 유지시키기 위해 디폴트 속성을 100%로 지정  */
