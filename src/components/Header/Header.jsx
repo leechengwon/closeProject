@@ -11,13 +11,20 @@ const Header = () => {
 
   /** useEffect를 이용해서 keyCode 27번 (ESC)를 감지하고, 해당 키가 눌리면 Nav를 닫습니다. */
   useEffect(() => {
+    /** esc키가 눌리면 close 함수 실행 */
     const close = e => {
       if (e.keyCode === 27) {
         setNavOpen(false);
       }
     };
 
+    /** key 이벤트를 감지하여 close 함수를 실행함. */
     window.addEventListener('keydown', close);
+
+    /** 메모리 누수 방지를 위하여 함수 실행 후 해당 이벤트 삭제 */
+    return () => {
+      window.removeEventListener('keydown', close);
+    };
   }, []);
 
   /** Nav를 Open/Close 합니다. */
