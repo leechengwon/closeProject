@@ -47,4 +47,6 @@ const SHAPE = {
   youtube:
     "h-8 w-8 bg-[url('../money-protector/svg/IconButton/footer_youtube.svg')] bg-center bg-no-repeat",
   top: "h-12 w-12 bg-[url('../money-protector/svg/IconButton/up_arrow_button.svg')] bg-center bg-no-repeat bg-secondaryColor rounded-full",
+  close:
+    "h-8 w-8 bg-[url('../money-protector/images/Nav/nav_close_button.png')] bg-center bg-no-repeat",
 };
