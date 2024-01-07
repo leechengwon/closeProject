@@ -25,6 +25,7 @@ utilities - 레이어는 다른 스타일보다 우선으로 하는 소규모 �
   #root {
     font-size: 14px;
     font-family: Tenada;
+    background-color: antiquewhite;
   }
 
   /** Footer를 최하단에 고정시키기 위한 속성 */
