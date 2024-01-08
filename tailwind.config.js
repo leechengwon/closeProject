@@ -43,6 +43,10 @@ export default {
       md: { min: '650px', max: '1023px' },
       lg: { min: '1024px' },
     },
+    // box-shadow을 커스텀합니다.
+    boxShadow: {
+      '3xl': '6px 6px 0px -1px',
+    },
   },
   plugins: [],
 };
