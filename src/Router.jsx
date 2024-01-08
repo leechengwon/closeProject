@@ -6,7 +6,7 @@ import Footer from './components/Footer/Footer';
 import Gateway from './pages/Gateway/Gateway';
 import Login from './pages/Login/Login';
 
-const Router = ({ isLogin }) => {
+const Router = () => {
   return (
     <BrowserRouter basename="/money-protector">
       <ScrollToTop />
