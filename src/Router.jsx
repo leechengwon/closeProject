@@ -3,6 +3,7 @@ import ScrollToTop from './components/ScrollTop/ScrollTop';
 import Header from './components/Header/Header';
 import Main from './pages/Main/Main';
 import Footer from './components/Footer/Footer';
+import Login from './pages/Login/Login';
 
 const Router = () => {
   return (
@@ -10,7 +11,8 @@ const Router = () => {
       <ScrollToTop />
       <Header />
       <Routes>
-        <Route path="/" element={<Main />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/main" element={<Main />} />
       </Routes>
       <Footer />
     </BrowserRouter>

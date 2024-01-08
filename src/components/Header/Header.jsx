@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import Portal from '../Portal/Portal';
 import IconButton from '../IconButton/IconButton';
 import Input from '../Input/Input';
 import Nav from '../Nav/Nav';
