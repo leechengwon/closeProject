@@ -32,7 +32,7 @@ const Input = ({
         className={`${className ? className : ''} ${InputStatusColor[status]} ${
           SIZE[size] || SIZE.sm
           //모바일 사이즈일땐 sm 사이즈가 적용됩니다.
-        } bg-transparent w-full sm:px-2 sm:py-2 sm:text-12px`}
+        } bg-transparent w-full focus:placeholder:opacity-0 sm:px-2 sm:py-2 sm:text-12px`}
         type={type}
         placeholder={placeholder}
         onChange={onChange}
@@ -71,9 +71,9 @@ const SIZE = {
 
 /** props status 블리언 inputBorder 테두리 색상을 결정해줍니다. */
 const InputStatusColor = {
-  true: 'border-grayscaleH1 border-[1px] border-solid focus:outline-none  focus:border-primaryColor bg-FourthColor',
+  true: 'border-grayscaleH1 border-[1px] border-solid focus:outline-none  focus:border-primaryColor bg-FourthColor ',
   false:
-    'border-[red] border-[1px] border-solid focus:outline-none  focus:border-[red] bg-FourthColor',
+    'border-[red] border-[1px] border-solid focus:outline-none  focus:border-[red] bg-FourthColor ',
 };
 
 /** props status 블리언 상태값에 따라 에러 메세지를 보여주는것을 결정합니다. */
