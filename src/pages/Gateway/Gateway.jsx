@@ -23,7 +23,7 @@ const Gateway = () => {
             </span>
           </div>
           <div className="shadow-3xl mt-20 flex w-52 items-center justify-center rounded shadow-grayscaleD hover:shadow-primaryColor">
-            <Button size="lg" text="바로가기" />
+            <Button className="hover:bg-grayscaleD" size="lg" text="바로가기" />
           </div>
         </div>
       </main>
