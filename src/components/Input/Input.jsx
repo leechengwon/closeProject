@@ -4,7 +4,7 @@
  *@property {string} name                                   - 인풋의 이름을 정의합니다.
  *@property {string} value                                  - 인풋의 초깃값을 정의합니다.
  *@property {string} label                                  - 인풋의 라벨이름을 정의합니다.
- *@property {string} errorMsg                                  - 인풋의 에러의 대한 메세지를 정의합니다.
+ *@property {string} errorMsg                               - 인풋의 에러의 대한 메세지를 정의합니다.
  *@property {boolean} disabled                              - 인풋의 disabled 활성화 비활성화를 초기값은 false를 정의합니다.
  *@property {boolean} status                                - 인풋의 status 생태값을 정의합니다.
  *@property {function} onChange                             - 인풋의 값이 변경될시 실행할 함수를 정의합니다.
@@ -31,7 +31,8 @@ const Input = ({
       <input
         className={`${className ? className : ''} ${InputStatusColor[status]} ${
           SIZE[size] || SIZE.sm
-        } w-full`}
+          //모바일 사이즈일땐 sm 사이즈가 적용됩니다.
+        } bg-transparent w-full sm:px-2 sm:py-2 sm:text-12px`}
         type={type}
         placeholder={placeholder}
         onChange={onChange}
@@ -70,9 +71,9 @@ const SIZE = {
 
 /** props status 블리언 inputBorder 테두리 색상을 결정해줍니다. */
 const InputStatusColor = {
-  true: 'border-primaryColor border-[1px] border-solid focus:outline-none  focus:border-primaryColor',
+  true: 'border-grayscaleH1 border-[1px] border-solid focus:outline-none  focus:border-primaryColor bg-FourthColor',
   false:
-    'border-[red] border-[1px] border-solid focus:outline-none  focus:border-[red]',
+    'border-[red] border-[1px] border-solid focus:outline-none  focus:border-[red] bg-FourthColor',
 };
 
 /** props status 블리언 상태값에 따라 에러 메세지를 보여주는것을 결정합니다. */

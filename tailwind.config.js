@@ -8,6 +8,8 @@ export default {
       primaryColor: '#3498DB',
       secondaryColor: '#E74C3C',
       tertiaryColor: '#27AE60',
+      FourthColor: '#fbf5f0',
+
       //회색조 색상 입니다.
       grayscaleA: '#fff',
       grayscaleB: '#fbf5f0',
@@ -25,6 +27,7 @@ export default {
     },
     //폰트사이즈를 커스텀합니다.
     fontSize: {
+      '0px': '0px',
       '10px': '10px',
       '12px': '12px',
       '14px': '14px',
