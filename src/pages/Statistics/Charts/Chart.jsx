@@ -13,7 +13,6 @@ const Chart = () => {
       </div>
 
       <ECharts
-        // option={data}
         option={CHART_INCOME_DATA[0]}
         opts={{ width: 'auto', height: 'auto' }}
         className="text-sm md:text-[6px] lg:text-[4px]"
@@ -24,7 +23,6 @@ const Chart = () => {
       </div>
 
       <ECharts
-        // option={data}
         option={CHART_EXPENDITURE_DATA[0]}
         opts={{ width: 'auto', height: 'auto' }}
       />

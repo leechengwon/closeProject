@@ -12,15 +12,15 @@ export const CHART_INCOME_DATA = [
       },
     },
     legend: {
-      orient: 'horizontal',
-      top: '0',
-      center: 'center',
+      orient: 'horizontal', // 버티컬 호리젠탈 가로세로 변경가능
+      top: '0', // 탑 바텀 라이트 레프트 다양
+      center: 'center', // 라이트 레프트 센터등 정렬
     },
     series: [
       {
         name: '지출 내역',
-        type: 'pie',
-        radius: '80%',
+        type: 'pie', //차트타입
+        radius: '80%', // 차트에 크기
         top: '100',
         data: [
           { value: 148, name: '월급' },
@@ -101,6 +101,7 @@ export const CHART_EXPENDITURE_DATA = [
             shadowColor: 'rgba(145, 44, 44, 0.5)',
           },
         },
+        //위에
         //라벨이 emphasis 빠져나오면 계속 보여줄수있다
         label: {
           show: true,
