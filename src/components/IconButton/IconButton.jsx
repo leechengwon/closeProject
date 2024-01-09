@@ -19,7 +19,9 @@ const IconButton = ({
   ...props
 }) => {
   return (
-    <div className={`${position} flex items-center justify-center`}>
+    <div
+      className={`${position ? position : ''} flex items-center justify-center`}
+    >
       <button
         className={`${className ? className : ''} ${SHAPE[shape]} `}
         type={type}
