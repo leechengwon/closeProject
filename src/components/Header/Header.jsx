@@ -55,7 +55,7 @@ const Header = () => {
             </li>
 
             <li>
-              <Link to="/">통계</Link>
+              <Link to="/statistics">통계</Link>
             </li>
           </ul>
         </nav>
