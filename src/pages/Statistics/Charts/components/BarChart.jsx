@@ -1,11 +1,11 @@
 import React from 'react';
 import ECharts from 'echarts-for-react';
 import {
-  CHART_EXPENDITURE_DATA,
-  CHART_INCOME_DATA,
-} from '../../../data/ChartData';
+  CHART_BAR_EXPENDITURE_DATA,
+  CHART_BAR_INCOME_DATA,
+} from '../../../../data/ChartData';
 
-const Chart = () => {
+const BarChart = () => {
   return (
     <div className="mb-20 w-full">
       <div className="my-14 flex w-full justify-center">
@@ -13,7 +13,7 @@ const Chart = () => {
       </div>
 
       <ECharts
-        option={CHART_INCOME_DATA[0]}
+        option={CHART_BAR_INCOME_DATA[0]}
         opts={{ width: 'auto', height: 'auto' }}
         className="text-sm md:text-[6px] lg:text-[4px]"
       />
@@ -23,11 +23,11 @@ const Chart = () => {
       </div>
 
       <ECharts
-        option={CHART_EXPENDITURE_DATA[0]}
+        option={CHART_BAR_EXPENDITURE_DATA[0]}
         opts={{ width: 'auto', height: 'auto' }}
       />
     </div>
   );
 };
 
-export default Chart;
+export default BarChart;

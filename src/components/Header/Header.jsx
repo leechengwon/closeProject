@@ -6,6 +6,9 @@ import Nav from '../Nav/Nav';
 
 /** Header Component 입니다. */
 const Header = () => {
+  /** 로컬스토리지에 토큰값을 token 변수에 담습니다. */
+  const token = localStorage.getItem('accessToken');
+
   /** Nav에 대해서 Open/Close 상태를 저장하기 위한 State입니다. */
   const [navOpen, setNavOpen] = useState(false);
 
@@ -51,11 +54,11 @@ const Header = () => {
             </li>
 
             <li>
-              <Link to="/">캘린더</Link>
+              <Link to="/calender">캘린더</Link>
             </li>
 
             <li>
-              <Link to="/statistics">통계</Link>
+              <Link to="/statistics">차트</Link>
             </li>
           </ul>
         </nav>
@@ -67,7 +70,12 @@ const Header = () => {
       </section>
 
       <div className="flex items-center gap-6">
-        <span className="">로그아웃</span>
+        {token ? (
+          <button type="button">로그아웃</button>
+        ) : (
+          <Link to={'/login'}>로그인</Link>
+        )}
+
         <IconButton shape="nav" onClick={handleNavToggle} />
       </div>
 
