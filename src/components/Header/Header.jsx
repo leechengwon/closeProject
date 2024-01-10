@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import IconButton from '../IconButton/IconButton';
 import Input from '../Input/Input';
 import Nav from '../Nav/Nav';
@@ -8,6 +8,11 @@ import Nav from '../Nav/Nav';
 const Header = () => {
   /** 로컬스토리지에 토큰값을 token 변수에 담습니다. */
   const token = localStorage.getItem('accessToken');
+
+  /**
+   * useNavigate()를 navigate 이름으로 변수로 지정합니다.
+   */
+  const navigate = useNavigate();
 
   /** Nav에 대해서 Open/Close 상태를 저장하기 위한 State입니다. */
   const [navOpen, setNavOpen] = useState(false);
@@ -33,6 +38,16 @@ const Header = () => {
   /** Nav를 Open/Close 합니다. */
   const handleNavToggle = () => {
     setNavOpen(!navOpen);
+  };
+
+  /**
+   * 1.로그아웃 버튼 클릭시 실행되는 함수입니다.
+   * 2.로컬스토리지에 accessToken 값을 삭제합니다.
+   * 3.메인페이지로 네비게이트를 해줍니다.
+   */
+  const handleLoginOut = () => {
+    localStorage.clear();
+    navigate('/');
   };
 
   return (
@@ -71,7 +86,9 @@ const Header = () => {
 
       <div className="flex items-center gap-6">
         {token ? (
-          <button type="button">로그아웃</button>
+          <button type="button" onClick={handleLoginOut}>
+            로그아웃
+          </button>
         ) : (
           <Link to={'/login'}>로그인</Link>
         )}
