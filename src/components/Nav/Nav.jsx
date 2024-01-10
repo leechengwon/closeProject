@@ -50,7 +50,7 @@ const Nav = ({ onClose, className, navOpen }) => {
             <ul className="flex h-full flex-col items-center justify-center ">
               <li className="flex w-full items-center justify-center py-7">
                 <Link
-                  to="/"
+                  to="/accountbook"
                   className="text-24px font-bold text-grayscaleH delay-200 hover:animate-bounce hover:text-primaryColor md:hidden lg:hidden"
                   onClick={onClose}
                 >
