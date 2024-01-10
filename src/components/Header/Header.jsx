@@ -4,7 +4,6 @@ import IconButton from '../IconButton/IconButton';
 import Input from '../Input/Input';
 import Nav from '../Nav/Nav';
 
-/** Header Component 입니다. */
 const Header = () => {
   /** 로컬스토리지에 토큰값을 token 변수에 담습니다. */
   const token = localStorage.getItem('accessToken');
