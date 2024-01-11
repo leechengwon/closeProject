@@ -1,4 +1,13 @@
-import React from 'react';
+/**
+ * AccountBookItem props list
+ * @property {function} onClick       - AccountBookItem의 클릭이벤트 함수
+ * @property {string} src             - AccountBookItem의 라벨을 정의합니다.
+ * @property {string} date            - AccountBookItem의 년/월/일 date를 정의합니다.
+ * @property {string} daysOfWeek      - AccountBookItem의 요일 date를 정의합니다.
+ * @property {string} income          - AccountBookItem의 수입 data를 정의합니다.
+ * @property {string} expenditure     - AccountBookItem의 지출 data를 정의합니다.
+ * @property {string} type            - AccountBookItem의 수입/지출인지 type 정의합니다.
+ */
 
 const AccountBookItem = ({
   src,
@@ -21,7 +30,7 @@ const AccountBookItem = ({
         <div className="h-6 w-6">
           <img src={src} alt="지출이미지" />
         </div>
-        <span>{text}</span>
+        <label>{text}</label>
       </td>
 
       {income ? (

@@ -12,6 +12,7 @@ const AccountBook = () => {
     setActiveTab(value);
   };
 
+  //가상 데이터입니다.
   const expenses = [
     {
       id: 1,
@@ -96,13 +97,13 @@ const AccountBook = () => {
               <AccountBookItem
                 key={expense.id}
                 date={expense.date}
-                category={expense.category}
                 income={expense.income}
-                expenditure={expense.expenditure}
                 type={expense.type}
                 src={expense.src}
                 text={expense.text}
                 daysOfWeek={expense.daysOfWeek}
+                expenditure={expense.expenditure}
+                // onClick={onClick} 클릭이벤트함수를 정의합니다.
               />
             ))}
           </tbody>

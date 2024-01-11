@@ -3,8 +3,9 @@
     {
       "id": 1,
       "date": "2024-01-01",
-      "income": 10000000000,
-      "total": 10000000,
+      "incomeTotal": 10000000000,
+      "expenditureTotal": 20000,
+      "total": 9998000,
       "src": "../money-protector/images/Chip/chip_food.png",
       "text": "식비",
       "memo": "메모입니다.",
