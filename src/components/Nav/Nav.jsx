@@ -29,14 +29,14 @@ const Nav = ({ onClose, className, navOpen }) => {
           />
           <div className="flex items-center justify-center py-16 text-grayscaleH">
             <Link
-              to="/"
+              to="/login"
               className="relative px-5 text-20px font-bold text-grayscaleH after:absolute after:right-0 after:top-1 after:h-6 after:w-[1px] after:bg-grayscaleD after:opacity-50 after:content-[''] hover:text-primaryColor"
               onClick={onClose}
             >
               Login
             </Link>
             <Link
-              to="/"
+              to="/join"
               className="px-5 text-20px font-bold text-grayscaleH hover:text-primaryColor"
               onClick={onClose}
             >
