@@ -15,24 +15,31 @@ const AccountBook = () => {
   const expenses = [
     {
       id: 1,
-      date: '2024-01-10',
-      category: '식비',
-      price: '50000',
-      type: '지출',
+      date: '2024-01-01',
+      income: 1000000000,
+      total: 10000000,
+      src: '../money-protector/images/Chip/chip_food.png',
+      text: '식비',
+      memo: '메모입니다.',
+      daysOfWeek: '월요일',
+      hour: '17',
+      minute: '40',
+      asset: '현금',
+      type: '수입',
     },
     {
       id: 2,
-      date: '2024-01-11',
-      category: '교통비',
-      price: '30000',
+      date: '2024-01-01',
+      expenditure: 20000,
+      total: 9998000,
+      src: '../money-protector/images/Chip/chip_bonus.png',
+      text: '대중교통',
+      memo: '메모입니다.',
+      daysOfWeek: '월요일',
+      hour: '17',
+      minute: '42',
+      asset: '카드',
       type: '지출',
-    },
-    {
-      id: 3,
-      date: '2024-01-12',
-      category: '월급',
-      price: '1000000',
-      type: '수입',
     },
   ];
 
@@ -48,10 +55,16 @@ const AccountBook = () => {
           <table className="w-full">
             <thead>
               <tr>
-                <th className="px-4 py-2 text-left">날짜</th>
-                <th className="px-4 py-2 text-left">카테고리</th>
-                <th className="px-4 py-2 text-left">금액</th>
-                <th className="px-4 py-2 text-left">지출/수입</th>
+                <th className="py-2 text-left sm:text-center md:text-center">
+                  날짜
+                </th>
+                <th className="py-2 text-left sm:text-center md:text-center">
+                  카테고리
+                </th>
+                <th className="py-2 text-left sm:text-center md:text-center">
+                  금액
+                </th>
+                <th className="py-2 text-left">분류</th>
               </tr>
             </thead>
 
@@ -61,8 +74,11 @@ const AccountBook = () => {
                   key={expense.id}
                   date={expense.date}
                   category={expense.category}
-                  price={expense.price}
+                  income={expense.income}
+                  expenditure={expense.expenditure}
                   type={expense.type}
+                  src={expense.src}
+                  text={expense.text}
                 />
               ))}
             </tbody>
