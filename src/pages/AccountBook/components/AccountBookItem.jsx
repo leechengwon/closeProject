@@ -3,7 +3,7 @@ import React from 'react';
 const AccountBookItem = ({
   src,
   date,
-  category,
+  daysOfWeek,
   income,
   type,
   expenditure,
@@ -11,16 +11,22 @@ const AccountBookItem = ({
 }) => {
   return (
     <tr className="border-b">
-      <td className="py-2 md:text-center">{date}</td>
-      <td className="gap-1 py-2 sm:flex sm:flex-col  sm:items-center  md:flex md:items-center md:justify-center lg:flex lg:items-center">
+      <td className="py-2 text-center md:text-center">
+        {daysOfWeek}
+        <br />
+        {date}
+      </td>
+
+      <td className="flex flex-col items-center justify-center gap-1 py-2 text-center lg:flex lg:flex-col">
         <div className="h-6 w-6">
           <img src={src} alt="지출이미지" />
         </div>
-        {text}
+        <span>{text}</span>
       </td>
+
       {income ? (
         <td
-          className={`py-2 sm:text-center  md:text-center ${
+          className={`py-2 text-center sm:text-center md:text-center ${
             type === '지출' ? 'text-[red]' : 'text-[blue]'
           }`}
         >
@@ -28,7 +34,7 @@ const AccountBookItem = ({
         </td>
       ) : (
         <td
-          className={`py-2 sm:text-center md:text-center ${
+          className={`py-2 text-center sm:text-center md:text-center ${
             type === '지출' ? 'text-[red]' : 'text-[blue]'
           }`}
         >

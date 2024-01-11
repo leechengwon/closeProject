@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Tap from '../../components/Tap/Tap';
-import { TAP_ACCOUNTBOOK_DATA } from '../../data/TapGroup';
 import AccountBookItem from './components/AccountBookItem';
+import { TAP_ACCOUNTBOOK_DATA } from '../../data/TapGroup';
 
 const AccountBook = () => {
   /** Tab 컴포넌트에 필요한 useState 를 정의합니다.   */
@@ -15,9 +15,11 @@ const AccountBook = () => {
   const expenses = [
     {
       id: 1,
-      date: '2024-01-01',
-      income: 1000000000,
-      total: 10000000,
+      date: '2024-01-02',
+      income: 10000000000,
+      incomeTotal: 10000000000,
+      expenditureTotal: 20000,
+      total: 9998000,
       src: '../money-protector/images/Chip/chip_food.png',
       text: '식비',
       memo: '메모입니다.',
@@ -31,9 +33,11 @@ const AccountBook = () => {
       id: 2,
       date: '2024-01-01',
       expenditure: 20000,
-      total: 9998000,
-      src: '../money-protector/images/Chip/chip_bonus.png',
-      text: '대중교통',
+      incomeTotal: 10000000000,
+      expenditureTotal: 20000,
+      total: 10000000000,
+      src: '../money-protector/images/Chip/chip_car.png',
+      text: '교통차량',
       memo: '메모입니다.',
       daysOfWeek: '월요일',
       hour: '17',
@@ -45,45 +49,64 @@ const AccountBook = () => {
 
   return (
     <main>
-      <section>
+      <section className="mt-28">
         <Tap
           tapListData={TAP_ACCOUNTBOOK_DATA}
           onClick={handleTapClick}
           activeTab={activeTab}
         />
-        <div className="App">
-          <table className="w-full">
-            <thead>
-              <tr>
-                <th className="py-2 text-left sm:text-center md:text-center">
-                  날짜
-                </th>
-                <th className="py-2 text-left sm:text-center md:text-center">
-                  카테고리
-                </th>
-                <th className="py-2 text-left sm:text-center md:text-center">
-                  금액
-                </th>
-                <th className="py-2 text-left">분류</th>
-              </tr>
-            </thead>
+      </section>
 
-            <tbody>
-              {expenses.map(expense => (
-                <AccountBookItem
-                  key={expense.id}
-                  date={expense.date}
-                  category={expense.category}
-                  income={expense.income}
-                  expenditure={expense.expenditure}
-                  type={expense.type}
-                  src={expense.src}
-                  text={expense.text}
-                />
-              ))}
-            </tbody>
-          </table>
+      <section className="mt-8 flex w-full text-center">
+        <div className="sm:text-11px w-full text-[blue]">
+          {`${expenses[0].incomeTotal?.toLocaleString('ko-KR')}원`}
         </div>
+
+        <div className="sm:text-11px w-full text-[red] ">
+          {`${expenses[0].expenditureTotal?.toLocaleString('ko-KR')}원`}
+        </div>
+
+        <div className="sm:text-11px w-full text-[green] ">
+          {`${expenses[0].total?.toLocaleString('ko-KR')}원`}
+        </div>
+      </section>
+
+      <section className="mt-8 border-collapse">
+        <table className="w-full">
+          <thead>
+            <tr>
+              <th className="border-b py-2 text-center sm:text-center md:text-center">
+                날짜
+              </th>
+
+              <th className="border-b py-2 text-center sm:text-center md:text-center">
+                카테고리
+              </th>
+
+              <th className="border-b py-2  text-center sm:text-center md:text-center">
+                금액
+              </th>
+
+              <th className="border-b py-2 text-left">분류</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {expenses.map(expense => (
+              <AccountBookItem
+                key={expense.id}
+                date={expense.date}
+                category={expense.category}
+                income={expense.income}
+                expenditure={expense.expenditure}
+                type={expense.type}
+                src={expense.src}
+                text={expense.text}
+                daysOfWeek={expense.daysOfWeek}
+              />
+            ))}
+          </tbody>
+        </table>
       </section>
     </main>
   );

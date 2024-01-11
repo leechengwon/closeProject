@@ -1,0 +1,18 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "date": "2024-01-01",
+      "income": 10000000000,
+      "total": 10000000,
+      "src": "../money-protector/images/Chip/chip_food.png",
+      "text": "식비",
+      "memo": "메모입니다.",
+      "daysOfWeek": "월요일",
+      "hour": "17",
+      "minute": "40",
+      "asset": "현금",
+      "type": "수입"
+    }
+  ]
+}
