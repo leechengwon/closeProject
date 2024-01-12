@@ -59,7 +59,7 @@ const Nav = ({ onClose, className, navOpen }) => {
               </li>
               <li className="flex w-full items-center justify-center py-7">
                 <Link
-                  to="/"
+                  to="/calender"
                   className="text-24px font-bold text-grayscaleH hover:animate-bounce hover:text-primaryColor md:hidden lg:hidden"
                   onClick={onClose}
                 >
@@ -68,11 +68,11 @@ const Nav = ({ onClose, className, navOpen }) => {
               </li>
               <li className="flex w-full items-center justify-center py-7">
                 <Link
-                  to="/"
+                  to="/statistics"
                   className="text-24px font-bold text-grayscaleH hover:animate-bounce hover:text-primaryColor md:hidden lg:hidden"
                   onClick={onClose}
                 >
-                  통계
+                  차트
                 </Link>
               </li>
             </ul>

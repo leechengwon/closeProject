@@ -16,4 +16,7 @@ export default defineConfig({
     // 패키지 크기 압축
     chunkSizeWarningLimit: 1600,
   },
+  optimizeDeps: {
+    exclude: ['echarts, echarts-for-react'],
+  },
 });
