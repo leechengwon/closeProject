@@ -113,7 +113,7 @@ const Login = () => {
     if (!userLoginInfo.password.length && !userLoginInfo.id.length) {
       alert('아이디 비밀번호를 입력해주세요.');
     } else {
-      basic_test(401) //테스트용 api입니다. 인자로 원하는 상태값을 넘겨주면됩니다.
+      basic_test(200) //테스트용 api입니다. 인자로 원하는 상태값을 넘겨주면됩니다.
         .then(res => {
           if (isRemember) {
             setCookie('rememberUserId', userLoginInfo.id);
