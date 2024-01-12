@@ -18,6 +18,7 @@ const Statistics = () => {
       <h2 className="mt-32 sm:text-20px md:text-24px lg:text-30px">
         다양한 Chart로 보기
       </h2>
+
       <section className="mt-24 flex w-full flex-col items-center justify-center">
         <div className="w-full">
           <Tab

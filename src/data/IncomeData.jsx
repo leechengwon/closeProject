@@ -7,7 +7,7 @@ export const INCOME_DATA = [
   },
   {
     id: 2,
-    text: '부수입',
+    text: '이자',
     value: 'sideIncome',
     src: '../money-protector/images/Chip/chip_side.png',
   },

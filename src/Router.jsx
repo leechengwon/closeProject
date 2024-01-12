@@ -7,6 +7,7 @@ import Gateway from './pages/Gateway/Gateway';
 import Login from './pages/Login/Login';
 import Join from './pages/Join/Join';
 import Statistics from './pages/Statistics/Statistics';
+import AccountBook from './pages/AccountBook/AccountBook';
 
 const Router = () => {
   return (
@@ -19,6 +20,7 @@ const Router = () => {
         <Route path="/main" element={<Main />} />
         <Route path="/join" element={<Join />} />
         <Route path="/statistics" element={<Statistics />} />
+        <Route path="/accountbook" element={<AccountBook />} />
       </Routes>
       <Footer />
     </BrowserRouter>

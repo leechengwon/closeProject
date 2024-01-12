@@ -64,7 +64,7 @@ const Header = () => {
         <nav>
           <ul className="flex gap-10 text-20px sm:hidden">
             <li>
-              <Link to="/">가계부</Link>
+              <Link to="/accountbook">가계부</Link>
             </li>
 
             <li>
