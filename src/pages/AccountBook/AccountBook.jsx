@@ -73,7 +73,7 @@ const AccountBook = () => {
       </section>
 
       <section className="mt-8 border-collapse">
-        <table className="w-full">
+        <table className="w-full table-auto">
           <thead>
             <tr>
               <th className="border-b py-2 text-center sm:text-center md:text-center">
