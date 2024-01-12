@@ -51,7 +51,11 @@ const AccountBookItem = ({
         </td>
       )}
 
-      <td className={`py-2 ${type === '지출' ? 'text-[red]' : 'text-[blue]'}`}>
+      <td
+        className={`py-2 ${
+          type === '지출' ? 'text-[red]' : 'text-[blue]'
+        } text-center`}
+      >
         {type}
       </td>
     </tr>

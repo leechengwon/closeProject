@@ -59,15 +59,15 @@ const AccountBook = () => {
       </section>
 
       <section className="mt-8 flex w-full text-center">
-        <div className="sm:text-11px w-full text-[blue]">
+        <div className="w-full text-[blue] sm:text-11px">
           {`${expenses[0].incomeTotal?.toLocaleString('ko-KR')}원`}
         </div>
 
-        <div className="sm:text-11px w-full text-[red] ">
+        <div className="w-full text-[red] sm:text-11px ">
           {`${expenses[0].expenditureTotal?.toLocaleString('ko-KR')}원`}
         </div>
 
-        <div className="sm:text-11px w-full text-[green] ">
+        <div className="w-full text-[green] sm:text-11px ">
           {`${expenses[0].total?.toLocaleString('ko-KR')}원`}
         </div>
       </section>
@@ -88,7 +88,7 @@ const AccountBook = () => {
                 금액
               </th>
 
-              <th className="border-b py-2 text-left">분류</th>
+              <th className="border-b py-2 text-center">분류</th>
             </tr>
           </thead>
 
