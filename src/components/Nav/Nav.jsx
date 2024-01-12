@@ -13,13 +13,13 @@ const Nav = ({ onClose, className, navOpen }) => {
       <div
         className={`${
           navOpen ? 'w-full' : 'w-0'
-        } fixed inset-0 bg-grayscaleH opacity-60`}
+        } fixed inset-0 z-20 bg-grayscaleH opacity-60`}
         onClick={onClose}
       ></div>
       <section
         className={`${
           className ? className : ''
-        } fixed right-0 top-0 z-20 h-screen translate-x-0 transform overflow-y-auto overflow-x-hidden bg-[#FBF5F0] transition-all duration-500 ease-in-out `}
+        } fixed right-0 top-0 z-30 h-screen translate-x-0 transform overflow-y-auto overflow-x-hidden bg-[#FBF5F0] transition-all duration-500 ease-in-out `}
       >
         <nav className={`relative h-full w-full sm:px-20 md:px-28 lg:px-32`}>
           <IconButton
@@ -29,14 +29,14 @@ const Nav = ({ onClose, className, navOpen }) => {
           />
           <div className="flex items-center justify-center py-16 text-grayscaleH">
             <Link
-              to="/"
+              to="/login"
               className="relative px-5 text-20px font-bold text-grayscaleH after:absolute after:right-0 after:top-1 after:h-6 after:w-[1px] after:bg-grayscaleD after:opacity-50 after:content-[''] hover:text-primaryColor"
               onClick={onClose}
             >
               Login
             </Link>
             <Link
-              to="/"
+              to="/join"
               className="px-5 text-20px font-bold text-grayscaleH hover:text-primaryColor"
               onClick={onClose}
             >

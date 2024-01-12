@@ -122,4 +122,9 @@ utilities - 레이어는 다른 스타일보다 우선으로 하는 소규모 �
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+
+  .font-R {
+    font-family: 'RubikRegular';
+    font-weight: bold;
+  }
 }

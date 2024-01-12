@@ -6,6 +6,9 @@ import { ko } from 'date-fns/locale';
 import { TAP_DATA } from '../../data/TapGroup';
 import Tap from '../Tap/Tap';
 import IconButton from '../IconButton/IconButton';
+import ChipGroup from '../Chip/ChipGroup';
+import EXPENDITURE_DATA from '../../data/ExpenditureData';
+import INCOME_DATA from '../../data/IncomeData';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const CalenderModal = ({ selectDate, data, originalData }) => {
@@ -13,8 +16,15 @@ const CalenderModal = ({ selectDate, data, originalData }) => {
   const [pageChange, setPageChange] = useState(false);
   /** Tab 버튼의 상태를 저장합니다. */
   const [activeTab, setActiveTab] = useState('수입');
+  /** startDate에 newDate로 표시하기 위해 받아온 selectDate를 형식에 맞춘 후 변수에 담아줍니다. */
+  const selectedDate = `${selectDate.year}-${selectDate.month}-${selectDate.day}`;
+  /** datepicker를 사용하기 위해 startDate를 저장합니다. 초기값은 클릭한 날짜입니다. */
+  const [startDate, setStateDate] = useState(new Date(selectedDate));
+  /** Chip의 현재 선택한 값이 담기는 State입니다. */
+  const [currentValue, setCurrentValue] = useState('');
 
-  const navigate = useNavigate();
+  const [expandedToggle, setExpandedToggle] = useState(false);
+
   /** 수입에 대한 금액을 모두 더한 값을 저장하는 변수입니다.
    * data 함수는 선택된 날짜의 데이터를 표시하고 있습니다.
    * reduce 함수는 배열의 각 요소에 대해 주어진 reducer 함수를 실행하고, 하나의 결과값을 반환합니다.
@@ -38,6 +48,17 @@ const CalenderModal = ({ selectDate, data, originalData }) => {
   const handleTapClick = value => {
     setActiveTab(value);
   };
+
+  const handleDateChange = date => {
+    // const formatted = /format(date, 'yy/MM/dd (E) a hh:mm');
+    setStateDate(date);
+  };
+
+  const handleExpandedToggle = () => {
+    setExpandedToggle(!expandedToggle);
+  };
+
+  console.log(currentValue);
 
   return (
     <section className="flex flex-col">
@@ -163,6 +184,60 @@ const CalenderModal = ({ selectDate, data, originalData }) => {
               activeTab={activeTab}
             />
           </div>
+          <table className="mt-5 h-full w-full">
+            <colgroup>
+              <col width="20%" />
+              <col width="80%" />
+            </colgroup>
+
+            <tbody className="font-R h-full w-full">
+              <tr className="text-20px">
+                <th>날짜</th>
+                <td className="border-b border-grayscaleC">
+                  <DatePicker
+                    selected={startDate}
+                    onChange={handleDateChange}
+                    dateFormat="yy/MM/dd (E) a hh:mm"
+                    showTimeSelect
+                    locale={ko}
+                  />
+                </td>
+              </tr>
+              <tr className="h-5" />
+              <tr className="text-20px">
+                <th>금액</th>
+                <td>
+                  {/* <Input className="border-b border-grayscaleH border-opacity-80" /> */}
+                  3,000원
+                </td>
+              </tr>
+              <tr className="h-5" />
+              <tr className="text-20px" onClick={handleExpandedToggle}>
+                <th>분류</th>
+                <td>식비</td>
+              </tr>
+              <tr className="h-5" />
+              <tr className="text-20px">
+                <th>자산</th>
+                <td>현금</td>
+              </tr>
+              <tr className="h-5" />
+              <tr className="text-20px">
+                <th>내용</th>
+                <td>호두과자</td>
+              </tr>
+            </tbody>
+          </table>
+          {expandedToggle && (
+            <div className="mt-24 flex h-full w-full items-center justify-center">
+              <ChipGroup
+                size="lg"
+                ChipData={EXPENDITURE_DATA && EXPENDITURE_DATA}
+                currentValue={currentValue}
+                setCurrentValue={setCurrentValue}
+              />
+            </div>
+          )}
         </>
       )}
     </section>

@@ -15,7 +15,7 @@ import Chip from './Chip';
  */
 const ChipGroup = ({ currentValue, setCurrentValue, ChipData }) => {
   return (
-    <div className="flex flex-wrap">
+    <div className="flex flex-wrap items-center justify-center gap-2">
       {ChipData?.map(({ id, text, value, src }) => {
         return (
           <Chip
