@@ -7,7 +7,7 @@ export const EXPENDITURE_DATA = [
   },
   {
     id: 2,
-    text: '교통/차량',
+    text: '교통차량',
     value: 'transportationExpenses',
     src: '../money-protector/images/Chip/chip_car.png',
   },
@@ -19,13 +19,13 @@ export const EXPENDITURE_DATA = [
   },
   {
     id: 4,
-    text: '마트/편의점',
+    text: '쇼핑',
     value: 'martExpenses',
     src: '../money-protector/images/Chip/chip_shop.png',
   },
   {
     id: 5,
-    text: '패션/미용',
+    text: '패션미용',
     value: 'fashionExpenses',
     src: '../money-protector/images/Chip/chip_fashion.png',
   },
@@ -37,7 +37,7 @@ export const EXPENDITURE_DATA = [
   },
   {
     id: 7,
-    text: '주거/통신',
+    text: '주거통신',
     value: 'housingExpenses',
     src: '../money-protector/images/Chip/chip_information.png',
   },
@@ -55,13 +55,13 @@ export const EXPENDITURE_DATA = [
   },
   {
     id: 10,
-    text: '경조사/회비',
+    text: '경조사비',
     value: 'celebrationExpenses',
     src: '../money-protector/images/Chip/chip_celebration.png',
   },
   {
     id: 11,
-    text: '부모님',
+    text: '용돈',
     value: 'parentsExpenses',
     src: '../money-protector/images/Chip/chip_parents.png',
   },
