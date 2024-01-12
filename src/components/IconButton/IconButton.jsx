@@ -38,22 +38,25 @@ export default IconButton;
 
 const SHAPE = {
   kakao:
-    "h-16 w-16 rounded-full bg-[url('../money-protector/images/IconButton/kakao_button.png')] bg-center bg-no-repeat",
-  add: "h-16 w-16 rounded-full bg-secondaryColor bg-[url('../money-protector/svg/IconButton/add_button.svg')] bg-auto bg-center bg-no-repeat",
-  nav: "h-8 w-8 rotate-2 bg-[url('../money-protector/images/IconButton/nav_button.png')] bg-center bg-no-repeat",
-  back: "h-8 w-8 bg-[url('../money-protector/images/IconButton/back_button.png')] bg-center bg-no-repeat",
+    "h-16 w-16 rounded-full bg-[url('../money-protector/images/IconButton/kakao_button.png')] back-center",
+  add: "h-16 w-16 rounded-full bg-secondaryColor bg-[url('../money-protector/svg/IconButton/add_button.svg')] bg-auto back-center",
+  nav: "h-8 w-8 rotate-2 bg-[url('../money-protector/images/IconButton/nav_button.png')] back-center",
+  back: "h-8 w-8 bg-[url('../money-protector/images/IconButton/back_button.png')] back-center",
   reading:
-    "h-8 w-8 bg-[url('../money-protector/svg/IconButton/header_reading_glasses.svg')] bg-center bg-no-repeat",
+    "h-8 w-8 bg-[url('../money-protector/svg/IconButton/header_reading_glasses.svg')] back-center",
   instagram:
-    "h-8 w-8 bg-[url('../money-protector/svg/IconButton/footer_instagram.svg')] bg-center bg-no-repeat",
+    "h-8 w-8 bg-[url('../money-protector/svg/IconButton/footer_instagram.svg')] back-center",
   facebook:
-    "h-8 w-8 bg-[url('../money-protector/svg/IconButton/footer_facebook.svg')] bg-center bg-no-repeat",
+    "h-8 w-8 bg-[url('../money-protector/svg/IconButton/footer_facebook.svg')] back-center",
   youtube:
-    "h-8 w-8 bg-[url('../money-protector/svg/IconButton/footer_youtube.svg')] bg-center bg-no-repeat",
-  top: "h-12 w-12 bg-[url('../money-protector/svg/IconButton/up_arrow_button.svg')] bg-center bg-no-repeat bg-secondaryColor rounded-full",
+    "h-8 w-8 bg-[url('../money-protector/svg/IconButton/footer_youtube.svg')] back-center",
+  top: "h-12 w-12 bg-[url('../money-protector/svg/IconButton/up_arrow_button.svg')] back-center bg-secondaryColor rounded-full",
   close:
-    "h-8 w-8 bg-[url('../money-protector/images/Nav/nav_close_button.png')] bg-center bg-no-repeat",
-  eye: "h-8 w-8 bg-[url('../money-protector/svg/Login/loginPwEye.svg')] bg-center bg-no-repeat",
+    "h-8 w-8 bg-[url('../money-protector/images/Nav/nav_close_button.png')] back-center",
+  eye: "h-8 w-8 bg-[url('../money-protector/svg/Login/loginPwEye.svg')] back-center",
   eyeSlash:
-    "h-8 w-8 bg-[url('../money-protector/svg/Login/loginPwEyeSlash.svg')] bg-center bg-no-repeat",
+    "h-8 w-8 bg-[url('../money-protector/svg/Login/loginPwEyeSlash.svg')] back-center",
+  left: "h-6 w-6 bg-[url('../money-protector/images/Calender/cale_left.png')] back-center",
+  right:
+    "h-6 w-6 bg-[url('../money-protector/images/Calender/cale_right.png')] back-center",
 };

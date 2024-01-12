@@ -31,9 +31,9 @@ const Button = ({
     <button
       className={`${
         className ? className : ''
-      } w-full border disabled:cursor-not-allowed disabled:bg-grayscaleD sm:px-4 sm:py-2 sm:text-12px ${
-        SIZE[size] || SIZE.md
-      } ${COLOR[color] || COLOR.primary}`}
+      } btn-default sm:px-4 sm:py-2 sm:text-12px ${SIZE[size] || SIZE.md} ${
+        COLOR[color] || COLOR.primary
+      }`}
       type={type}
       onClick={onClick}
       disabled={disabled}
