@@ -1,7 +1,5 @@
 import Button from '../../components/Button/Button';
-import Checkbox from '../../components/Checkbox/Checkbox';
 import Input from '../../components/Input/Input';
-import IconButton from '../../components/IconButton/IconButton';
 import { Link } from 'react-router-dom';
 
 const Join = () => {
@@ -35,12 +33,12 @@ const Join = () => {
             </div>
 
             <Input
-              label="닉네임"
+              label="아이디"
               size="md"
-              placeholder="닉네임을 입력해주세요."
+              placeholder="아이디를 입력해주세요."
               name="nickname"
               type="text"
-              errorMsg="닉네임을 확인해주세요."
+              errorMsg="아이디를 확인해주세요."
             />
 
             <Input
