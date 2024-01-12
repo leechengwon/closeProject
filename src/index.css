@@ -83,4 +83,43 @@ utilities - 레이어는 다른 스타일보다 우선으로 하는 소규모 �
     font-weight: 900;
     border-radius: 4px;
   }
+
+  /** 모든 테이블 태그에 기본 속성을 적용합니다. */
+  table {
+    display: table;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+  }
+}
+
+/** 
+* 사용자 정의 재사용 클래스
+* @layer 안의 @apply로 CSS 클래스를 묶어서 선언하여 사용할 수 있습니다.
+*/
+
+@layer components {
+  .btn-default {
+    @apply w-full border disabled:cursor-not-allowed disabled:bg-grayscaleD;
+  }
+
+  /** background-image의 position을 center로 하고, 이미지가 반복되지 않고 한번만 노출되게 합니다. */
+  .back-center {
+    @apply bg-center bg-no-repeat;
+  }
+
+  .shadow-drop {
+    box-shadow: 6px 6px 0px -1px;
+  }
+
+  .shadow-calender {
+    box-shadow: 0 0 10px 0 rgb(0, 0, 0, 0.2);
+  }
+
+  .ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
