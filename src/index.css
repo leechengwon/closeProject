@@ -92,6 +92,11 @@ utilities - 레이어는 다른 스타일보다 우선으로 하는 소규모 �
     border-spacing: 0;
     width: 100%;
   }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
 }
 
 /** 
@@ -126,5 +131,9 @@ utilities - 레이어는 다른 스타일보다 우선으로 하는 소규모 �
   .font-R {
     font-family: 'RubikRegular';
     font-weight: bold;
+  }
+
+  .td-border-b {
+    border-bottom: 1px solid #bebebe;
   }
 }

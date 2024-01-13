@@ -81,5 +81,5 @@ export default Modal;
 const SIZE = {
   sm: 'lg:w-[500px] md:w-[400px] sm:w-full h-1/2 text-12px',
   md: 'lg:w-[550px] md:w-[450px] sm:w-full h-3/4 text-14px',
-  lg: 'lg:w-[600px] md:w-[500px] sm:w-full h-full text-16px',
+  lg: 'lg:w-[600px] md:w-[500px] sm:w-full h-5/6  text-16px',
 };

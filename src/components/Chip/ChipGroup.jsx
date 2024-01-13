@@ -13,7 +13,13 @@ import Chip from './Chip';
  * @property {array} ChipData - Chip Component에 전달될 데이터를 전달합니다. 수입, 지출에 관련된 데이터를 넣어주면 됩니다.
  * @returns
  */
-const ChipGroup = ({ currentValue, setCurrentValue, ChipData }) => {
+const ChipGroup = ({
+  currentValue,
+  setCurrentValue,
+  ChipData,
+  onChange,
+  name,
+}) => {
   return (
     <div className="flex flex-wrap items-center justify-center gap-2">
       {ChipData?.map(({ id, text, value, src }) => {
@@ -27,6 +33,8 @@ const ChipGroup = ({ currentValue, setCurrentValue, ChipData }) => {
             onClick={() => {
               setCurrentValue(value);
             }}
+            onChange={onChange}
+            name={name}
           />
         );
       })}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import { format } from 'date-fns';
@@ -9,9 +9,26 @@ import IconButton from '../IconButton/IconButton';
 import ChipGroup from '../Chip/ChipGroup';
 import EXPENDITURE_DATA from '../../data/ExpenditureData';
 import INCOME_DATA from '../../data/IncomeData';
+import ASSET_DATA from '../../data/AssetData';
+import CustomInput from './Components/CustomInput';
+import Button from '../Button/Button';
 import 'react-datepicker/dist/react-datepicker.css';
+import ExpenditureTap from './Components/expenditureTap';
+import InComeTap from './Components/InComeTap';
 
 const CalenderModal = ({ selectDate, data, originalData }) => {
+  const [addData, setAddData] = useState({
+    expenditure: '',
+    income: '',
+    memo: '',
+    src: '',
+    text: '',
+    price: '',
+    asset: '',
+    daysOfWeek: selectDate.daysOfWeek,
+    hour: selectDate.hour,
+    minute: selectDate.minute,
+  });
   /** add 버튼을 눌렀을 때 페이지를 체인지 하기 위한 상태를 저장합니다. */
   const [pageChange, setPageChange] = useState(false);
   /** Tab 버튼의 상태를 저장합니다. */
@@ -20,10 +37,25 @@ const CalenderModal = ({ selectDate, data, originalData }) => {
   const selectedDate = `${selectDate.year}-${selectDate.month}-${selectDate.day}`;
   /** datepicker를 사용하기 위해 startDate를 저장합니다. 초기값은 클릭한 날짜입니다. */
   const [startDate, setStateDate] = useState(new Date(selectedDate));
-  /** Chip의 현재 선택한 값이 담기는 State입니다. */
-  const [currentValue, setCurrentValue] = useState('');
+  /** 분류의 현재 선택한 값이 담기는 State입니다. */
+  const [expandCurrentValue, setExpandCurrentValue] = useState('');
+  /** 자산의 현재 선택한 값이 담기는 State입니다. */
+  const [assetCurrentValue, setAssetCurrentValue] = useState('');
 
+  /** Chip을 open/close 해주는 State입니다. */
   const [expandedToggle, setExpandedToggle] = useState(false);
+  const [assetToggle, setAssetToggle] = useState(false);
+
+  useEffect(() => {
+    setAddData({
+      ...addData,
+      expenditure: expandCurrentValue,
+      asset: assetCurrentValue,
+    });
+
+    setExpandedToggle(false);
+    setAssetToggle(false);
+  }, [expandCurrentValue, assetCurrentValue, activeTab]);
 
   /** 수입에 대한 금액을 모두 더한 값을 저장하는 변수입니다.
    * data 함수는 선택된 날짜의 데이터를 표시하고 있습니다.
@@ -49,16 +81,12 @@ const CalenderModal = ({ selectDate, data, originalData }) => {
     setActiveTab(value);
   };
 
-  const handleDateChange = date => {
-    // const formatted = /format(date, 'yy/MM/dd (E) a hh:mm');
-    setStateDate(date);
+  const saveRequestAddData = (value, name) => {
+    setAddData({
+      ...addData,
+      [name]: value,
+    });
   };
-
-  const handleExpandedToggle = () => {
-    setExpandedToggle(!expandedToggle);
-  };
-
-  console.log(currentValue);
 
   return (
     <section className="flex flex-col">
@@ -184,59 +212,23 @@ const CalenderModal = ({ selectDate, data, originalData }) => {
               activeTab={activeTab}
             />
           </div>
-          <table className="mt-5 h-full w-full">
-            <colgroup>
-              <col width="20%" />
-              <col width="80%" />
-            </colgroup>
-
-            <tbody className="font-R h-full w-full">
-              <tr className="text-20px">
-                <th>날짜</th>
-                <td className="border-b border-grayscaleC">
-                  <DatePicker
-                    selected={startDate}
-                    onChange={handleDateChange}
-                    dateFormat="yy/MM/dd (E) a hh:mm"
-                    showTimeSelect
-                    locale={ko}
-                  />
-                </td>
-              </tr>
-              <tr className="h-5" />
-              <tr className="text-20px">
-                <th>금액</th>
-                <td>
-                  {/* <Input className="border-b border-grayscaleH border-opacity-80" /> */}
-                  3,000원
-                </td>
-              </tr>
-              <tr className="h-5" />
-              <tr className="text-20px" onClick={handleExpandedToggle}>
-                <th>분류</th>
-                <td>식비</td>
-              </tr>
-              <tr className="h-5" />
-              <tr className="text-20px">
-                <th>자산</th>
-                <td>현금</td>
-              </tr>
-              <tr className="h-5" />
-              <tr className="text-20px">
-                <th>내용</th>
-                <td>호두과자</td>
-              </tr>
-            </tbody>
-          </table>
-          {expandedToggle && (
-            <div className="mt-24 flex h-full w-full items-center justify-center">
-              <ChipGroup
-                size="lg"
-                ChipData={EXPENDITURE_DATA && EXPENDITURE_DATA}
-                currentValue={currentValue}
-                setCurrentValue={setCurrentValue}
-              />
-            </div>
+          {activeTab === '수입' && (
+            <InComeTap
+              selectDate={selectDate}
+              addData={addData ? addData : null}
+              setAddData={setAddData}
+              handlePageChangeToggle={handlePageChangeToggle}
+              saveRequestAddData={saveRequestAddData}
+            />
+          )}
+          {activeTab === '지출' && (
+            <ExpenditureTap
+              selectDate={selectDate}
+              addData={addData ? addData : null}
+              setAddData={setAddData}
+              handlePageChangeToggle={handlePageChangeToggle}
+              saveRequestAddData={saveRequestAddData}
+            />
           )}
         </>
       )}
