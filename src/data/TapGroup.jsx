@@ -12,13 +12,6 @@ export const TAP_DATA = [
     value: '지출',
     text: '지출',
   },
-  ,
-  {
-    id: 2,
-    name: 'accountBook',
-    value: '통계',
-    text: '통계',
-  },
 ];
 
 //통계해서 사용하는 탭데이터 입니다.

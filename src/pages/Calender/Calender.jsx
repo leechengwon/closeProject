@@ -98,7 +98,7 @@ const Calender = () => {
                 originalData={CALENDER_DATA}
               />
             }
-            size="md"
+            size="lg"
             isCloseBtn={true}
             isModalOpen={isModalOpen}
             setIsModalOpen={setIsModalOpen}
@@ -120,7 +120,7 @@ const CALENDER_DATA = [
     src: '../money-protector/images/Chip/chip_food.png',
     text: '식비',
     memo: '메모입니다.',
-    daysOfWeek: '월요일',
+    daysOfWeek: '월',
     hour: '17',
     minute: '40',
     asset: '현금',
@@ -133,7 +133,7 @@ const CALENDER_DATA = [
     src: '../money-protector/images/Chip/chip_food.png',
     text: '식비',
     memo: '메모입니다.',
-    daysOfWeek: '월요일',
+    daysOfWeek: '월',
     hour: '17',
     minute: '42',
     asset: '카드',
@@ -147,7 +147,7 @@ const CALENDER_DATA = [
     src: '../money-protector/images/Chip/chip_shop.png',
     text: '마트/편의점',
     memo: '메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.',
-    daysOfWeek: '화요일',
+    daysOfWeek: '화',
     hour: '18',
     minute: '22',
     asset: '카드',
@@ -160,7 +160,7 @@ const CALENDER_DATA = [
     src: '../money-protector/images/Chip/chip_shop.png',
     text: '마트/편의점',
     memo: '메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.',
-    daysOfWeek: '토요일',
+    daysOfWeek: '토',
     hour: '19',
     minute: '22',
     asset: '카드',

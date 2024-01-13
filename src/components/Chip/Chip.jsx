@@ -18,6 +18,7 @@ const Chip = ({
   onChange,
   size,
   src,
+  name,
   ...props
 }) => {
   return (
@@ -32,6 +33,7 @@ const Chip = ({
         size={size}
         check={check}
         onChange={onChange}
+        name={name}
       >
         <div className="flex h-full w-full items-center justify-center gap-1">
           <img src={src} alt={text} className="h-4 w-4" />
