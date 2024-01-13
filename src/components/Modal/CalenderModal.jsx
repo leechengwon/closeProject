@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import { format } from 'date-fns';
@@ -6,15 +6,57 @@ import { ko } from 'date-fns/locale';
 import { TAP_DATA } from '../../data/TapGroup';
 import Tap from '../Tap/Tap';
 import IconButton from '../IconButton/IconButton';
+import ChipGroup from '../Chip/ChipGroup';
+import EXPENDITURE_DATA from '../../data/ExpenditureData';
+import INCOME_DATA from '../../data/IncomeData';
+import ASSET_DATA from '../../data/AssetData';
+import CustomInput from './Components/CustomInput';
+import Button from '../Button/Button';
 import 'react-datepicker/dist/react-datepicker.css';
+import ExpenditureTap from './Components/expenditureTap';
+import InComeTap from './Components/InComeTap';
 
 const CalenderModal = ({ selectDate, data, originalData }) => {
+  const [addData, setAddData] = useState({
+    expenditure: '',
+    income: '',
+    memo: '',
+    src: '',
+    text: '',
+    price: '',
+    asset: '',
+    daysOfWeek: selectDate.daysOfWeek,
+    hour: selectDate.hour,
+    minute: selectDate.minute,
+  });
   /** add 버튼을 눌렀을 때 페이지를 체인지 하기 위한 상태를 저장합니다. */
   const [pageChange, setPageChange] = useState(false);
   /** Tab 버튼의 상태를 저장합니다. */
   const [activeTab, setActiveTab] = useState('수입');
+  /** startDate에 newDate로 표시하기 위해 받아온 selectDate를 형식에 맞춘 후 변수에 담아줍니다. */
+  const selectedDate = `${selectDate.year}-${selectDate.month}-${selectDate.day}`;
+  /** datepicker를 사용하기 위해 startDate를 저장합니다. 초기값은 클릭한 날짜입니다. */
+  const [startDate, setStateDate] = useState(new Date(selectedDate));
+  /** 분류의 현재 선택한 값이 담기는 State입니다. */
+  const [expandCurrentValue, setExpandCurrentValue] = useState('');
+  /** 자산의 현재 선택한 값이 담기는 State입니다. */
+  const [assetCurrentValue, setAssetCurrentValue] = useState('');
 
-  const navigate = useNavigate();
+  /** Chip을 open/close 해주는 State입니다. */
+  const [expandedToggle, setExpandedToggle] = useState(false);
+  const [assetToggle, setAssetToggle] = useState(false);
+
+  useEffect(() => {
+    setAddData({
+      ...addData,
+      expenditure: expandCurrentValue,
+      asset: assetCurrentValue,
+    });
+
+    setExpandedToggle(false);
+    setAssetToggle(false);
+  }, [expandCurrentValue, assetCurrentValue, activeTab]);
+
   /** 수입에 대한 금액을 모두 더한 값을 저장하는 변수입니다.
    * data 함수는 선택된 날짜의 데이터를 표시하고 있습니다.
    * reduce 함수는 배열의 각 요소에 대해 주어진 reducer 함수를 실행하고, 하나의 결과값을 반환합니다.
@@ -37,6 +79,13 @@ const CalenderModal = ({ selectDate, data, originalData }) => {
   /** Tap의 value값을 인자로 받아 Tap의 상태를 변경합니다. */
   const handleTapClick = value => {
     setActiveTab(value);
+  };
+
+  const saveRequestAddData = (value, name) => {
+    setAddData({
+      ...addData,
+      [name]: value,
+    });
   };
 
   return (
@@ -163,6 +212,24 @@ const CalenderModal = ({ selectDate, data, originalData }) => {
               activeTab={activeTab}
             />
           </div>
+          {activeTab === '수입' && (
+            <InComeTap
+              selectDate={selectDate}
+              addData={addData ? addData : null}
+              setAddData={setAddData}
+              handlePageChangeToggle={handlePageChangeToggle}
+              saveRequestAddData={saveRequestAddData}
+            />
+          )}
+          {activeTab === '지출' && (
+            <ExpenditureTap
+              selectDate={selectDate}
+              addData={addData ? addData : null}
+              setAddData={setAddData}
+              handlePageChangeToggle={handlePageChangeToggle}
+              saveRequestAddData={saveRequestAddData}
+            />
+          )}
         </>
       )}
     </section>

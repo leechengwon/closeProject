@@ -13,13 +13,13 @@ const Nav = ({ onClose, className, navOpen }) => {
       <div
         className={`${
           navOpen ? 'w-full' : 'w-0'
-        } fixed inset-0 bg-grayscaleH opacity-60`}
+        } fixed inset-0 z-20 bg-grayscaleH opacity-60`}
         onClick={onClose}
       ></div>
       <section
         className={`${
           className ? className : ''
-        } fixed right-0 top-0 z-20 h-screen translate-x-0 transform overflow-y-auto overflow-x-hidden bg-[#FBF5F0] transition-all duration-500 ease-in-out `}
+        } fixed right-0 top-0 z-30 h-screen translate-x-0 transform overflow-y-auto overflow-x-hidden bg-[#FBF5F0] transition-all duration-500 ease-in-out `}
       >
         <nav className={`relative h-full w-full sm:px-20 md:px-28 lg:px-32`}>
           <IconButton
