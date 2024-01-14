@@ -17,6 +17,7 @@ const ChipGroup = ({
   currentValue,
   setCurrentValue,
   ChipData,
+  setAddData,
   onChange,
   name,
 }) => {
@@ -32,6 +33,7 @@ const ChipGroup = ({
             check={currentValue === value ? 'true' : undefined}
             onClick={() => {
               setCurrentValue(value);
+              setAddData(src);
             }}
             onChange={onChange}
             name={name}

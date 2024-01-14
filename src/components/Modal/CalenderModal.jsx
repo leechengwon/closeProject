@@ -1,73 +1,54 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import DatePicker from 'react-datepicker';
-import { format } from 'date-fns';
-import { ko } from 'date-fns/locale';
 import { TAP_DATA } from '../../data/TapGroup';
 import Tap from '../Tap/Tap';
 import IconButton from '../IconButton/IconButton';
-import ChipGroup from '../Chip/ChipGroup';
-import EXPENDITURE_DATA from '../../data/ExpenditureData';
-import INCOME_DATA from '../../data/IncomeData';
-import ASSET_DATA from '../../data/AssetData';
-import CustomInput from './Components/CustomInput';
-import Button from '../Button/Button';
-import 'react-datepicker/dist/react-datepicker.css';
 import ExpenditureTap from './Components/expenditureTap';
 import InComeTap from './Components/InComeTap';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const CalenderModal = ({ selectDate, data, originalData }) => {
-  const [addData, setAddData] = useState({
-    expenditure: '',
-    income: '',
-    memo: '',
-    src: '',
-    text: '',
-    price: '',
-    asset: '',
-    daysOfWeek: selectDate.daysOfWeek,
-    hour: selectDate.hour,
-    minute: selectDate.minute,
+  const [expenditureAddData, setExpenditureAddData] = useState({
+    date: `${selectDate.year}-${selectDate.month}-${selectDate.day}`, // 날짜
+    daysOfWeek: selectDate.daysOfWeek, // 요일
+    amPm: selectDate.ampm, // 오전/오후
+    hour: selectDate.hour, // 시간
+    minute: selectDate.minute, // 분
+    incomePrice: '', // 수입 금액
+    expenditurePrice: '', // 지출 금액
+    classificationSrc: '', // 분류 src
+    classification: '', // 분류
+    assetSrc: '', // 자산 src
+    asset: '', // 자산
+    memo: '', // 메모
+    activeTab: '', // 수입/지출
   });
+
   /** add 버튼을 눌렀을 때 페이지를 체인지 하기 위한 상태를 저장합니다. */
   const [pageChange, setPageChange] = useState(false);
   /** Tab 버튼의 상태를 저장합니다. */
   const [activeTab, setActiveTab] = useState('수입');
-  /** startDate에 newDate로 표시하기 위해 받아온 selectDate를 형식에 맞춘 후 변수에 담아줍니다. */
-  const selectedDate = `${selectDate.year}-${selectDate.month}-${selectDate.day}`;
-  /** datepicker를 사용하기 위해 startDate를 저장합니다. 초기값은 클릭한 날짜입니다. */
-  const [startDate, setStateDate] = useState(new Date(selectedDate));
   /** 분류의 현재 선택한 값이 담기는 State입니다. */
-  const [expandCurrentValue, setExpandCurrentValue] = useState('');
+  const [classificationCurrentValue, setClassificationCurrentValue] =
+    useState('');
   /** 자산의 현재 선택한 값이 담기는 State입니다. */
   const [assetCurrentValue, setAssetCurrentValue] = useState('');
 
   /** Chip을 open/close 해주는 State입니다. */
-  const [expandedToggle, setExpandedToggle] = useState(false);
+  const [classificationToggle, setClassificationToggle] = useState(false);
   const [assetToggle, setAssetToggle] = useState(false);
 
-  useEffect(() => {
-    setAddData({
-      ...addData,
-      expenditure: expandCurrentValue,
-      asset: assetCurrentValue,
-    });
-
-    setExpandedToggle(false);
-    setAssetToggle(false);
-  }, [expandCurrentValue, assetCurrentValue, activeTab]);
-
+  console.log(originalData);
   /** 수입에 대한 금액을 모두 더한 값을 저장하는 변수입니다.
    * data 함수는 선택된 날짜의 데이터를 표시하고 있습니다.
    * reduce 함수는 배열의 각 요소에 대해 주어진 reducer 함수를 실행하고, 하나의 결과값을 반환합니다.
    * reduce 함수의 두번째 인자는 초기값을 의미합니다.
    */
   const incomeAmount = originalData.reduce((acc, cur) => {
-    return cur.income ? acc + cur.income : acc;
+    return cur.incomePrice ? acc + cur.incomePrice : acc;
   }, 0);
 
   const expenditureAmount = originalData.reduce((acc, cur) => {
-    return cur.expenditure ? acc + cur.expenditure : acc;
+    return cur.expenditurePrice ? acc + cur.expenditurePrice : acc;
   }, 0);
 
   /** totalAmount 변수는 수입 금액과 지출 금액을 뺀 가격을 저장합니다. */
@@ -82,9 +63,14 @@ const CalenderModal = ({ selectDate, data, originalData }) => {
   };
 
   const saveRequestAddData = (value, name) => {
-    setAddData({
-      ...addData,
-      [name]: value,
+    const numericValue = parseInt(value);
+
+    setExpenditureAddData({
+      ...expenditureAddData,
+      [name]:
+        name === 'incomePrice' || name === 'expenditurePrice'
+          ? numericValue
+          : value,
     });
   };
 
@@ -145,16 +131,19 @@ const CalenderModal = ({ selectDate, data, originalData }) => {
               (
                 {
                   id,
-                  expenditure,
-                  income,
-                  memo,
-                  src,
-                  text,
-                  total,
-                  asset,
+                  date,
                   daysOfWeek,
+                  amPm,
                   hour,
                   minute,
+                  incomePrice,
+                  expenditurePrice,
+                  classificationSrc,
+                  classification,
+                  assetSrc,
+                  asset,
+                  memo,
+                  activeTab,
                 },
                 index,
               ) => {
@@ -164,10 +153,29 @@ const CalenderModal = ({ selectDate, data, originalData }) => {
                       <tr>
                         <th>
                           <div className="flex justify-center">
-                            <img className="h-6 w-6" src={src} alt={text} />
-                            <span className="flex items-center pl-2 sm:text-10px md:text-12px lg:text-14px">
-                              {text}
-                            </span>
+                            {activeTab === '수입' ? (
+                              <>
+                                <img
+                                  className="h-6 w-6"
+                                  src={classificationSrc}
+                                  alt={classification}
+                                />
+                                <span className="flex items-center pl-2 sm:text-10px md:text-12px lg:text-14px">
+                                  {classification}
+                                </span>
+                              </>
+                            ) : (
+                              <>
+                                <img
+                                  className="h-6 w-6"
+                                  src={assetSrc}
+                                  alt={asset}
+                                />
+                                <span className="flex items-center pl-2 sm:text-10px md:text-12px lg:text-14px">
+                                  {asset}
+                                </span>
+                              </>
+                            )}
                           </div>
                         </th>
                         <td className="flex h-full flex-col justify-center">
@@ -175,18 +183,18 @@ const CalenderModal = ({ selectDate, data, originalData }) => {
                             {memo}
                           </span>
                           <span className="text-grayscaleH text-opacity-30 sm:text-12px md:text-14px lg:text-14px">
-                            {`${daysOfWeek} ${hour}:${minute} ${asset}`}
+                            {`${daysOfWeek}요일 / ${amPm} ${hour}:${minute} / ${asset}`}
                           </span>
                         </td>
                         <td className="pr-5 text-end">
-                          {income && (
+                          {incomePrice > 0 && expenditurePrice === 0 && (
                             <span className="text-primaryColor sm:text-12px md:text-14px lg:text-16px">
-                              {income?.toLocaleString('ko-KR')}
+                              {incomePrice?.toLocaleString('ko-KR')}
                             </span>
                           )}
-                          {expenditure && (
+                          {expenditurePrice > 0 && incomePrice === 0 && (
                             <span className="text-secondaryColor sm:text-12px md:text-14px lg:text-16px">
-                              {expenditure?.toLocaleString('ko-KR')}
+                              {expenditurePrice?.toLocaleString('ko-KR')}
                             </span>
                           )}
                         </td>
@@ -215,19 +223,21 @@ const CalenderModal = ({ selectDate, data, originalData }) => {
           {activeTab === '수입' && (
             <InComeTap
               selectDate={selectDate}
-              addData={addData ? addData : null}
-              setAddData={setAddData}
+              addData={expenditureAddData ? expenditureAddData : null}
+              setAddData={setExpenditureAddData}
               handlePageChangeToggle={handlePageChangeToggle}
               saveRequestAddData={saveRequestAddData}
+              activeTab={activeTab}
             />
           )}
           {activeTab === '지출' && (
             <ExpenditureTap
               selectDate={selectDate}
-              addData={addData ? addData : null}
-              setAddData={setAddData}
+              addData={expenditureAddData ? expenditureAddData : null}
+              setAddData={setExpenditureAddData}
               handlePageChangeToggle={handlePageChangeToggle}
               saveRequestAddData={saveRequestAddData}
+              activeTab={activeTab}
             />
           )}
         </>

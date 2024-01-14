@@ -74,6 +74,23 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, data }) => {
       const dateKey = format(day, 'yyyy-MM-dd');
       /** data 객체에서 해당 날짜의 데이터를 찾습니다. */
       const dateDataArray = data?.filter(date => date.date === dateKey);
+      /** activeTab이 수입인 데이터 중 incomePrice 값을 모두 더합니다.
+       * 1. reduce 함수를 사용해서 배열의 모든 값을 더합니다.
+       * 2. cur.activeTab이 수입인 경우 acc에 cur.incomePrice를 더합니다.
+       * 3. acc는 누적값, cur는 현재값을 의미합니다.
+       * 4. 초기값은 0입니다.
+       */
+      const totalIncomePrice = dateDataArray?.reduce((acc, cur) => {
+        return cur.activeTab === '수입' ? acc + cur.incomePrice : acc;
+      }, 0);
+      /** activeTab이 지출인 데이터 중 expenditurePrice 값을 모두 더합니다.
+       * 1. reduce 함수를 사용해서 배열의 모든 값을 더합니다.
+       * 2. cur.activeTab이 지출인 경우 acc에 cur.expenditurePrice를 더합니다.
+       */
+      const totalExpenditurePrice = dateDataArray?.reduce((acc, cur) => {
+        return cur.activeTab === '지출' ? acc + cur.expenditurePrice : acc;
+      }, 0);
+
       /** isWeekend 함수를 사용해서 현재 날짜가 일요일인지 확인합니다. */
       const isSundayDate = isSunday(day);
       /** isSaturday 함수를 사용해서 현재 날짜가 토요일인지 확인 합니다. */
@@ -104,22 +121,19 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, data }) => {
           <span className="sm:text-14px md:text-20px lg:text-20px">
             {formattedData}
           </span>
-          {dateDataArray?.map((dateData, index) => {
-            return (
-              <React.Fragment key={index}>
-                {dateData?.income && (
-                  <span className="ellipsis bg-opacity-80 text-center font-RubikRegular font-bold text-primaryColor sm:w-10">
-                    {dateData.income.toLocaleString('ko-KR')}
-                  </span>
-                )}
-                {dateData?.expenditure && (
-                  <span className="ellipsis bg-opacity-80 text-center font-RubikRegular font-bold text-secondaryColor">
-                    {dateData.expenditure.toLocaleString('ko-KR')}
-                  </span>
-                )}
-              </React.Fragment>
-            );
-          })}
+
+          <>
+            {totalIncomePrice > 0 && (
+              <span className="ellipsis bg-opacity-80 text-center font-RubikRegular font-bold text-primaryColor sm:w-10">
+                {totalIncomePrice.toLocaleString('ko-KR')}
+              </span>
+            )}
+            {totalExpenditurePrice > 0 && (
+              <span className="ellipsis bg-opacity-80 text-center font-RubikRegular font-bold text-secondaryColor">
+                {totalExpenditurePrice.toLocaleString('ko-KR')}
+              </span>
+            )}
+          </>
         </div>,
       );
       day = addDays(day, 1);
