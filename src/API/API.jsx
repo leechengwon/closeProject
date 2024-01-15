@@ -1,7 +1,11 @@
 import axios from 'axios';
 
-// Custom axios를 만들기 위해 함수 생성
-const BASE_URL = '/money-protector/data/';
+/** Custom axios를 만들기 위해 함수 생성
+ * 현재의 baseURL은 json-server를 사용하기 위해 localhost:4000으로 설정해둠.
+ * server의 host가 변경되면 baseURL을 변경해주면 됨.
+ * 서버는 npm install -g json-server 로 설치 후, npx json-server ./db.json --port 4000로 실행
+ * */
+const BASE_URL = 'http://localhost:4000/';
 
 /**
  * Data를 받아오기 위한 Custom Axios
