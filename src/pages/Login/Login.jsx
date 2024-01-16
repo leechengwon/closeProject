@@ -136,7 +136,7 @@ const Login = () => {
   // const requestLoginPost = async () => {
   // const params = userLoginInfo
   //   try {
-  //     const request = await customAxios.post(API.LOGIN , param);
+  //     const response = await customAxios.post(API.LOGIN , params);
   //     if (isRemember) {
   //       setCookie('rememberUserId', userLoginInfo.id);
   //     } else {
