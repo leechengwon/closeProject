@@ -136,7 +136,7 @@ const Login = () => {
   // const requestLoginPost = async () => {
   // const params = userLoginInfo
   //   try {
-  //     const request = await customAxios.post(API.LOGIN , param);
+  //     const response = await customAxios.post(API.LOGIN , params);
   //     if (isRemember) {
   //       setCookie('rememberUserId', userLoginInfo.id);
   //     } else {
@@ -146,6 +146,8 @@ const Login = () => {
   //     navigate('/');
   //     window.location.reload();
   //   } catch (error) {
+  //     alert('아이디 또는 비밀번호가 틀립니다.');
+  //     window.scrollTo({ top: 0, behavior: 'smooth' });
   //     setErrorCase(error);
   //   }
   // };

@@ -40,6 +40,7 @@ const Input = ({
         disabled={disabled}
         status={status}
         value={value}
+        onWheel={e => e.target.blur()}
         {...props}
       />
       {/* errorMsg 없다면 span 태그는 제외됩니다. */}
