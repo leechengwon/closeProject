@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { TAP_DATA } from '../../../data/TapGroup';
-import Tap from '../../Tap/Tap';
+import Tap from '../../Tab/Tab';
 import IconButton from '../../IconButton/IconButton';
 import ExpenditureTap from './ExpenditureTap';
 import InComeTap from './InComeTap';

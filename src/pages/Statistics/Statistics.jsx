@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Chart from './Charts/components/LipChart';
 import BarChart from './Charts/components/BarChart';
-import Tab from '../../components/Tap/Tap';
+import Tab from '../../components/Tab/Tab';
 import { TAP_CHART_DATA } from '../../data/TapGroup';
 
 /** Tab 컴포넌트에 필요한 useState 를 정의합니다.   */

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import Tap from '../../components/Tap/Tap';
+import Tap from '../../components/Tab/Tab';
 import AccountBookItem from './components/AccountBookItem';
 import { TAP_ACCOUNTBOOK_DATA } from '../../data/TapGroup';
 import IconButton from '../../components/IconButton/IconButton';
@@ -13,7 +13,7 @@ import {
 } from '../../API/TEST_API';
 
 import Modal from '../../components/Modal/Modal';
-import ExpenseModal from '../../components/ExpenseModal/ExpenseModal';
+import ExpenseTab from '../../components/Modal/ExpenseTab/ExpenseTab';
 
 const MODAL_TYPE = {
   NEW: {
@@ -58,6 +58,7 @@ const AccountBook = () => {
   const getExpenseInfo = useCallback(() => {
     getAllMoneyData().then(data => {
       setExpenses(data.data);
+      console.log(data.data);
     });
 
     getIncomeTotalMoney().then(data => {
@@ -180,10 +181,10 @@ const AccountBook = () => {
         <Modal
           title={modalType.title}
           content={
-            <ExpenseModal
+            <ExpenseTab
               expenseData={clickedExpense}
               saveInputExpenseData={requestSaveData}
-              closeModal={() => setEditModalPageToggle(false)}
+              closeTab={() => setEditModalPageToggle(false)}
             />
           }
           size="lg"

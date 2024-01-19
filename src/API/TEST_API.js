@@ -111,9 +111,9 @@ export const getTotalMoney = () => {
   let totalExpenditure = 0;
   ALL_DATA.forEach(item => {
     if (item.activeTab == '수입' && item.incomePrice)
-      totalIncome += item.incomePrice;
+      totalIncome += Number(item.incomePrice);
     if (item.activeTab == '지출' && item.expenditurePrice)
-      totalExpenditure += item.expenditurePrice;
+      totalExpenditure += Number(item.expenditurePrice);
   });
   const totalMoney = totalIncome - totalExpenditure;
   return new Promise((resolve, reject) => {
@@ -132,7 +132,7 @@ export const getIncomeTotalMoney = () => {
   let totalIncome = 0;
   ALL_DATA.forEach(item => {
     if (item.activeTab == '수입' && item.incomePrice)
-      totalIncome += item.incomePrice;
+      totalIncome += Number(item.incomePrice);
   });
   return new Promise((resolve, reject) => {
     resolve({
@@ -150,7 +150,7 @@ export const getExpenditureTotalMoney = () => {
   let totalExpenditure = 0;
   ALL_DATA.forEach(item => {
     if (item.activeTab == '지출' && item.expenditurePrice)
-      totalExpenditure += item.expenditurePrice;
+      totalExpenditure += Number(item.expenditurePrice);
   });
   return new Promise((resolve, reject) => {
     resolve({
