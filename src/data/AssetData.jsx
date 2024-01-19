@@ -1,5 +1,3 @@
-import { de } from 'date-fns/locale';
-
 const ASSET_DATA = [
   {
     id: 1,

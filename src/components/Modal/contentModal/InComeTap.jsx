@@ -6,7 +6,7 @@ import DatePicker from 'react-datepicker';
 import CustomInput from './CustomInput';
 import Button from '../../Button/Button';
 import ChipGroup from '../../Chip/ChipGroup';
-import INCOME_DATA from '../../../data/IncomeData';
+import INCOME_DATA from '../../../data/IncomeChipData';
 import ASSET_DATA from '../../../data/AssetData';
 import 'react-datepicker/dist/react-datepicker.css';
 

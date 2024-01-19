@@ -6,7 +6,7 @@ import { customAxios } from '../../../API/API';
 import CustomInput from './CustomInput';
 import Button from '../../Button/Button';
 import ChipGroup from '../../Chip/ChipGroup';
-import EXPENDITURE_DATA from '../../../data/ExpenditureData';
+import EXPENDITURE_DATA from '../../../data/ExpenditureChipData';
 import ASSET_DATA from '../../../data/AssetData';
 import 'react-datepicker/dist/react-datepicker.css';
 

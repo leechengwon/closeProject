@@ -4,8 +4,8 @@ import Button from '../Button/Button';
 import CustomInput from '../Modal/contentModal/CustomInput';
 import ChipGroup from '../Chip/ChipGroup';
 
-import INCOME_DATA from '../../data/IncomeData';
-import EXPENDITURE_DATA from '../../data/ExpenditureData';
+import INCOME_DATA from '../../data/IncomeChipData';
+import EXPENDITURE_DATA from '../../data/ExpenditureChipData';
 import ASSET_DATA from '../../data/AssetData';
 
 import DatePicker from 'react-datepicker';
@@ -59,6 +59,7 @@ const ExpenseTab = ({
       <form>
         <fieldset onClick={() => setChipGroupOpenStatus('')}>
           <legend className="text-0px">수입</legend>
+
           <table className="mt-5 h-full w-full">
             <colgroup>
               <col width="20%" />
@@ -68,6 +69,7 @@ const ExpenseTab = ({
             <tbody className="font-R h-full w-full">
               <tr className="sm:text-14px md:text-16px lg:text-20px">
                 <th>날짜</th>
+
                 <td className="td-border-b py-1 pl-2">
                   <DatePicker
                     className="cursor-pointer"
@@ -79,9 +81,14 @@ const ExpenseTab = ({
                   />
                 </td>
               </tr>
-              <tr className="h-5" />
+
+              <tr
+                className="h-5
+              "
+              />
               <tr className="sm:text-14px md:text-16px lg:text-20px">
                 <th>금액</th>
+
                 <td className="td-border-b">
                   <CustomInput
                     className="pl-2 font-bold sm:text-14px md:text-16px lg:text-20px"
@@ -111,7 +118,9 @@ const ExpenseTab = ({
                   />
                 </td>
               </tr>
+
               <tr className="h-5" />
+
               <tr
                 className="cursor-pointer sm:text-14px md:text-16px lg:text-20px"
                 onClick={event => {
@@ -120,6 +129,7 @@ const ExpenseTab = ({
                 }}
               >
                 <th>분류</th>
+
                 {expenseData.classification ? (
                   <td className="td-border-b py-1 pl-2 font-bold">
                     {expenseData.classification}
@@ -130,7 +140,9 @@ const ExpenseTab = ({
                   </td>
                 )}
               </tr>
+
               <tr className="h-5" />
+
               <tr
                 className="cursor-pointer sm:text-14px md:text-16px lg:text-20px "
                 onClick={event => {
@@ -139,6 +151,7 @@ const ExpenseTab = ({
                 }}
               >
                 <th>자산</th>
+
                 {expenseData.asset ? (
                   <td className="td-border-b py-1 pl-2">{expenseData.asset}</td>
                 ) : (
@@ -147,6 +160,7 @@ const ExpenseTab = ({
                   </td>
                 )}
               </tr>
+
               <tr className="h-5" />
               <tr className="sm:text-14px md:text-16px lg:text-20px">
                 <th>내용</th>

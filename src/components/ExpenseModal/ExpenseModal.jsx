@@ -10,7 +10,6 @@ const ExpenseModal = ({ expenseData, saveInputExpenseData, closeModal }) => {
 
   useEffect(() => {
     if (expenseData) {
-      // 얕은 복사
       const copyData = { ...expenseData };
       setInputExpenseData(copyData);
     }
@@ -48,6 +47,7 @@ const ExpenseModal = ({ expenseData, saveInputExpenseData, closeModal }) => {
           activeTab={activeTab}
         />
       </div>
+
       <ExpenseTab
         activeTab={activeTab}
         expenseData={inputExpenseData}
