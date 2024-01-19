@@ -15,7 +15,20 @@ import DatePicker from 'react-datepicker';
 import { ko } from 'date-fns/locale';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const ExpenseTab = ({ expenseData, closeTab, saveInputExpenseData }) => {
+const TAB_TYPE = {
+  NEW: {
+    save: '등록하기',
+  },
+  DETAIL: {
+    save: '수정하기',
+  },
+};
+const ExpenseTab = ({
+  expenseData,
+  closeTab,
+  saveInputExpenseData,
+  removeExpenseData,
+}) => {
   const handleTapClick = value => {
     setInputExpenseData({
       ...inputExpenseData,
@@ -31,10 +44,13 @@ const ExpenseTab = ({ expenseData, closeTab, saveInputExpenseData }) => {
     expenditurePrice: '',
   });
 
+  const [tabType, setTabType] = useState(TAB_TYPE.NEW);
+
   useEffect(() => {
     if (expenseData) {
       const copyData = { ...expenseData };
       setInputExpenseData(copyData);
+      setTabType(TAB_TYPE.DETAIL);
     }
   }, [expenseData]);
 
@@ -228,8 +244,16 @@ const ExpenseTab = ({ expenseData, closeTab, saveInputExpenseData }) => {
           </table>
 
           <div className="flex w-full items-center justify-center gap-3 pt-5">
-            <Button type="submit" text="저장하기" onClick={save} />
-            <Button text="취소" color="white" onClick={closeTab} />
+            <Button type="submit" text={tabType.save} onClick={save} />
+            {tabType == TAB_TYPE.NEW ? (
+              <Button text="취소" color="white" onClick={closeTab} />
+            ) : (
+              <Button
+                text="삭제"
+                color="tertiary"
+                onClick={removeExpenseData}
+              />
+            )}
           </div>
         </fieldset>
       </form>

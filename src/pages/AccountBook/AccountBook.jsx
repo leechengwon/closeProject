@@ -10,6 +10,7 @@ import {
   getTotalMoney,
   postMoneyData,
   putMoneyDataById,
+  deleteMoneyDataById,
 } from '../../API/TEST_API';
 
 import Modal from '../../components/Modal/Modal';
@@ -58,7 +59,6 @@ const AccountBook = () => {
   const getExpenseInfo = useCallback(() => {
     getAllMoneyData().then(data => {
       setExpenses(data.data);
-      console.log(data.data);
     });
 
     getIncomeTotalMoney().then(data => {
@@ -73,6 +73,12 @@ const AccountBook = () => {
       setTotal(data.data);
     });
   }, []);
+
+  const deleteExpenseData = id => {
+    deleteMoneyDataById(id);
+    setEditModalPageToggle(false);
+    getExpenseInfo();
+  };
 
   useEffect(() => {
     getExpenseInfo();
@@ -185,6 +191,13 @@ const AccountBook = () => {
               expenseData={clickedExpense}
               saveInputExpenseData={requestSaveData}
               closeTab={() => setEditModalPageToggle(false)}
+              removeExpenseData={
+                modalType === MODAL_TYPE.NEW
+                  ? null
+                  : () => {
+                      deleteExpenseData(clickedExpense.id);
+                    }
+              }
             />
           }
           size="lg"

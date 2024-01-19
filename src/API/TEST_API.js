@@ -55,7 +55,40 @@ export const cert_test = status => {
  * 가짜 API 를 위한 가짜 데이터베이스 입니다.
  * 배포를 할 때 서버를 이용할 수 없어서, 임시로 만들어 놓은 데이터 입니다.
  */
-const ALL_DATA = [];
+const ALL_DATA = [
+  {
+    id: 1,
+    activeTab: '수입',
+    incomePrice: 123,
+    expenditurePrice: 0,
+    date: '2024-01-19',
+    hour: 18,
+    minute: 44,
+    dayOfWeek: '금',
+    amPm: '오후',
+    classification: '이자',
+    classificationSrc: '../money-protector/images/Chip/side.png',
+    asset: '은행',
+    assetSrc: '../money-protector/images/Chip/bank.png',
+    memo: '123',
+  },
+  {
+    id: 2,
+    activeTab: '수입',
+    incomePrice: 10000,
+    expenditurePrice: 0,
+    date: '2024-01-19',
+    hour: 18,
+    minute: 44,
+    dayOfWeek: '금',
+    amPm: '오후',
+    classification: '금융소득',
+    classificationSrc: '../money-protector/images/Chip/finance.png',
+    asset: '은행',
+    assetSrc: '../money-protector/images/Chip/bank.png',
+    memo: '1232',
+  },
+];
 
 /**
  * 전체 수입/지출 데이터를 가져옵니다.
