@@ -37,7 +37,7 @@ const AccountBook = () => {
 
   const [editModalPageToggle, setEditModalPageToggle] = useState(false);
 
-  const [expenses, setExpenses] = useState([]);
+  const [expenseList, setExpenseList] = useState([]);
   const [clickedExpense, setClickedExpense] = useState({});
 
   const [incomeTotal, setIncomeTotal] = useState(0);
@@ -54,7 +54,7 @@ const AccountBook = () => {
 
   const getExpenseInfo = useCallback(() => {
     getAllMoneyData().then(data => {
-      setExpenses(data.data);
+      setExpenseList(data.data);
       console.log(data.data);
     });
 
@@ -147,7 +147,7 @@ const AccountBook = () => {
           </thead>
 
           <tbody>
-            {expenses.map(expense => {
+            {expenseList.map(expense => {
               if (
                 (activeTab !== '통합' && activeTab === expense.activeTab) ||
                 activeTab == '통합'

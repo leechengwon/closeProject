@@ -7,6 +7,7 @@ import RenderCells from './components/RenderCells';
 import Portal from '../../components/Portal/Portal';
 import Modal from '../../components/Modal/Modal';
 import CalenderModal from '../../components/Modal/contentModal/CalenderModal';
+import CalenderModalTmp from '../../components/Modal/contentModal/CalenderModalTmp';
 
 import { getAllMoneyData } from '../../API/TEST_API';
 
@@ -112,8 +113,7 @@ const Calender = () => {
             content={
               <CalenderModal
                 selectDate={date}
-                data={filterDate && filterDate}
-                originalData={calenderData}
+                expenseList={filterDate && filterDate}
               />
             }
             size="lg"

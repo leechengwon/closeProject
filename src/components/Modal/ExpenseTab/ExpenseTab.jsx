@@ -97,7 +97,7 @@ const ExpenseTab = ({
       date: dateStr,
       hour: inputDate.getHours(),
       minute: inputDate.getMinutes(),
-      dayOfWeek: inputDate.toLocaleDateString('ko-KR', {
+      daysOfWeek: inputDate.toLocaleDateString('ko-KR', {
         weekday: 'short',
         timeZone: 'Asia/Seoul',
       }),
