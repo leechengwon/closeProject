@@ -9,7 +9,6 @@ import Calender from './pages/Calender/Calender';
 import Join from './pages/Join/Join';
 import Statistics from './pages/Statistics/Statistics';
 import AccountBook from './pages/AccountBook/AccountBook';
-import GlobalAddBtn from './components/GlobalAddBtn/GlobalAddBtn';
 
 const Router = () => {
   return (
