@@ -175,7 +175,7 @@ const ExpenseTab = ({
       </form>
 
       {chipGroupOpenStatus == 'classification' && (
-        <div>
+        <div className="mt-4">
           <ChipGroup
             size="sm"
             ChipData={activeTab == '수입' ? INCOME_DATA : EXPENDITURE_DATA}
@@ -191,7 +191,7 @@ const ExpenseTab = ({
         </div>
       )}
       {chipGroupOpenStatus == 'asset' && (
-        <div>
+        <div className="mt-4">
           <ChipGroup
             size="sm"
             ChipData={ASSET_DATA}

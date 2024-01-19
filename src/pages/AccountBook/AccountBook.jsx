@@ -15,16 +15,6 @@ import {
 import Modal from '../../components/Modal/Modal';
 import ExpenseModal from '../../components/ExpenseModal/ExpenseModal';
 
-const daysOfWeek = [
-  '일요일',
-  '월요일',
-  '화요일',
-  '수요일',
-  '목요일',
-  '금요일',
-  '토요일',
-];
-
 const MODAL_TYPE = {
   NEW: {
     title: '수입/지출 입력하기',
@@ -55,8 +45,6 @@ const AccountBook = () => {
 
   const [total, setTotal] = useState(0);
 
-  const [today, setToday] = useState(new Date());
-
   const [clickedExpense, setClickedExpense] = useState({});
 
   /**
@@ -70,7 +58,6 @@ const AccountBook = () => {
   const getExpenseInfo = useCallback(() => {
     getAllMoneyData().then(data => {
       setExpenses(data.data);
-      console.log(data.data);
     });
 
     getIncomeTotalMoney().then(data => {
@@ -112,7 +99,7 @@ const AccountBook = () => {
   };
 
   return (
-    <main>
+    <main className="relative">
       <section className="mt-28">
         <Tap
           tapListData={TAP_ACCOUNTBOOK_DATA}
@@ -183,7 +170,7 @@ const AccountBook = () => {
           </tbody>
         </table>
         <IconButton
-          className=" bottom-5 right-5 transition-all duration-300 hover:rotate-90 hover:scale-110"
+          className="absolute bottom-2 right-0 transition-all duration-300 hover:rotate-90 hover:scale-110"
           shape="add"
           onClick={() => showExpenseModal()}
         />
