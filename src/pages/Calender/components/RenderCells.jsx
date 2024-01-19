@@ -125,12 +125,12 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, data }) => {
           <>
             {totalIncomePrice > 0 && (
               <span className="ellipsis bg-opacity-80 text-center font-RubikRegular font-bold text-primaryColor sm:w-10">
-                {totalIncomePrice.toLocaleString('ko-KR')}
+                +{totalIncomePrice.toLocaleString('ko-KR')}원
               </span>
             )}
             {totalExpenditurePrice > 0 && (
               <span className="ellipsis bg-opacity-80 text-center font-RubikRegular font-bold text-secondaryColor">
-                {totalExpenditurePrice.toLocaleString('ko-KR')}
+                -{totalExpenditurePrice.toLocaleString('ko-KR')}원
               </span>
             )}
           </>

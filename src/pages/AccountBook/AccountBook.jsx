@@ -27,10 +27,9 @@ const MODAL_TYPE = {
 
 const AccountBook = () => {
   /** Tab 컴포넌트에 필요한 useState 를 정의합니다.   */
-  const [activeTab, setActiveTab] = useState('수입');
-
   const [modalType, setModalType] = useState(MODAL_TYPE.NEW);
 
+  const [activeTab, setActiveTab] = useState('수입');
   /**클릭이벤트로 value값을 받는 클릭함수입니다. Tab 컴포넌트에서 사용합니다. */
   const handleTapClick = value => {
     setActiveTab(value);
@@ -39,14 +38,11 @@ const AccountBook = () => {
   const [editModalPageToggle, setEditModalPageToggle] = useState(false);
 
   const [expenses, setExpenses] = useState([]);
+  const [clickedExpense, setClickedExpense] = useState({});
 
   const [incomeTotal, setIncomeTotal] = useState(0);
-
   const [expenditureTotal, setExpenditureTotal] = useState(0);
-
   const [total, setTotal] = useState(0);
-
-  const [clickedExpense, setClickedExpense] = useState({});
 
   /**
    * 필요한 데이터를 가져옵니다.
@@ -59,6 +55,7 @@ const AccountBook = () => {
   const getExpenseInfo = useCallback(() => {
     getAllMoneyData().then(data => {
       setExpenses(data.data);
+      console.log(data.data);
     });
 
     getIncomeTotalMoney().then(data => {
@@ -74,15 +71,15 @@ const AccountBook = () => {
     });
   }, []);
 
+  useEffect(() => {
+    getExpenseInfo();
+  }, []);
+
   const deleteExpenseData = id => {
     deleteMoneyDataById(id);
     setEditModalPageToggle(false);
     getExpenseInfo();
   };
-
-  useEffect(() => {
-    getExpenseInfo();
-  }, []);
 
   const showExpenseModal = data => {
     setModalType(data ? MODAL_TYPE.DETAIL : MODAL_TYPE.NEW);

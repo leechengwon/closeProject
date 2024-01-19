@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { TAP_DATA } from '../../../data/TapGroup';
 import Tap from '../../Tab/Tab';
 import IconButton from '../../IconButton/IconButton';
@@ -148,7 +148,7 @@ const CalenderModal = ({ selectDate, data, originalData }) => {
                 index,
               ) => {
                 return (
-                  <React.Fragment key={id}>
+                  <div key={id}>
                     <tbody className="h-28 w-full border-b border-grayscaleC">
                       <tr>
                         <th>
@@ -200,7 +200,7 @@ const CalenderModal = ({ selectDate, data, originalData }) => {
                         </td>
                       </tr>
                     </tbody>
-                  </React.Fragment>
+                  </div>
                 );
               },
             )}

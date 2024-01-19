@@ -8,6 +8,8 @@ import Portal from '../../components/Portal/Portal';
 import Modal from '../../components/Modal/Modal';
 import CalenderModal from '../../components/Modal/contentModal/CalenderModal';
 
+import { getAllMoneyData } from '../../API/TEST_API';
+
 /**
  * 캘린더 페이지 입니다.
  * 수입/지출 내역을 확인할 수 있습니다.
@@ -82,7 +84,7 @@ const Calender = () => {
 
   const requestCalenderData = async () => {
     try {
-      const request = await customAxios.get('/calender');
+      const request = await getAllMoneyData();
       setCalenderData(request.data);
     } catch (error) {
       console.log(error);
