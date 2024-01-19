@@ -15,7 +15,8 @@ const Nav = ({ onClose, className, navOpen }) => {
           navOpen ? 'w-full' : 'w-0'
         } fixed inset-0 z-20 bg-grayscaleH opacity-60`}
         onClick={onClose}
-      ></div>
+      />
+
       <section
         className={`${
           className ? className : ''
@@ -27,6 +28,7 @@ const Nav = ({ onClose, className, navOpen }) => {
             className="absolute right-5 top-5"
             onClick={onClose}
           />
+
           <div className="flex items-center justify-center py-16 text-grayscaleH">
             <Link
               to="/login"
@@ -35,6 +37,7 @@ const Nav = ({ onClose, className, navOpen }) => {
             >
               Login
             </Link>
+
             <Link
               to="/join"
               className="px-5 text-20px font-bold text-grayscaleH hover:text-primaryColor"
@@ -43,9 +46,11 @@ const Nav = ({ onClose, className, navOpen }) => {
               Join
             </Link>
           </div>
+
           <div className="flex items-center justify-center text-16px text-secondaryColor">
             <span className="border-b pt-0 text-16px">로그인 해주세요.</span>
           </div>
+
           <div className="pt-12">
             <ul className="flex h-full flex-col items-center justify-center ">
               <li className="flex w-full items-center justify-center py-7">
@@ -57,6 +62,7 @@ const Nav = ({ onClose, className, navOpen }) => {
                   가계부
                 </Link>
               </li>
+
               <li className="flex w-full items-center justify-center py-7">
                 <Link
                   to="/calender"
@@ -66,6 +72,7 @@ const Nav = ({ onClose, className, navOpen }) => {
                   캘린더
                 </Link>
               </li>
+
               <li className="flex w-full items-center justify-center py-7">
                 <Link
                   to="/statistics"

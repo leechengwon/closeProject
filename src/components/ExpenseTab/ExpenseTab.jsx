@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import Button from '../Button/Button';
-import CustomInput from '../Modal/Components/CustomInput';
+import CustomInput from '../Modal/contentModal/CustomInput';
 import ChipGroup from '../Chip/ChipGroup';
 
 import INCOME_DATA from '../../data/IncomeData';
