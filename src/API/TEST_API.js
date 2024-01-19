@@ -275,3 +275,61 @@ export const getMoneyDataListByDate = dateStr => {
     });
   });
 };
+
+/**
+ * 모든 classification별 지출을 리턴합니다.
+ */
+export const getAllExpenditureByClassification = () => {
+  const classificationList = [];
+  ALL_DATA.forEach(item => {
+    if (item.activeTab === '지출') {
+      const index = classificationList.findIndex(
+        classificationItem =>
+          classificationItem.classification === item.classification,
+      );
+      if (index === -1) {
+        classificationList.push({
+          classification: item.classification,
+          price: item.expenditurePrice,
+        });
+      } else {
+        classificationList[index].price += item.expenditurePrice;
+      }
+    }
+  });
+  return new Promise((resolve, reject) => {
+    resolve({
+      status: 200,
+      data: classificationList,
+    });
+  });
+};
+
+/**
+ * 모든 classification별 수입을 리턴합니다.
+ */
+export const getAllIncomeByClassification = () => {
+  const classificationList = [];
+  ALL_DATA.forEach(item => {
+    if (item.activeTab === '수입') {
+      const index = classificationList.findIndex(
+        classificationItem =>
+          classificationItem.classification === item.classification,
+      );
+      if (index === -1) {
+        classificationList.push({
+          classification: item.classification,
+          price: item.incomePrice,
+        });
+      } else {
+        classificationList[index].price += item.incomePrice;
+      }
+    }
+  });
+  return new Promise((resolve, reject) => {
+    resolve({
+      status: 200,
+      data: classificationList,
+    });
+  });
+};

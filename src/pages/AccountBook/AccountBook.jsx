@@ -188,6 +188,7 @@ const AccountBook = () => {
               expenseData={clickedExpense}
               saveInputExpenseData={requestSaveData}
               closeTab={() => setEditModalPageToggle(false)}
+              cancel={() => setEditModalPageToggle(false)}
               removeExpenseData={
                 modalType === MODAL_TYPE.NEW
                   ? null

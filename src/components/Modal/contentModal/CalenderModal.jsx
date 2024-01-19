@@ -77,6 +77,7 @@ const CalenderModal = ({ selectDate }) => {
           expenseData={clickedExpense}
           saveInputExpenseData={requestSaveData}
           closeTab={() => console.log('closeTab')}
+          cancel={() => setPageType(PAGE_TYPE.LIST)}
           removeExpenseData={
             modalType === MODAL_TYPE.NEW
               ? null

@@ -28,6 +28,7 @@ const ExpenseBoxTab = ({
   closeTab,
   saveInputExpenseData,
   removeExpenseData,
+  cancel,
 }) => {
   const handleTapClick = value => {
     setInputExpenseData({
@@ -71,7 +72,7 @@ const ExpenseBoxTab = ({
         activeTab: inputExpenseData.activeTab,
       });
     }
-    closeTab();
+    cancel();
   };
 
   useEffect(() => {
@@ -246,7 +247,7 @@ const ExpenseBoxTab = ({
           <div className="flex w-full items-center justify-center gap-3 pt-5">
             <Button type="submit" text={tabType.save} onClick={save} />
             {tabType == TAB_TYPE.NEW ? (
-              <Button text="취소" color="white" onClick={closeTab} />
+              <Button text="취소" color="white" onClick={cancel} />
             ) : (
               <Button
                 text="삭제"
