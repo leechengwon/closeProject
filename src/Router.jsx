@@ -16,7 +16,6 @@ const Router = () => {
     <BrowserRouter basename="/money-protector">
       <ScrollToTop />
       <Header />
-      <GlobalAddBtn />
       <Routes>
         <Route path="/" element={<Gateway />} />
         <Route path="/login" element={<Login />} />
