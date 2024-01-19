@@ -52,11 +52,11 @@ const SHAPE = {
     "h-8 w-8 bg-[url('../money-protector/svg/IconButton/footer_youtube.svg')] back-center",
   top: "h-12 w-12 bg-[url('../money-protector/svg/IconButton/up_arrow_button.svg')] back-center bg-secondaryColor rounded-full",
   close:
-    "h-8 w-8 bg-[url('../money-protector/images/Nav/nav_close_button.png')] back-center",
-  eye: "h-8 w-8 bg-[url('../money-protector/svg/Login/loginPwEye.svg')] back-center",
+    "h-8 w-8 bg-[url('../money-protector/images/IconButton/nav_close_button.png')] back-center",
+  eye: "h-8 w-8 bg-[url('../money-protector/svg/IconButton/loginPwEye.svg')] back-center",
   eyeSlash:
-    "h-8 w-8 bg-[url('../money-protector/svg/Login/loginPwEyeSlash.svg')] back-center",
-  left: "h-6 w-6 bg-[url('../money-protector/images/Calender/cale_left.png')] back-center",
+    "h-8 w-8 bg-[url('../money-protector/svg/IconButton/loginPwEyeSlash.svg')] back-center",
+  left: "h-6 w-6 bg-[url('../money-protector/images/IconButton/cale_left.png')] back-center",
   right:
-    "h-6 w-6 bg-[url('../money-protector/images/Calender/cale_right.png')] back-center",
+    "h-6 w-6 bg-[url('../money-protector/images/IconButton/cale_right.png')] back-center",
 };
