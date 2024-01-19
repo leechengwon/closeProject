@@ -10,16 +10,17 @@
  */
 
 const AccountBookItem = ({
-  src,
+  classificationSrc,
   date,
   daysOfWeek,
   income,
-  type,
-  expenditure,
-  text,
+  activeTab,
+  price,
+  classification,
+  onClick,
 }) => {
   return (
-    <tr className="border-b">
+    <tr className="border-b" onClick={onClick}>
       <td className="py-2 text-center md:text-center">
         {daysOfWeek}
         <br />
@@ -28,15 +29,15 @@ const AccountBookItem = ({
 
       <td className="flex flex-col items-center justify-center gap-1 py-2 text-center lg:flex lg:flex-col">
         <div className="h-6 w-6">
-          <img src={src} alt="지출이미지" />
+          <img src={classificationSrc} alt="지출이미지" />
         </div>
-        <label>{text}</label>
+        <label>{classification}</label>
       </td>
 
       {income ? (
         <td
           className={`py-2 text-center sm:text-center md:text-center ${
-            type === '지출' ? 'text-[red]' : 'text-[blue]'
+            activeTab === '지출' ? 'text-[red]' : 'text-[blue]'
           }`}
         >
           {`${income?.toLocaleString('ko-KR')}원`}
@@ -44,19 +45,19 @@ const AccountBookItem = ({
       ) : (
         <td
           className={`py-2 text-center sm:text-center md:text-center ${
-            type === '지출' ? 'text-[red]' : 'text-[blue]'
+            activeTab === '지출' ? 'text-[red]' : 'text-[blue]'
           }`}
         >
-          {`${expenditure?.toLocaleString('ko-KR')}원`}
+          {`${price?.toLocaleString('ko-KR')}원`}
         </td>
       )}
 
       <td
         className={`py-2 ${
-          type === '지출' ? 'text-[red]' : 'text-[blue]'
+          activeTab === '지출' ? 'text-[red]' : 'text-[blue]'
         } text-center`}
       >
-        {type}
+        {activeTab}
       </td>
     </tr>
   );

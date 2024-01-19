@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { TAP_DATA } from '../../data/TapGroup';
 import Tap from '../Tap/Tap';
 import IconButton from '../IconButton/IconButton';
-import ExpenditureTap from './Components/expenditureTap';
+import ExpenditureTap from './Components/ExpenditureTap';
 import InComeTap from './Components/InComeTap';
 import 'react-datepicker/dist/react-datepicker.css';
 

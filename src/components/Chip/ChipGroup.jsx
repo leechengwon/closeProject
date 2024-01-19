@@ -15,10 +15,8 @@ import Chip from './Chip';
  */
 const ChipGroup = ({
   currentValue,
-  setCurrentValue,
   ChipData,
-  setAddData,
-  onChange,
+  changeValue,
   name,
 }) => {
   return (
@@ -31,11 +29,7 @@ const ChipGroup = ({
             text={text}
             src={src}
             check={currentValue === value ? 'true' : undefined}
-            onClick={() => {
-              setCurrentValue(value);
-              setAddData(src);
-            }}
-            onChange={onChange}
+            onClick={() => changeValue(value, src)}
             name={name}
           />
         );

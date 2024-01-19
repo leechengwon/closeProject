@@ -240,6 +240,22 @@
       "asset": "카드",
       "memo": "껌",
       "activeTab": "지출"
+    },
+    {
+      "id": "6fe1",
+      "date": "2024-01-11",
+      "daysOfWeek": "목",
+      "amPm": "오전",
+      "hour": "09",
+      "minute": "00",
+      "incomePrice": 2222,
+      "expenditurePrice": "",
+      "classificationSrc": "../money-protector/images/Chip/chip_pocket.png",
+      "classification": "용돈",
+      "assetSrc": "../money-protector/images/Chip/chip_bank.png",
+      "asset": "은행",
+      "memo": "",
+      "activeTab": "수입"
     }
   ]
 }

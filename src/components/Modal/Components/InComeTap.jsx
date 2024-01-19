@@ -59,6 +59,7 @@ const InComeTap = ({
    * 11. 값의 변경이 감지되면 classificationToggle과 assetToggle을 false로 바꿔줍니다.
    */
   useEffect(() => {
+    console.log(selectDate);
     setAddData({
       ...addData,
       date: format(startDate, 'yyyy-MM-dd'),
