@@ -38,25 +38,25 @@ export default IconButton;
 
 const SHAPE = {
   kakao:
-    "h-16 w-16 rounded-full bg-[url('../money-protector/images/IconButton/kakao_button.png')] back-center",
+    "h-16 w-16 rounded-full bg-[url('../money-protector/svg/IconButton/kakao_button.svg')] back-center",
   add: "h-16 w-16 rounded-full bg-secondaryColor bg-[url('../money-protector/svg/IconButton/add_button.svg')] bg-auto back-center",
-  nav: "h-8 w-8 rotate-2 bg-[url('../money-protector/images/IconButton/nav_button.png')] back-center",
-  back: "h-8 w-8 bg-[url('../money-protector/images/IconButton/back_button.png')] back-center",
+  nav: "h-8 w-8 rotate-2 bg-[url('../money-protector/svg/IconButton/listIcon_Btn.svg')] back-center",
+  back: "h-8 w-8 bg-[url('../money-protector/svg/IconButton/back_button.svg')] back-center",
   reading:
-    "h-8 w-8 bg-[url('../money-protector/svg/IconButton/header_reading_glasses.svg')] back-center",
+    "h-8 w-8 bg-[url('../money-protector/svg/IconButton/reading_glasses.svg')] back-center",
   instagram:
-    "h-8 w-8 bg-[url('../money-protector/svg/IconButton/footer_instagram.svg')] back-center",
+    "h-8 w-8 bg-[url('../money-protector/svg/IconButton/instagram.svg')] back-center",
   facebook:
-    "h-8 w-8 bg-[url('../money-protector/svg/IconButton/footer_facebook.svg')] back-center",
+    "h-8 w-8 bg-[url('../money-protector/svg/IconButton/facebook.svg')] back-center",
   youtube:
-    "h-8 w-8 bg-[url('../money-protector/svg/IconButton/footer_youtube.svg')] back-center",
+    "h-8 w-8 bg-[url('../money-protector/svg/IconButton/youtube.svg')] back-center",
   top: "h-12 w-12 bg-[url('../money-protector/svg/IconButton/up_arrow_button.svg')] back-center bg-secondaryColor rounded-full",
   close:
-    "h-8 w-8 bg-[url('../money-protector/images/IconButton/nav_close_button.png')] back-center",
-  eye: "h-8 w-8 bg-[url('../money-protector/svg/IconButton/loginPwEye.svg')] back-center",
+    "h-8 w-8 bg-[url('../money-protector/svg/IconButton/close_button.svg')] back-center",
+  eye: "h-8 w-8 bg-[url('../money-protector/svg/IconButton/pwEye.svg')] back-center",
   eyeSlash:
-    "h-8 w-8 bg-[url('../money-protector/svg/IconButton/loginPwEyeSlash.svg')] back-center",
-  left: "h-6 w-6 bg-[url('../money-protector/images/IconButton/cale_left.png')] back-center",
+    "h-8 w-8 bg-[url('../money-protector/svg/IconButton/pwEyeSlash.svg')] back-center",
+  left: "h-6 w-6 bg-[url('../money-protector/svg/IconButton/cale_left.svg')] back-center",
   right:
-    "h-6 w-6 bg-[url('../money-protector/images/IconButton/cale_right.png')] back-center",
+    "h-6 w-6 bg-[url('../money-protector/svg/IconButton/cale_right.svg')] back-center",
 };
