@@ -1,55 +1,105 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Tap from '../../components/Tap/Tap';
 import AccountBookItem from './components/AccountBookItem';
 import { TAP_ACCOUNTBOOK_DATA } from '../../data/TapGroup';
+import IconButton from '../../components/IconButton/IconButton';
+import {
+  getExpenditureTotalMoney,
+  getIncomeTotalMoney,
+  getAllMoneyData,
+  getTotalMoney,
+  postMoneyData,
+  putMoneyDataById,
+} from '../../API/TEST_API';
+
+import Modal from '../../components/Modal/Modal';
+import ExpenseModal from '../../components/ExpenseModal/ExpenseModal';
+
+const MODAL_TYPE = {
+  NEW: {
+    title: '수입/지출 입력하기',
+  },
+  DETAIL: {
+    title: '내역 상세보기',
+  },
+};
 
 const AccountBook = () => {
   /** Tab 컴포넌트에 필요한 useState 를 정의합니다.   */
   const [activeTab, setActiveTab] = useState('수입');
+
+  const [modalType, setModalType] = useState(MODAL_TYPE.NEW);
 
   /**클릭이벤트로 value값을 받는 클릭함수입니다. Tab 컴포넌트에서 사용합니다. */
   const handleTapClick = value => {
     setActiveTab(value);
   };
 
-  //가상 데이터입니다.
-  const expenses = [
-    {
-      id: 1,
-      date: '2024-01-02',
-      income: 10000000000,
-      incomeTotal: 10000000000,
-      expenditureTotal: 20000,
-      total: 9998000,
-      src: '../money-protector/images/Chip/chip_food.png',
-      text: '식비',
-      memo: '메모입니다.',
-      daysOfWeek: '월요일',
-      hour: '17',
-      minute: '40',
-      asset: '현금',
-      type: '수입',
-    },
-    {
-      id: 2,
-      date: '2024-01-01',
-      expenditure: 20000,
-      incomeTotal: 10000000000,
-      expenditureTotal: 20000,
-      total: 10000000000,
-      src: '../money-protector/images/Chip/chip_car.png',
-      text: '교통차량',
-      memo: '메모입니다.',
-      daysOfWeek: '월요일',
-      hour: '17',
-      minute: '42',
-      asset: '카드',
-      type: '지출',
-    },
-  ];
+  const [editModalPageToggle, setEditModalPageToggle] = useState(false);
+
+  const [expenses, setExpenses] = useState([]);
+
+  const [incomeTotal, setIncomeTotal] = useState(0);
+
+  const [expenditureTotal, setExpenditureTotal] = useState(0);
+
+  const [total, setTotal] = useState(0);
+
+  const [clickedExpense, setClickedExpense] = useState({});
+
+  /**
+   * 필요한 데이터를 가져옵니다.
+   * 1. 모든 수입/지출 데이터
+   * 2. 모든 수입 총합 금액
+   * 3. 모든 지출 총합 금액
+   * 4. 모든 수입+지출 총합 금액
+   */
+
+  const getExpenseInfo = useCallback(() => {
+    getAllMoneyData().then(data => {
+      setExpenses(data.data);
+    });
+
+    getIncomeTotalMoney().then(data => {
+      setIncomeTotal(data.data);
+    });
+
+    getExpenditureTotalMoney().then(data => {
+      setExpenditureTotal(data.data);
+    });
+
+    getTotalMoney().then(data => {
+      setTotal(data.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    getExpenseInfo();
+  }, []);
+
+  const showExpenseModal = data => {
+    setModalType(data ? MODAL_TYPE.DETAIL : MODAL_TYPE.NEW);
+    setClickedExpense(data);
+    setEditModalPageToggle(true);
+  };
+
+  const requestSaveData = data => {
+    if (modalType === MODAL_TYPE.NEW) {
+      // 새로운 데이터를 업로드합니다.
+      postMoneyData(data).then(data => {
+        data.status === 200 && alert('저장되었습니다.');
+      });
+    } else {
+      // 기존 데이터를 업데이트합니다.
+      putMoneyDataById(data.id, data).then(data => {
+        data.status === 200 && alert('수정되었습니다.');
+      });
+    }
+    getExpenseInfo();
+  };
 
   return (
-    <main>
+    <main className="relative">
       <section className="mt-28">
         <Tap
           tapListData={TAP_ACCOUNTBOOK_DATA}
@@ -60,15 +110,15 @@ const AccountBook = () => {
 
       <section className="mt-8 flex w-full text-center">
         <div className="w-full text-[blue] sm:text-11px">
-          {`${expenses[0].incomeTotal?.toLocaleString('ko-KR')}원`}
+          {`${incomeTotal?.toLocaleString('ko-KR')}원`}
         </div>
 
         <div className="w-full text-[red] sm:text-11px ">
-          {`${expenses[0].expenditureTotal?.toLocaleString('ko-KR')}원`}
+          {`${expenditureTotal?.toLocaleString('ko-KR')}원`}
         </div>
 
         <div className="w-full text-[green] sm:text-11px ">
-          {`${expenses[0].total?.toLocaleString('ko-KR')}원`}
+          {`${total?.toLocaleString('ko-KR')}원`}
         </div>
       </section>
 
@@ -93,22 +143,55 @@ const AccountBook = () => {
           </thead>
 
           <tbody>
-            {expenses.map(expense => (
-              <AccountBookItem
-                key={expense.id}
-                date={expense.date}
-                income={expense.income}
-                type={expense.type}
-                src={expense.src}
-                text={expense.text}
-                daysOfWeek={expense.daysOfWeek}
-                expenditure={expense.expenditure}
-                // onClick={onClick} 클릭이벤트함수를 정의합니다.
-              />
-            ))}
+            {expenses.map(expense => {
+              if (
+                (activeTab !== '통합' && activeTab === expense.activeTab) ||
+                activeTab == '통합'
+              ) {
+                return (
+                  <AccountBookItem
+                    key={expense.id}
+                    date={expense.date}
+                    income={expense.income}
+                    activeTab={expense.activeTab}
+                    classificationSrc={expense.classificationSrc}
+                    classification={expense.classification}
+                    daysOfWeek={expense.daysOfWeek}
+                    price={
+                      expense.incomePrice
+                        ? expense.incomePrice
+                        : expense.expenditurePrice
+                    }
+                    onClick={() => showExpenseModal(expense)}
+                  />
+                );
+              }
+            })}
           </tbody>
         </table>
+        <IconButton
+          className="absolute bottom-2 right-0 transition-all duration-300 hover:rotate-90 hover:scale-110"
+          shape="add"
+          onClick={() => showExpenseModal()}
+        />
       </section>
+
+      {editModalPageToggle && (
+        <Modal
+          title={modalType.title}
+          content={
+            <ExpenseModal
+              expenseData={clickedExpense}
+              saveInputExpenseData={requestSaveData}
+              closeModal={() => setEditModalPageToggle(false)}
+            />
+          }
+          size="lg"
+          isCloseBtn={() => setEditModalPageToggle(false)}
+          isModalOpen={editModalPageToggle}
+          setIsModalOpen={setEditModalPageToggle}
+        />
+      )}
     </main>
   );
 };

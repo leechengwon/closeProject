@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { TAP_DATA } from '../../data/TapGroup';
-import Tap from '../Tap/Tap';
-import IconButton from '../IconButton/IconButton';
-import ExpenditureTap from './Components/expenditureTap';
-import InComeTap from './Components/InComeTap';
+import { TAP_DATA } from '../../../data/TapGroup';
+import Tap from '../../Tap/Tap';
+import IconButton from '../../IconButton/IconButton';
+import ExpenditureTap from './ExpenditureTap';
+import InComeTap from './InComeTap';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const CalenderModal = ({ selectDate, data, originalData }) => {

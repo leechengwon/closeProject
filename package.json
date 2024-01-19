@@ -18,6 +18,7 @@
     "echarts": "^5.4.3",
     "echarts-for-react": "^3.0.2",
     "gh-pages": "^6.1.1",
+    "json-server": "^1.0.0-alpha.21",
     "react": "^18.2.0",
     "react-cookie": "^7.0.1",
     "react-datepicker": "^4.25.0",

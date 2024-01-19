@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
-import DatePicker from 'react-datepicker';
+import { customAxios } from '../../../API/API';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
-import { customAxios } from '../../../API/API';
+import DatePicker from 'react-datepicker';
 import CustomInput from './CustomInput';
 import Button from '../../Button/Button';
 import ChipGroup from '../../Chip/ChipGroup';
-import EXPENDITURE_DATA from '../../../data/ExpenditureData';
+import INCOME_DATA from '../../../data/IncomeChipData';
 import ASSET_DATA from '../../../data/AssetData';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const ExpenditureTap = ({
+const InComeTap = ({
   selectDate,
   addData,
   setAddData,
@@ -59,6 +59,7 @@ const ExpenditureTap = ({
    * 11. 값의 변경이 감지되면 classificationToggle과 assetToggle을 false로 바꿔줍니다.
    */
   useEffect(() => {
+    console.log(selectDate);
     setAddData({
       ...addData,
       date: format(startDate, 'yyyy-MM-dd'),
@@ -122,11 +123,18 @@ const ExpenditureTap = ({
     });
   };
 
+  /** 원래는 submit 특성 때문에 e.preventDefault()를 사용해야 하지만 업데이트를 바로 적용하기 위해 새로고침이 되도록 합니다. */
   const postClassificationDataOnSubmit = e => {
     // e.preventDefault();
     postClassificationData();
   };
 
+  /** 수입에 관한 데이터를 저장합니다.
+   * 1. customAxios는 API 폴더에 정의되어 있습니다.
+   * 2. post 메서드를 사용하여 데이터를 저장합니다.
+   * 3. post 메서드의 첫번째 인자는 url을 의미합니다. (db.json 파일의 calender 경로)
+   * 4. post 메서드의 두번째 인자는 저장할 데이터를 의미합니다. (미리 정의된 addData를 사용합니다.)
+   */
   const postClassificationData = async () => {
     try {
       const request = await customAxios.post('/calender', addData);
@@ -140,7 +148,7 @@ const ExpenditureTap = ({
     <>
       <form>
         <fieldset>
-          <legend className="text-0px">지출</legend>
+          <legend className="text-0px">수입</legend>
           <table className="mt-5 h-full w-full">
             <colgroup>
               <col width="20%" />
@@ -170,9 +178,9 @@ const ExpenditureTap = ({
                     placeholder="금액을 입력해주세요."
                     type="number"
                     onChange={e =>
-                      saveRequestAddData(e.target.value, 'expenditurePrice')
+                      saveRequestAddData(e.target.value, 'incomePrice')
                     }
-                    value={addData.expenditurePrice}
+                    value={addData.incomePrice}
                   />
                 </td>
               </tr>
@@ -245,7 +253,7 @@ const ExpenditureTap = ({
       >
         <ChipGroup
           size="sm"
-          ChipData={EXPENDITURE_DATA && EXPENDITURE_DATA}
+          ChipData={INCOME_DATA && INCOME_DATA}
           currentValue={classificationCurrentValue}
           setCurrentValue={setClassificationCurrentValueAndCloseModal}
           setAddData={getClassificationSrcData}
@@ -271,4 +279,4 @@ const ExpenditureTap = ({
   );
 };
 
-export default ExpenditureTap;
+export default InComeTap;

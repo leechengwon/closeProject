@@ -50,3 +50,155 @@ export const cert_test = status => {
     }
   });
 };
+
+/**
+ * 가짜 API 를 위한 가짜 데이터베이스 입니다.
+ * 배포를 할 때 서버를 이용할 수 없어서, 임시로 만들어 놓은 데이터 입니다.
+ */
+const ALL_DATA = [
+  {
+    date: '2024-01-19',
+    hour: 13,
+    minute: 22,
+    dayOfWeek: '금',
+    amPm: '오후',
+    incomePrice: 20000,
+    classification: '월급',
+    classificationSrc: '../money-protector/images/Chip/chip_salary.png',
+    asset: '은행',
+    assetSrc: '../money-protector/images/Chip/chip_bank.png',
+    memo: '개발해서 번 돈',
+    expenditurePrice: 0,
+    activeTab: '수입',
+    id: 1,
+  },
+];
+
+/**
+ * 전체 수입/지출 데이터를 가져옵니다.
+ * @returns {Promise}
+ */
+export const getAllMoneyData = () => {
+  return new Promise((resolve, reject) => {
+    resolve({
+      status: 200,
+      data: ALL_DATA,
+    });
+  });
+};
+
+/**
+ * id값으로 수입/지출 데이터의 detail 내용을 가져옵니다.
+ * @param {int} id
+ * @returns
+ */
+export const getMoneyDetailDataById = id => {
+  const detailData = ALL_DATA.find(item => item.id === id);
+  return new Promise((resolve, reject) => {
+    resolve({
+      status: 200,
+      data: detailData,
+    });
+  });
+};
+
+/**
+ * 수입/지출 데이터를 (가짜 데이터베이스에) 추가합니다.
+ * @param {*} data
+ * @returns
+ */
+export const postMoneyData = data => {
+  data.id = ALL_DATA.length + 1;
+  ALL_DATA.push(data);
+  return new Promise((resolve, reject) => {
+    resolve({
+      status: 200,
+    });
+  });
+};
+
+/**
+ * 수입 - 지출 을 뺀 금액을 가져옵니다.
+ * 데이터에서 incomePrice가 있으면 더하고
+ * expenditurePrice가 있으면 빼서
+ * 전체 금액을 구합니다.
+ */
+export const getTotalMoney = () => {
+  let totalIncome = 0;
+  let totalExpenditure = 0;
+  ALL_DATA.forEach(item => {
+    if (item.activeTab == '수입' && item.incomePrice)
+      totalIncome += item.incomePrice;
+    if (item.activeTab == '지출' && item.expenditurePrice)
+      totalExpenditure += item.expenditurePrice;
+  });
+  const totalMoney = totalIncome - totalExpenditure;
+  return new Promise((resolve, reject) => {
+    resolve({
+      status: 200,
+      data: totalMoney,
+    });
+  });
+};
+
+/**
+ * 전체 수입 금액만 구합니다.
+ * @returns
+ */
+export const getIncomeTotalMoney = () => {
+  let totalIncome = 0;
+  ALL_DATA.forEach(item => {
+    if (item.activeTab == '수입' && item.incomePrice)
+      totalIncome += item.incomePrice;
+  });
+  return new Promise((resolve, reject) => {
+    resolve({
+      status: 200,
+      data: totalIncome,
+    });
+  });
+};
+
+/**
+ * 전체 지출 금액만 구합니다.
+ * @returns
+ */
+export const getExpenditureTotalMoney = () => {
+  let totalExpenditure = 0;
+  ALL_DATA.forEach(item => {
+    if (item.activeTab == '지출' && item.expenditurePrice)
+      totalExpenditure += item.expenditurePrice;
+  });
+  return new Promise((resolve, reject) => {
+    resolve({
+      status: 200,
+      data: totalExpenditure,
+    });
+  });
+};
+
+/**
+ * id값으로 수입/지출 데이터를 삭제합니다.
+ */
+export const deleteMoneyDataById = id => {
+  const index = ALL_DATA.findIndex(item => item.id === id);
+  ALL_DATA.splice(index, 1);
+  return new Promise((resolve, reject) => {
+    resolve({
+      status: 200,
+    });
+  });
+};
+
+/**
+ * id값으로 수입/지출 데이터를 찾고, 수정합니다.
+ */
+export const putMoneyDataById = (id, inputData) => {
+  const index = ALL_DATA.findIndex(item => item.id === id);
+  ALL_DATA[index] = inputData;
+  return new Promise((resolve, reject) => {
+    resolve({
+      status: 200,
+    });
+  });
+};

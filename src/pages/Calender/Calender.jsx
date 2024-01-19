@@ -6,7 +6,7 @@ import RenderDays from './components/RenderDays';
 import RenderCells from './components/RenderCells';
 import Portal from '../../components/Portal/Portal';
 import Modal from '../../components/Modal/Modal';
-import CalenderModal from '../../components/Modal/CalenderModal';
+import CalenderModal from '../../components/Modal/contentModal/CalenderModal';
 
 /**
  * 캘린더 페이지 입니다.
