@@ -14,7 +14,7 @@ import {
 } from '../../API/TEST_API';
 
 import Modal from '../../components/Modal/Modal';
-import ExpenseTab from '../../components/Modal/ExpenseTab/ExpenseTab';
+import ExpenseBoxTab from '../../components/Modal/ExpenseBoxTab/ExpenseBoxTab';
 
 const MODAL_TYPE = {
   NEW: {
@@ -184,7 +184,7 @@ const AccountBook = () => {
         <Modal
           title={modalType.title}
           content={
-            <ExpenseTab
+            <ExpenseBoxTab
               expenseData={clickedExpense}
               saveInputExpenseData={requestSaveData}
               closeTab={() => setEditModalPageToggle(false)}

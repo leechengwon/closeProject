@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { addMonths, subMonths } from 'date-fns';
-import { customAxios } from '../../API/API';
 import RenderHeader from './components/RenderHeader';
 import RenderDays from './components/RenderDays';
 import RenderCells from './components/RenderCells';
 import Portal from '../../components/Portal/Portal';
 import Modal from '../../components/Modal/Modal';
 import CalenderModal from '../../components/Modal/contentModal/CalenderModal';
-import CalenderModalTmp from '../../components/Modal/contentModal/CalenderModalTmp';
 
 import { getAllMoneyData } from '../../API/TEST_API';
 
@@ -55,10 +53,6 @@ const Calender = () => {
     minute: currentMonth?.getMinutes(),
     daysOfWeek: daysOfWeek[selectedDate?.getDay()],
   };
-
-  const dateWrap = `${date.year}-${date.month}-${date.day}`;
-
-  const filterDate = calenderData.filter(date => date.date === dateWrap);
 
   useEffect(() => {
     requestCalenderData();
@@ -110,12 +104,7 @@ const Calender = () => {
         {isModalOpen && (
           <Modal
             title="내역 상세보기"
-            content={
-              <CalenderModal
-                selectDate={date}
-                expenseList={filterDate && filterDate}
-              />
-            }
+            content={<CalenderModal selectDate={date} />}
             size="lg"
             isCloseBtn={true}
             isModalOpen={isModalOpen}

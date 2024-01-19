@@ -64,7 +64,7 @@ const ALL_DATA = [
     date: '2024-01-04',
     hour: 18,
     minute: 44,
-    daysOfWeek: '금',
+    daysOfWeek: '목',
     amPm: '오후',
     classification: '이자',
     classificationSrc: '../money-protector/images/Chip/side.png',
@@ -80,7 +80,7 @@ const ALL_DATA = [
     date: '2024-01-10',
     hour: 18,
     minute: 44,
-    daysOfWeek: '금',
+    daysOfWeek: '수',
     amPm: '오후',
     classification: '금융소득',
     classificationSrc: '../money-protector/images/Chip/finance.png',
@@ -90,6 +90,22 @@ const ALL_DATA = [
   },
   {
     id: 3,
+    activeTab: '지출',
+    incomePrice: 0,
+    expenditurePrice: 1500,
+    date: '2024-01-10',
+    hour: 18,
+    minute: 55,
+    daysOfWeek: '수',
+    amPm: '오후',
+    classification: '식비',
+    classificationSrc: '../money-protector/images/Chip/food.png',
+    asset: '카드',
+    assetSrc: '../money-protector/images/Chip/credit_card.png',
+    memo: '핫도그',
+  },
+  {
+    id: 4,
     activeTab: '지출',
     incomePrice: 0,
     expenditurePrice: 20000,
@@ -231,6 +247,31 @@ export const putMoneyDataById = (id, inputData) => {
   return new Promise((resolve, reject) => {
     resolve({
       status: 200,
+    });
+  });
+};
+
+/**
+ * 날짜로 내역을 검색합니다.
+ * param ex '2024-10-01'
+ */
+export const getMoneyDataListByDate = dateStr => {
+  const allData = ALL_DATA.filter(item => {
+    const itemDate = new Date(item.date);
+    const date = new Date(dateStr);
+    if (
+      itemDate.getFullYear() === date.getFullYear() &&
+      itemDate.getMonth() === date.getMonth() &&
+      itemDate.getDate() === date.getDate()
+    ) {
+      return item;
+    }
+  });
+
+  return new Promise((resolve, reject) => {
+    resolve({
+      status: 200,
+      data: allData,
     });
   });
 };

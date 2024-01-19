@@ -23,7 +23,7 @@ const TAB_TYPE = {
     save: '수정하기',
   },
 };
-const ExpenseTab = ({
+const ExpenseBoxTab = ({
   expenseData,
   closeTab,
   saveInputExpenseData,
@@ -173,7 +173,7 @@ const ExpenseTab = ({
                         ? inputExpenseData.activeTab == '수입'
                           ? inputExpenseData.incomePrice
                           : inputExpenseData.expenditurePrice
-                        : null
+                        : ''
                     }
                   />
                 </td>
@@ -236,7 +236,7 @@ const ExpenseTab = ({
                         memo: e.target.value,
                       });
                     }}
-                    value={inputExpenseData?.memo}
+                    value={inputExpenseData?.memo || ''}
                   />
                 </td>
               </tr>
@@ -298,4 +298,4 @@ const ExpenseTab = ({
   );
 };
 
-export default ExpenseTab;
+export default ExpenseBoxTab;
