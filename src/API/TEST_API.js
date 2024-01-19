@@ -55,24 +55,7 @@ export const cert_test = status => {
  * 가짜 API 를 위한 가짜 데이터베이스 입니다.
  * 배포를 할 때 서버를 이용할 수 없어서, 임시로 만들어 놓은 데이터 입니다.
  */
-const ALL_DATA = [
-  {
-    date: '2024-01-19',
-    hour: 13,
-    minute: 22,
-    dayOfWeek: '금',
-    amPm: '오후',
-    incomePrice: 20000,
-    classification: '월급',
-    classificationSrc: '../money-protector/images/Chip/chip_salary.png',
-    asset: '은행',
-    assetSrc: '../money-protector/images/Chip/chip_bank.png',
-    memo: '개발해서 번 돈',
-    expenditurePrice: 0,
-    activeTab: '수입',
-    id: 1,
-  },
-];
+const ALL_DATA = [];
 
 /**
  * 전체 수입/지출 데이터를 가져옵니다.
