@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import Tap from '../../components/Tap/Tap';
+import Tap from '../../components/Tab/Tab';
 import AccountBookItem from './components/AccountBookItem';
 import { TAP_ACCOUNTBOOK_DATA } from '../../data/TapGroup';
 import IconButton from '../../components/IconButton/IconButton';
@@ -10,10 +10,11 @@ import {
   getTotalMoney,
   postMoneyData,
   putMoneyDataById,
+  deleteMoneyDataById,
 } from '../../API/TEST_API';
 
 import Modal from '../../components/Modal/Modal';
-import ExpenseModal from '../../components/ExpenseModal/ExpenseModal';
+import ExpenseBoxTab from '../../components/Modal/ExpenseBoxTab/ExpenseBoxTab';
 
 const MODAL_TYPE = {
   NEW: {
@@ -26,10 +27,9 @@ const MODAL_TYPE = {
 
 const AccountBook = () => {
   /** Tab 컴포넌트에 필요한 useState 를 정의합니다.   */
-  const [activeTab, setActiveTab] = useState('수입');
-
   const [modalType, setModalType] = useState(MODAL_TYPE.NEW);
 
+  const [activeTab, setActiveTab] = useState('수입');
   /**클릭이벤트로 value값을 받는 클릭함수입니다. Tab 컴포넌트에서 사용합니다. */
   const handleTapClick = value => {
     setActiveTab(value);
@@ -37,15 +37,12 @@ const AccountBook = () => {
 
   const [editModalPageToggle, setEditModalPageToggle] = useState(false);
 
-  const [expenses, setExpenses] = useState([]);
+  const [expenseList, setExpenseList] = useState([]);
+  const [clickedExpense, setClickedExpense] = useState({});
 
   const [incomeTotal, setIncomeTotal] = useState(0);
-
   const [expenditureTotal, setExpenditureTotal] = useState(0);
-
   const [total, setTotal] = useState(0);
-
-  const [clickedExpense, setClickedExpense] = useState({});
 
   /**
    * 필요한 데이터를 가져옵니다.
@@ -57,7 +54,8 @@ const AccountBook = () => {
 
   const getExpenseInfo = useCallback(() => {
     getAllMoneyData().then(data => {
-      setExpenses(data.data);
+      setExpenseList(data.data);
+      console.log(data.data);
     });
 
     getIncomeTotalMoney().then(data => {
@@ -76,6 +74,12 @@ const AccountBook = () => {
   useEffect(() => {
     getExpenseInfo();
   }, []);
+
+  const deleteExpenseData = id => {
+    deleteMoneyDataById(id);
+    setEditModalPageToggle(false);
+    getExpenseInfo();
+  };
 
   const showExpenseModal = data => {
     setModalType(data ? MODAL_TYPE.DETAIL : MODAL_TYPE.NEW);
@@ -143,7 +147,7 @@ const AccountBook = () => {
           </thead>
 
           <tbody>
-            {expenses.map(expense => {
+            {expenseList.map(expense => {
               if (
                 (activeTab !== '통합' && activeTab === expense.activeTab) ||
                 activeTab == '통합'
@@ -180,10 +184,18 @@ const AccountBook = () => {
         <Modal
           title={modalType.title}
           content={
-            <ExpenseModal
+            <ExpenseBoxTab
               expenseData={clickedExpense}
               saveInputExpenseData={requestSaveData}
-              closeModal={() => setEditModalPageToggle(false)}
+              closeTab={() => setEditModalPageToggle(false)}
+              cancel={() => setEditModalPageToggle(false)}
+              removeExpenseData={
+                modalType === MODAL_TYPE.NEW
+                  ? null
+                  : () => {
+                      deleteExpenseData(clickedExpense.id);
+                    }
+              }
             />
           }
           size="lg"

@@ -1,61 +1,122 @@
 import React, { useEffect, useState } from 'react';
 
-import Button from '../Button/Button';
-import CustomInput from '../Modal/contentModal/CustomInput';
-import ChipGroup from '../Chip/ChipGroup';
+import { TAP_DATA } from '../../../data/TapGroup';
 
-import INCOME_DATA from '../../data/IncomeChipData';
-import EXPENDITURE_DATA from '../../data/ExpenditureChipData';
-import ASSET_DATA from '../../data/AssetData';
+import Tab from '../../Tab/Tab';
+import Button from '../../Button/Button';
+import CustomInput from '../contentModal/CustomInput';
+import ChipGroup from '../../Chip/ChipGroup';
+
+import INCOME_DATA from '../../../data/IncomeChipData';
+import EXPENDITURE_DATA from '../../../data/ExpenditureChipData';
+import ASSET_DATA from '../../../data/AssetData';
 
 import DatePicker from 'react-datepicker';
 import { ko } from 'date-fns/locale';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const ExpenseTab = ({
-  activeTab,
+const TAB_TYPE = {
+  NEW: {
+    save: '등록하기',
+  },
+  DETAIL: {
+    save: '수정하기',
+  },
+};
+const ExpenseBoxTab = ({
   expenseData,
-  setExpenseData,
   closeTab,
-  saveExpenseData,
+  saveInputExpenseData,
+  removeExpenseData,
+  cancel,
 }) => {
-  const [expenseDataDate, setExpenseDataDate] = useState(new Date());
+  const handleTapClick = value => {
+    setInputExpenseData({
+      ...inputExpenseData,
+      activeTab: value,
+    });
+  };
+
+  const [inputDate, setInputDate] = useState(new Date());
+
+  const [inputExpenseData, setInputExpenseData] = useState({
+    activeTab: '수입',
+    incomePrice: '',
+    expenditurePrice: '',
+  });
+
+  const [tabType, setTabType] = useState(TAB_TYPE.NEW);
 
   useEffect(() => {
-    if (expenseData.date) {
+    if (expenseData) {
+      const copyData = { ...expenseData };
+      setInputExpenseData(copyData);
+      setTabType(TAB_TYPE.DETAIL);
+    }
+  }, [expenseData]);
+
+  const save = () => {
+    // 지출/수입 금액을 0으로 초기화해서 저장합니다.
+    if (inputExpenseData.activeTab === '수입') {
+      saveInputExpenseData({
+        ...inputExpenseData,
+        expenditurePrice: 0,
+        incomePrice: Number(inputExpenseData.incomePrice),
+        activeTab: inputExpenseData.activeTab,
+      });
+    } else {
+      saveInputExpenseData({
+        ...inputExpenseData,
+        incomePrice: 0,
+        expenditurePrice: Number(inputExpenseData.expenditurePrice),
+        activeTab: inputExpenseData.activeTab,
+      });
+    }
+    cancel();
+  };
+
+  useEffect(() => {
+    if (expenseData && expenseData.date) {
       const { date, hour, minute } = expenseData;
       const dateStr = `${date} ${hour}:${minute}`;
-      setExpenseDataDate(new Date(dateStr));
+      setInputDate(new Date(dateStr));
     }
   }, []);
 
   useEffect(() => {
     let dateStr = '';
     let [year, month, day] = [
-      expenseDataDate.getFullYear(),
-      expenseDataDate.getMonth() + 1,
-      expenseDataDate.getDate(),
+      inputDate.getFullYear(),
+      inputDate.getMonth() + 1,
+      inputDate.getDate(),
     ];
     if (month < 10) month = `0${month}`;
     if (day < 10) day = `0${day}`;
     dateStr = `${year}-${month}-${day}`;
-    setExpenseData(prev => ({
+    setInputExpenseData(prev => ({
       ...prev,
       date: dateStr,
-      hour: expenseDataDate.getHours(),
-      minute: expenseDataDate.getMinutes(),
-      dayOfWeek: expenseDataDate.toLocaleDateString('ko-KR', {
+      hour: inputDate.getHours(),
+      minute: inputDate.getMinutes(),
+      daysOfWeek: inputDate.toLocaleDateString('ko-KR', {
         weekday: 'short',
         timeZone: 'Asia/Seoul',
       }),
-      amPm: expenseDataDate.toLocaleTimeString().slice(0, 2),
+      amPm: inputDate.toLocaleTimeString().slice(0, 2),
     }));
-  }, [expenseDataDate]);
+  }, [inputDate]);
 
   const [chipGroupOpenStatus, setChipGroupOpenStatus] = useState('');
 
   return (
     <>
+      <div>
+        <Tab
+          tapListData={TAP_DATA}
+          onClick={handleTapClick}
+          activeTab={inputExpenseData.activeTab}
+        />
+      </div>
       <form>
         <fieldset onClick={() => setChipGroupOpenStatus('')}>
           <legend className="text-0px">수입</legend>
@@ -73,8 +134,8 @@ const ExpenseTab = ({
                 <td className="td-border-b py-1 pl-2">
                   <DatePicker
                     className="cursor-pointer"
-                    selected={expenseDataDate}
-                    onChange={setExpenseDataDate}
+                    selected={inputDate}
+                    onChange={setInputDate}
                     dateFormat="yy/MM/dd (E) a hh:mm"
                     showTimeSelect
                     locale={ko}
@@ -95,25 +156,25 @@ const ExpenseTab = ({
                     placeholder="금액을 입력해주세요."
                     type="number"
                     onChange={e => {
-                      const value = Number(e.target.value);
-                      if (activeTab == '수입') {
-                        setExpenseData({
-                          ...expenseData,
+                      const value = e.target.value;
+                      if (inputExpenseData.activeTab == '수입') {
+                        setInputExpenseData({
+                          ...inputExpenseData,
                           incomePrice: value,
                         });
                       } else {
-                        setExpenseData({
-                          ...expenseData,
+                        setInputExpenseData({
+                          ...inputExpenseData,
                           expenditurePrice: value,
                         });
                       }
                     }}
                     value={
-                      expenseData
-                        ? activeTab == '수입'
-                          ? expenseData.incomePrice
-                          : expenseData.expenditurePrice
-                        : null
+                      inputExpenseData
+                        ? inputExpenseData.activeTab == '수입'
+                          ? inputExpenseData.incomePrice
+                          : inputExpenseData.expenditurePrice
+                        : ''
                     }
                   />
                 </td>
@@ -130,9 +191,9 @@ const ExpenseTab = ({
               >
                 <th>분류</th>
 
-                {expenseData.classification ? (
+                {inputExpenseData.classification ? (
                   <td className="td-border-b py-1 pl-2 font-bold">
-                    {expenseData.classification}
+                    {inputExpenseData.classification}
                   </td>
                 ) : (
                   <td className="td-border-b py-1 pl-2 text-grayscaleD text-opacity-60">
@@ -152,8 +213,10 @@ const ExpenseTab = ({
               >
                 <th>자산</th>
 
-                {expenseData.asset ? (
-                  <td className="td-border-b py-1 pl-2">{expenseData.asset}</td>
+                {inputExpenseData.asset ? (
+                  <td className="td-border-b py-1 pl-2">
+                    {inputExpenseData.asset}
+                  </td>
                 ) : (
                   <td className="td-border-b py-1 pl-2 text-grayscaleD text-opacity-60">
                     선택
@@ -169,12 +232,12 @@ const ExpenseTab = ({
                     className="pl-2 font-bold sm:text-14px md:text-16px lg:text-20px"
                     placeholder="내용을 입력해주세요."
                     onChange={e => {
-                      setExpenseData({
-                        ...expenseData,
+                      setInputExpenseData({
+                        ...inputExpenseData,
                         memo: e.target.value,
                       });
                     }}
-                    value={expenseData?.memo}
+                    value={inputExpenseData?.memo || ''}
                   />
                 </td>
               </tr>
@@ -182,8 +245,16 @@ const ExpenseTab = ({
           </table>
 
           <div className="flex w-full items-center justify-center gap-3 pt-5">
-            <Button type="submit" text="저장하기" onClick={saveExpenseData} />
-            <Button text="취소" color="white" onClick={closeTab} />
+            <Button type="submit" text={tabType.save} onClick={save} />
+            {tabType == TAB_TYPE.NEW ? (
+              <Button text="취소" color="white" onClick={cancel} />
+            ) : (
+              <Button
+                text="삭제"
+                color="tertiary"
+                onClick={removeExpenseData}
+              />
+            )}
           </div>
         </fieldset>
       </form>
@@ -192,11 +263,15 @@ const ExpenseTab = ({
         <div className="mt-4">
           <ChipGroup
             size="sm"
-            ChipData={activeTab == '수입' ? INCOME_DATA : EXPENDITURE_DATA}
+            ChipData={
+              inputExpenseData.activeTab == '수입'
+                ? INCOME_DATA
+                : EXPENDITURE_DATA
+            }
             currentValue={expenseData?.classification}
             changeValue={(classification, classificationSrc) =>
-              setExpenseData({
-                ...expenseData,
+              setInputExpenseData({
+                ...inputExpenseData,
                 classification,
                 classificationSrc,
               })
@@ -211,8 +286,8 @@ const ExpenseTab = ({
             ChipData={ASSET_DATA}
             currentValue={expenseData?.asset}
             changeValue={(asset, assetSrc) =>
-              setExpenseData({
-                ...expenseData,
+              setInputExpenseData({
+                ...inputExpenseData,
                 asset,
                 assetSrc,
               })
@@ -224,4 +299,4 @@ const ExpenseTab = ({
   );
 };
 
-export default ExpenseTab;
+export default ExpenseBoxTab;

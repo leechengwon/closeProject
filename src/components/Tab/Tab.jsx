@@ -7,7 +7,7 @@
  *       activeTab 넘어오는 훅에 초기값은 상수데이터에있는 값들중 value값을 지정해야합니다.
  */
 
-const Tap = ({ tapListData, onClick, activeTab }) => {
+const Tab = ({ tapListData, onClick, activeTab }) => {
   return (
     <div className="flex w-full">
       {tapListData.map(({ id, name, value, text }) => {
@@ -36,4 +36,4 @@ const Tap = ({ tapListData, onClick, activeTab }) => {
   );
 };
 
-export default Tap;
+export default Tab;

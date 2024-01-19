@@ -57,20 +57,68 @@ export const cert_test = status => {
  */
 const ALL_DATA = [
   {
-    date: '2024-01-19',
-    hour: 13,
-    minute: 22,
-    dayOfWeek: '금',
-    amPm: '오후',
-    incomePrice: 20000,
-    classification: '월급',
-    classificationSrc: '../money-protector/images/Chip/chip_salary.png',
-    asset: '은행',
-    assetSrc: '../money-protector/images/Chip/chip_bank.png',
-    memo: '개발해서 번 돈',
-    expenditurePrice: 0,
-    activeTab: '수입',
     id: 1,
+    activeTab: '수입',
+    incomePrice: 123,
+    expenditurePrice: 0,
+    date: '2024-01-04',
+    hour: 18,
+    minute: 44,
+    daysOfWeek: '목',
+    amPm: '오후',
+    classification: '이자',
+    classificationSrc: '../money-protector/images/Chip/side.png',
+    asset: '은행',
+    assetSrc: '../money-protector/images/Chip/bank.png',
+    memo: '은행가자~',
+  },
+  {
+    id: 2,
+    activeTab: '수입',
+    incomePrice: 10000,
+    expenditurePrice: 0,
+    date: '2024-01-10',
+    hour: 18,
+    minute: 44,
+    daysOfWeek: '수',
+    amPm: '오후',
+    classification: '금융소득',
+    classificationSrc: '../money-protector/images/Chip/finance.png',
+    asset: '은행',
+    assetSrc: '../money-protector/images/Chip/bank.png',
+    memo: '은행가서 입금해요',
+  },
+  {
+    id: 3,
+    activeTab: '지출',
+    incomePrice: 0,
+    expenditurePrice: 1500,
+    date: '2024-01-10',
+    hour: 18,
+    minute: 55,
+    daysOfWeek: '수',
+    amPm: '오후',
+    classification: '식비',
+    classificationSrc: '../money-protector/images/Chip/food.png',
+    asset: '카드',
+    assetSrc: '../money-protector/images/Chip/credit_card.png',
+    memo: '핫도그',
+  },
+  {
+    id: 4,
+    activeTab: '지출',
+    incomePrice: 0,
+    expenditurePrice: 20000,
+    date: '2024-01-19',
+    hour: 18,
+    minute: 55,
+    daysOfWeek: '금',
+    amPm: '오후',
+    classification: '식비',
+    classificationSrc: '../money-protector/images/Chip/food.png',
+    asset: '카드',
+    assetSrc: '../money-protector/images/Chip/credit_card.png',
+    memo: '카페왔어요',
   },
 ];
 
@@ -128,9 +176,9 @@ export const getTotalMoney = () => {
   let totalExpenditure = 0;
   ALL_DATA.forEach(item => {
     if (item.activeTab == '수입' && item.incomePrice)
-      totalIncome += item.incomePrice;
+      totalIncome += Number(item.incomePrice);
     if (item.activeTab == '지출' && item.expenditurePrice)
-      totalExpenditure += item.expenditurePrice;
+      totalExpenditure += Number(item.expenditurePrice);
   });
   const totalMoney = totalIncome - totalExpenditure;
   return new Promise((resolve, reject) => {
@@ -149,7 +197,7 @@ export const getIncomeTotalMoney = () => {
   let totalIncome = 0;
   ALL_DATA.forEach(item => {
     if (item.activeTab == '수입' && item.incomePrice)
-      totalIncome += item.incomePrice;
+      totalIncome += Number(item.incomePrice);
   });
   return new Promise((resolve, reject) => {
     resolve({
@@ -167,7 +215,7 @@ export const getExpenditureTotalMoney = () => {
   let totalExpenditure = 0;
   ALL_DATA.forEach(item => {
     if (item.activeTab == '지출' && item.expenditurePrice)
-      totalExpenditure += item.expenditurePrice;
+      totalExpenditure += Number(item.expenditurePrice);
   });
   return new Promise((resolve, reject) => {
     resolve({
@@ -199,6 +247,89 @@ export const putMoneyDataById = (id, inputData) => {
   return new Promise((resolve, reject) => {
     resolve({
       status: 200,
+    });
+  });
+};
+
+/**
+ * 날짜로 내역을 검색합니다.
+ * param ex '2024-10-01'
+ */
+export const getMoneyDataListByDate = dateStr => {
+  const allData = ALL_DATA.filter(item => {
+    const itemDate = new Date(item.date);
+    const date = new Date(dateStr);
+    if (
+      itemDate.getFullYear() === date.getFullYear() &&
+      itemDate.getMonth() === date.getMonth() &&
+      itemDate.getDate() === date.getDate()
+    ) {
+      return item;
+    }
+  });
+
+  return new Promise((resolve, reject) => {
+    resolve({
+      status: 200,
+      data: allData,
+    });
+  });
+};
+
+/**
+ * 모든 classification별 지출을 리턴합니다.
+ */
+export const getAllExpenditureByClassification = () => {
+  const classificationList = [];
+  ALL_DATA.forEach(item => {
+    if (item.activeTab === '지출') {
+      const index = classificationList.findIndex(
+        classificationItem =>
+          classificationItem.classification === item.classification,
+      );
+      if (index === -1) {
+        classificationList.push({
+          classification: item.classification,
+          price: item.expenditurePrice,
+        });
+      } else {
+        classificationList[index].price += item.expenditurePrice;
+      }
+    }
+  });
+  return new Promise((resolve, reject) => {
+    resolve({
+      status: 200,
+      data: classificationList,
+    });
+  });
+};
+
+/**
+ * 모든 classification별 수입을 리턴합니다.
+ */
+export const getAllIncomeByClassification = () => {
+  const classificationList = [];
+  ALL_DATA.forEach(item => {
+    if (item.activeTab === '수입') {
+      const index = classificationList.findIndex(
+        classificationItem =>
+          classificationItem.classification === item.classification,
+      );
+      if (index === -1) {
+        classificationList.push({
+          classification: item.classification,
+          price: item.incomePrice,
+        });
+      } else {
+        classificationList[index].price += item.incomePrice;
+      }
+    }
+  });
+  return new Promise((resolve, reject) => {
+    resolve({
+      status: 200,
+      data: classificationList,
     });
   });
 };
