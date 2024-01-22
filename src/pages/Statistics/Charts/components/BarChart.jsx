@@ -37,7 +37,6 @@ const BAR_CHART_CONFIG = {
   ],
   yAxis: [
     {
-      show: false,
       type: 'value',
       width: 'auto',
     },
