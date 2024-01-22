@@ -25,7 +25,7 @@ const TAB_TYPE = {
 };
 const ExpenseBoxTab = ({
   expenseData,
-  closeTab,
+  selectDate,
   saveInputExpenseData,
   removeExpenseData,
   cancel,
@@ -80,6 +80,8 @@ const ExpenseBoxTab = ({
       const { date, hour, minute } = expenseData;
       const dateStr = `${date} ${hour}:${minute}`;
       setInputDate(new Date(dateStr));
+    }else if(selectDate && selectDate.year){
+      setInputDate(new Date(`${selectDate.year}-${selectDate.month}-${selectDate.day}`));
     }
   }, []);
 
