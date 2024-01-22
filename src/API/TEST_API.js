@@ -333,3 +333,47 @@ export const getAllIncomeByClassification = () => {
     });
   });
 };
+
+/**
+ * 모든 월별 지출을 리턴합니다.
+ */
+export const getAllExpenditureByMonth = () => {
+  const monthList = [];
+  Array(12).fill().map((_, i) => i + 1).forEach(month => {
+    monthList[month+'월'] = 0;
+  });
+  ALL_DATA.forEach(item => {
+    if (item.activeTab === '지출') {
+      const month = new Date(item.date).getMonth() + 1;
+      monthList[month+'월'] += item.expenditurePrice;
+    }
+  });
+  return new Promise((resolve, reject) => {
+    resolve({
+      status: 200,
+      data: monthList,
+    });
+  });
+};
+
+/**
+ * 모든 월별 수입을 리턴합니다.
+ */
+export const getAllIncomeByMonth = () => {
+  const monthList = [];
+  Array(12).fill().map((_, i) => i + 1).forEach(month => {
+    monthList[month+'월'] = 0;
+  });
+  ALL_DATA.forEach(item => {
+    if (item.activeTab === '수입') {
+      const month = new Date(item.date).getMonth() + 1;
+      monthList[month+'월'] += item.incomePrice;
+    }
+  });
+  return new Promise((resolve, reject) => {
+    resolve({
+      status: 200,
+      data: monthList,
+    });
+  });
+};
