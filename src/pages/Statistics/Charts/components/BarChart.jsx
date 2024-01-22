@@ -30,22 +30,23 @@ const BAR_CHART_CONFIG = {
   xAxis: [
     {
       type: 'category',
-      data: Array(12).fill().map((_, i) => i + 1+'월'), // 1월부터 12월까지 배열로 만들어줌
+      data: Array(12)
+        .fill()
+        .map((_, i) => i + 1 + '월'), // 1월부터 12월까지 배열로 만들어줌
     },
   ],
   yAxis: [
     {
+      show: false,
       type: 'value',
       width: 'auto',
     },
   ],
 };
 
-const {tooltip, legend, toolbox, calculable, xAxis, yAxis} = BAR_CHART_CONFIG;
-
+const { tooltip, legend, toolbox, calculable, xAxis, yAxis } = BAR_CHART_CONFIG;
 
 const BarChart = () => {
-
   const [incomeChartData, setIncomeChartData] = useState(null);
   const [expenditureChartData, setExpenditureChartData] = useState(null);
 
@@ -89,7 +90,6 @@ const BarChart = () => {
         opts={{ width: 'auto', height: 'auto' }}
         className="text-sm md:text-[6px] lg:text-[4px]"
       />
-
     </div>
   );
 };
