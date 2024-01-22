@@ -15,7 +15,12 @@ import DatePicker from 'react-datepicker';
 import { ko } from 'date-fns/locale';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const TAB_TYPE = {
+/**
+ * 현재 이 컴포넌트가
+ * 새로운걸 등록하기 위한것인지, 기존 데이터를 수정하기 위한것인지를
+ * 구분하기 위한 상수입니다.
+ */
+const BOX_TYPE = {
   NEW: {
     save: '등록하기',
   },
@@ -23,6 +28,14 @@ const TAB_TYPE = {
     save: '수정하기',
   },
 };
+
+/**
+ * 수입/지출 데이터를 추가/수정하기 위한 ExpenseBoxTab를 띄웁니다.
+  expenseData 가 있으면 그 데이터의 필드에 맞게 값이 채워지고,
+  아니면 빈값으로 뜹니다.
+  하지만 날짜는 expenseData가 없어도 선택한 날짜로 넘어가거나,
+  선택한 날짜도 없으면 현재 날짜로 입력됩니다.
+ */
 const ExpenseBoxTab = ({
   expenseData,
   selectDate,
@@ -30,6 +43,9 @@ const ExpenseBoxTab = ({
   removeExpenseData,
   cancel,
 }) => {
+  /**
+   * 수입 <-> 지출 탭을 변경합니다.
+   */
   const handleTapClick = value => {
     setInputExpenseData({
       ...inputExpenseData,
@@ -37,27 +53,38 @@ const ExpenseBoxTab = ({
     });
   };
 
+  /**
+   * 입력한 날짜를 저장합니다.
+   */
   const [inputDate, setInputDate] = useState(new Date());
 
+  /**
+   * 수입/지출 데이터입니다. 초기값으로 수입입니다.
+   */
   const [inputExpenseData, setInputExpenseData] = useState({
     activeTab: '수입',
     incomePrice: '',
     expenditurePrice: '',
   });
 
-  const [tabType, setTabType] = useState(TAB_TYPE.NEW);
+
+  const [tabType, setTabType] = useState(BOX_TYPE.NEW);
 
   useEffect(() => {
     if (expenseData) {
       const copyData = { ...expenseData };
+      // 할당된 수입/지출 데이터가 있으면 빈 값을 그 값으로 할당합니다.
       setInputExpenseData(copyData);
-      setTabType(TAB_TYPE.DETAIL);
+      // 기존 데이터를 수정하기 위한 모달이므로 타입을 DETAIL로 변경합니다.
+      setTabType(BOX_TYPE.DETAIL);
     }
   }, [expenseData]);
 
   const save = () => {
     // 지출/수입 금액을 0으로 초기화해서 저장합니다.
     if (inputExpenseData.activeTab === '수입') {
+      // 수입일 경우에는 지출금액을 0으로 할당합니다.
+      // 나머지는 입력한 값으로 할당합니다.
       saveInputExpenseData({
         ...inputExpenseData,
         expenditurePrice: 0,
@@ -65,6 +92,8 @@ const ExpenseBoxTab = ({
         activeTab: inputExpenseData.activeTab,
       });
     } else {
+      // 지출일 경우에는 수입금액을 0으로 할당합니다.
+      // 나머지는 입력한 값으로 할당합니다.
       saveInputExpenseData({
         ...inputExpenseData,
         incomePrice: 0,
@@ -75,6 +104,12 @@ const ExpenseBoxTab = ({
     cancel();
   };
 
+  /**
+   * 날짜를 입력합니다.
+   * expenseData가 있으면 그 데이터의 날짜를,
+   * 없으면 선택한 날짜를,
+   * 선택한 날짜도 없으면 현재 날짜를 입력합니다.
+   */
   useEffect(() => {
     if (expenseData && expenseData.date) {
       const { date, hour, minute } = expenseData;
@@ -85,6 +120,10 @@ const ExpenseBoxTab = ({
     }
   }, []);
 
+  /**
+   * 입력한 값을 저장합니다.
+   * 입력한 날짜가 바뀌면 그 날짜를 저장합니다.
+   */
   useEffect(() => {
     let dateStr = '';
     let [year, month, day] = [
@@ -248,7 +287,7 @@ const ExpenseBoxTab = ({
 
           <div className="flex w-full items-center justify-center gap-3 pt-5">
             <Button type="submit" text={tabType.save} onClick={save} />
-            {tabType == TAB_TYPE.NEW ? (
+            {tabType == BOX_TYPE.NEW ? (
               <Button text="취소" color="white" onClick={cancel} />
             ) : (
               <Button

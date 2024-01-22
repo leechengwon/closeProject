@@ -5,6 +5,9 @@ import {
   getAllExpenditureByClassification,
 } from '../../../../API/TEST_API';
 
+/**
+ * Lip Chart의 기본 설정을 저장합니다.
+ */
 const LIP_CHART_CONFIG = {
   tooltip: {
     trigger: 'item',
@@ -62,7 +65,7 @@ const Chart = () => {
   return (
     <div className="mb-20 w-full">
       <div className="my-14 flex w-full justify-center">
-        <h2 className="text-30px">수입내역</h2>
+        <h2 className="text-30px">수입 내역</h2>
       </div>
       {incomeChartData ? (
         <ECharts
@@ -86,7 +89,7 @@ const Chart = () => {
       ) : null}
 
       <div className="my-14 flex w-full justify-center">
-        <h2 className="text-30px">지출내역</h2>
+        <h2 className="text-30px">지출 내역</h2>
       </div>
 
       {expenditureChartData ? (

@@ -78,6 +78,10 @@ const Calender = () => {
     setIsModalOpen(!isModalOpen);
   };
 
+  /**
+   * 달력에 표시할 모든 수입/지출 데이터를 가져오기 위한 함수 입니다.
+   * 모든 데이터를 가져와서 날짜에 맞게 표시합니다.
+   */
   const requestCalenderData = async () => {
     try {
       const request = await getAllMoneyData();
@@ -87,6 +91,10 @@ const Calender = () => {
     }
   };
 
+  /**
+   * 데이테에 변동이 있을 때, DB에서 업데이트된 데이터를 가져오기 위한 함수 입니다.
+   * 데이터가 다른 화면(모듈 화면)에서 삽입/수정/삭제 되었을 때, 호출됩니다.
+   */
   const updateData = () => {
     requestCalenderData();
   }

@@ -2,7 +2,14 @@ import React, { useMemo } from 'react';
 import IconButton from '../../IconButton/IconButton';
 import 'react-datepicker/dist/react-datepicker.css';
 
+/**
+ * 선택한 날짜의 목록을 보여줍니다.
+ */
 const ExpenseListTab = ({ selectDate, expenseList, showExpenseBoxModal }) => {
+  /**
+   * expenseList의 총 수입금액을 구합니다.
+   * expenseList가 변경될 때마다 총 금액을 다시 계산합니다.
+   */
   const incomeTotal = useMemo(() => {
     let price = 0;
     if (expenseList && expenseList.length > 0) {
@@ -13,6 +20,10 @@ const ExpenseListTab = ({ selectDate, expenseList, showExpenseBoxModal }) => {
     return price;
   }, [expenseList]);
 
+/**
+ * expenseList의 총 지출금액을 구합니다.
+ * expenseList가 변경될 때마다 총 금액을 다시 계산합니다.
+ */
   const expenditureTotal = useMemo(() => {
     let price = 0;
     if (expenseList && expenseList.length > 0) {
@@ -23,6 +34,11 @@ const ExpenseListTab = ({ selectDate, expenseList, showExpenseBoxModal }) => {
     return price;
   }, [expenseList]);
 
+  /**
+   * 수입 - 지출 = 합계
+   * useMemo를 사용해서  수입, 지출이 변경될때마다 합계를 계산합니다.
+   * 
+   */
   const total = useMemo(
     () => incomeTotal - expenditureTotal,
     [incomeTotal, expenditureTotal],
