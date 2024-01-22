@@ -54,7 +54,9 @@ const AccountBook = () => {
 
   const getExpenseInfo = useCallback(() => {
     getAllMoneyData().then(data => {
-      setExpenseList(data.data);
+      setExpenseList(data.data.sort((a, b) => {
+        return new Date(b.date) - new Date(a.date);
+      }));
       console.log(data.data);
     });
 
@@ -126,7 +128,7 @@ const AccountBook = () => {
         </div>
       </section>
 
-      <section className="mb-32 mt-20 border-collapse">
+      <section className="mt-8 border-collapse">
         <table className="w-full table-auto">
           <thead>
             <tr>

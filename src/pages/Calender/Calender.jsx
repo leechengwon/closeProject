@@ -54,6 +54,7 @@ const Calender = () => {
     daysOfWeek: daysOfWeek[selectedDate?.getDay()],
   };
 
+
   useEffect(() => {
     requestCalenderData();
   }, []);
@@ -86,6 +87,10 @@ const Calender = () => {
     }
   };
 
+  const updateData = () => {
+    requestCalenderData();
+  }
+
   return (
     <main className="pb-24">
       <RenderHeader
@@ -104,7 +109,7 @@ const Calender = () => {
         {isModalOpen && (
           <Modal
             title="내역 상세보기"
-            content={<CalenderModal selectDate={date} />}
+            content={<CalenderModal selectDate={date} updateData={updateData} />}
             size="lg"
             isCloseBtn={true}
             isModalOpen={isModalOpen}

@@ -15,15 +15,16 @@ const PAGE_TYPE = {
 };
 
 const MODAL_TYPE = {
-  NEW: {
-    title: '수입/지출 입력하기',
-  },
-  DETAIL: {
-    title: '내역 상세보기',
-  },
+  NEW: 'new',
+  DETAIL: 'detail',
 };
 
-const CalenderModal = ({ selectDate }) => {
+const CalenderModal = ({ selectDate, updateData }) => {
+  /**
+   * 현재 페이지의 타입을 저장합니다.
+   * LIST: 목록 페이지
+   * BOX: 추가/수정을 위한 박스 페이지
+   */
   const [pageType, setPageType] = useState(PAGE_TYPE.LIST);
 
   const [clickedExpense, setClickedExpense] = useState({});
@@ -36,33 +37,51 @@ const CalenderModal = ({ selectDate }) => {
 
   const [modalType, setModalType] = useState(MODAL_TYPE.NEW);
 
-  const requestSaveData = data => {
-    if (modalType === MODAL_TYPE.NEW) {
-      // 새로운 데이터를 업로드합니다.
-      postMoneyData(data).then(data => {
-        data.status === 200 && alert('저장되었습니다.');
-      });
-    } else {
-      // 기존 데이터를 업데이트합니다.
-      putMoneyDataById(data.id, data).then(data => {
-        data.status === 200 && alert('수정되었습니다.');
-      });
-    }
-  };
-
-  const deleteExpenseData = id => {
-    deleteMoneyDataById(id);
-  };
-
   const [expenseList, setExpenseList] = useState([]);
-
-  useEffect(() => {
+  
+  /**
+   * 선택된 날짜에 해당하는 데이터를 가져와서
+   * state에 저장합니다.
+   */
+  const getMoneyDataList = () => {
     getMoneyDataListByDate(
       `${selectDate.year}-${selectDate.month}-${selectDate.day}`,
     ).then(res => {
       setExpenseList(res.data);
     });
+  }
+
+  useEffect(() => {
+    getMoneyDataList();
   }, []);
+
+  const requestSaveData = data => {
+    if (modalType === MODAL_TYPE.NEW) {
+      // 새로운 데이터를 업로드합니다.
+      postMoneyData(data).then(res => {
+        res.status === 200 && alert('저장되었습니다.');
+        getMoneyDataList();
+      });
+    } else {
+      // 기존 데이터를 업데이트합니다.
+      putMoneyDataById(data.id, data).then(res => {
+        res.status === 200 && alert('수정되었습니다.');
+        getMoneyDataList();
+      });
+    }
+    updateData();
+
+  };
+
+  const deleteExpenseData = id => {
+    deleteMoneyDataById(id).then(data => {
+      data.status === 200 && alert('삭제되었습니다.');
+      setExpenseList(expenseList.filter(item => item.id !== id));
+      updateData();
+    });
+  };
+
+
 
   return (
     <section className="flex flex-col">
@@ -75,6 +94,7 @@ const CalenderModal = ({ selectDate }) => {
       ) : (
         <ExpenseBoxTab
           expenseData={clickedExpense}
+          selectDate={selectDate}
           saveInputExpenseData={requestSaveData}
           closeTab={() => console.log('closeTab')}
           cancel={() => setPageType(PAGE_TYPE.LIST)}
