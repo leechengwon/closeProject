@@ -70,7 +70,7 @@ const ALL_DATA = [
     classificationSrc: '../money-protector/images/Chip/side.png',
     asset: '은행',
     assetSrc: '../money-protector/images/Chip/bank.png',
-    memo: '은행가자~',
+    memo: '은행이자',
   },
   {
     id: 2,
@@ -119,6 +119,182 @@ const ALL_DATA = [
     asset: '카드',
     assetSrc: '../money-protector/images/Chip/credit_card.png',
     memo: '카페왔어요',
+  },
+  {
+    id: 5,
+    activeTab: '수입',
+    incomePrice: 150000,
+    expenditurePrice: 0,
+    date: '2024-01-01',
+    hour: 9,
+    minute: 0,
+    daysOfWeek: '월',
+    amPm: '오전',
+    classification: '월급',
+    classificationSrc: '../money-protector/images/Chip/salary.png',
+    asset: '은행',
+    assetSrc: '../money-protector/images/Chip/bank.png',
+    memo: '알바비',
+  },
+  {
+    id: 6,
+    activeTab: '지출',
+    incomePrice: 0,
+    expenditurePrice: 115000,
+    date: '2024-01-01',
+    hour: 9,
+    minute: 0,
+    daysOfWeek: '월',
+    amPm: '오전',
+    classification: '주거통신',
+    classificationSrc: '../money-protector/images/Chip/information.png',
+    asset: '은행',
+    assetSrc: '../money-protector/images/Chip/bank.png',
+    memo: '핸드폰비',
+  },
+  {
+    id: 7,
+    activeTab: '지출',
+    incomePrice: 0,
+    expenditurePrice: 230000,
+    date: '2024-01-06',
+    hour: 9,
+    minute: 0,
+    daysOfWeek: '토',
+    amPm: '오전',
+    classification: '패션미용',
+    classificationSrc: '../money-protector/images/Chip/fashion.png',
+    memo: '파마',
+    asset: '카드',
+    assetSrc: '../money-protector/images/Chip/credit_card.png',
+  },
+  {
+    id: 8,
+    activeTab: '지출',
+    incomePrice: 0,
+    expenditurePrice: 38000,
+    date: '2024-01-14',
+    hour: 9,
+    minute: 0,
+    daysOfWeek: '일',
+    amPm: '오전',
+    classification: '식비',
+    classificationSrc: '../money-protector/images/Chip/food.png',
+    asset: '카드',
+    assetSrc: '../money-protector/images/Chip/credit_card.png',
+    memo: '아구찜',
+  },
+  {
+    id: 9,
+    activeTab: '지출',
+    incomePrice: 0,
+    expenditurePrice: 100000,
+    date: '2024-01-13',
+    hour: 9,
+    minute: 0,
+    daysOfWeek: '토',
+    amPm: '오전',
+    classification: '경조사비',
+    classificationSrc: '../money-protector/images/Chip/celebration.png',
+    asset: '현금',
+    assetSrc: '../money-protector/images/Chip/cash.png',
+    memo: '결혼식 축의금',
+  },
+  {
+    id: 10,
+    activeTab: '수입',
+    incomePrice: 1512,
+    expenditurePrice: 0,
+    date: '2024-01-05',
+    hour: 9,
+    minute: 0,
+    daysOfWeek: '금',
+    amPm: '오전',
+    classification: '이자',
+    classificationSrc: '../money-protector/images/Chip/side.png',
+    asset: '은행',
+    assetSrc: '../money-protector/images/Chip/bank.png',
+    memo: '채권이자',
+  },
+  {
+    id: 11,
+    activeTab: '지출',
+    incomePrice: 0,
+    expenditurePrice: 50000,
+    date: '2024-01-05',
+    hour: 9,
+    minute: 0,
+    daysOfWeek: '금',
+    amPm: '오전',
+    classification: '교통차량',
+    classificationSrc: '../money-protector/images/Chip/car.png',
+    asset: '카드',
+    assetSrc: '../money-protector/images/Chip/credit_card.png',
+    memo: '주유비',
+  },
+  {
+    id: 12,
+    activeTab: '지출',
+    incomePrice: 0,
+    expenditurePrice: 20000,
+    date: '2024-01-14',
+    hour: 9,
+    minute: 0,
+    daysOfWeek: '일',
+    amPm: '오전',
+    classification: '건강',
+    classificationSrc: '../money-protector/images/Chip/health.png',
+    asset: '현금',
+    assetSrc: '../money-protector/images/Chip/cash.png',
+    memo: '헬스장 일일권',
+  },
+  {
+    id: 13,
+    activeTab: '수입',
+    incomePrice: 200000,
+    expenditurePrice: 0,
+    date: '2024-01-08',
+    hour: 9,
+    minute: 0,
+    daysOfWeek: '월',
+    amPm: '오전',
+    classification: '상여',
+    classificationSrc: '../money-protector/images/Chip/bonus.png',
+    asset: '은행',
+    assetSrc: '../money-protector/images/Chip/bank.png',
+    memo: '새해상여금',
+  },
+  {
+    id: 14,
+    activeTab: '수입',
+    incomePrice: 100000,
+    expenditurePrice: 0,
+    date: '2024-01-18',
+    hour: 9,
+    minute: 0,
+    daysOfWeek: '목',
+    amPm: '오전',
+    classification: '기타',
+    classificationSrc: '../money-protector/images/Chip/etc.png',
+    memo: '빌려준돈을 받았다',
+    asset: '현금',
+    assetSrc: '../money-protector/images/Chip/cash.png',
+  },
+  {
+    id: 15,
+    activeTab: '지출',
+    incomePrice: 0,
+    expenditurePrice: 250000,
+    date: '2024-01-07',
+    hour: 9,
+    minute: 0,
+    daysOfWeek: '일',
+    amPm: '오전',
+    classification: '기타',
+    classificationSrc: '../money-protector/images/Chip/etc.png',
+    memo: '데이트비용',
+    asset: '카드',
+    assetSrc: '../money-protector/images/Chip/credit_card.png',
   },
 ];
 
@@ -339,13 +515,16 @@ export const getAllIncomeByClassification = () => {
  */
 export const getAllExpenditureByMonth = () => {
   const monthList = [];
-  Array(12).fill().map((_, i) => i + 1).forEach(month => {
-    monthList[month+'월'] = 0;
-  });
+  Array(12)
+    .fill()
+    .map((_, i) => i + 1)
+    .forEach(month => {
+      monthList[month + '월'] = 0;
+    });
   ALL_DATA.forEach(item => {
     if (item.activeTab === '지출') {
       const month = new Date(item.date).getMonth() + 1;
-      monthList[month+'월'] += item.expenditurePrice;
+      monthList[month + '월'] += item.expenditurePrice;
     }
   });
   return new Promise((resolve, reject) => {
@@ -361,13 +540,16 @@ export const getAllExpenditureByMonth = () => {
  */
 export const getAllIncomeByMonth = () => {
   const monthList = [];
-  Array(12).fill().map((_, i) => i + 1).forEach(month => {
-    monthList[month+'월'] = 0;
-  });
+  Array(12)
+    .fill()
+    .map((_, i) => i + 1)
+    .forEach(month => {
+      monthList[month + '월'] = 0;
+    });
   ALL_DATA.forEach(item => {
     if (item.activeTab === '수입') {
       const month = new Date(item.date).getMonth() + 1;
-      monthList[month+'월'] += item.incomePrice;
+      monthList[month + '월'] += item.incomePrice;
     }
   });
   return new Promise((resolve, reject) => {
