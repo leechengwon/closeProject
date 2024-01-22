@@ -126,7 +126,7 @@ const AccountBook = () => {
         </div>
       </section>
 
-      <section className="mt-8 border-collapse">
+      <section className="mb-32 mt-20 border-collapse">
         <table className="w-full table-auto">
           <thead>
             <tr>
