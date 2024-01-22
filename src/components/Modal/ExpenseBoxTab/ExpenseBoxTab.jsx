@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { TAP_DATA } from '../../../data/TapGroup';
 
@@ -47,9 +47,11 @@ const ExpenseBoxTab = ({
    * 수입 <-> 지출 탭을 변경합니다.
    */
   const handleTapClick = value => {
+    // 분류를 삭제합니다.
     setInputExpenseData({
       ...inputExpenseData,
       activeTab: value,
+      classification: '',
     });
   };
 
@@ -67,7 +69,6 @@ const ExpenseBoxTab = ({
     expenditurePrice: '',
   });
 
-
   const [tabType, setTabType] = useState(BOX_TYPE.NEW);
 
   useEffect(() => {
@@ -80,28 +81,46 @@ const ExpenseBoxTab = ({
     }
   }, [expenseData]);
 
+  /**
+   * 입력한 값이 유효한지 검사합니다.
+   * 유효하면 true, 아니면 false를 반환합니다.
+   * 모든 값이 입력되어야 유효합니다.
+   */
+  const validation = useMemo(() => {
+    return (
+      (inputExpenseData.incomePrice || inputExpenseData.expenditurePrice) &&
+      inputExpenseData.classification &&
+      inputExpenseData.asset &&
+      inputExpenseData.memo
+    );
+  }, [inputExpenseData]);
+
   const save = () => {
-    // 지출/수입 금액을 0으로 초기화해서 저장합니다.
-    if (inputExpenseData.activeTab === '수입') {
-      // 수입일 경우에는 지출금액을 0으로 할당합니다.
-      // 나머지는 입력한 값으로 할당합니다.
-      saveInputExpenseData({
-        ...inputExpenseData,
-        expenditurePrice: 0,
-        incomePrice: Number(inputExpenseData.incomePrice),
-        activeTab: inputExpenseData.activeTab,
-      });
+    if (validation) {
+      // 지출/수입 금액을 0으로 초기화해서 저장합니다.
+      if (inputExpenseData.activeTab === '수입') {
+        // 수입일 경우에는 지출금액을 0으로 할당합니다.
+        // 나머지는 입력한 값으로 할당합니다.
+        saveInputExpenseData({
+          ...inputExpenseData,
+          expenditurePrice: 0,
+          incomePrice: Number(inputExpenseData.incomePrice),
+          activeTab: inputExpenseData.activeTab,
+        });
+      } else {
+        // 지출일 경우에는 수입금액을 0으로 할당합니다.
+        // 나머지는 입력한 값으로 할당합니다.
+        saveInputExpenseData({
+          ...inputExpenseData,
+          incomePrice: 0,
+          expenditurePrice: Number(inputExpenseData.expenditurePrice),
+          activeTab: inputExpenseData.activeTab,
+        });
+      }
+      cancel();
     } else {
-      // 지출일 경우에는 수입금액을 0으로 할당합니다.
-      // 나머지는 입력한 값으로 할당합니다.
-      saveInputExpenseData({
-        ...inputExpenseData,
-        incomePrice: 0,
-        expenditurePrice: Number(inputExpenseData.expenditurePrice),
-        activeTab: inputExpenseData.activeTab,
-      });
+      alert('모든 항목을 입력해주세요.');
     }
-    cancel();
   };
 
   /**
@@ -115,8 +134,10 @@ const ExpenseBoxTab = ({
       const { date, hour, minute } = expenseData;
       const dateStr = `${date} ${hour}:${minute}`;
       setInputDate(new Date(dateStr));
-    }else if(selectDate && selectDate.year){
-      setInputDate(new Date(`${selectDate.year}-${selectDate.month}-${selectDate.day}`));
+    } else if (selectDate && selectDate.year) {
+      setInputDate(
+        new Date(`${selectDate.year}-${selectDate.month}-${selectDate.day}`),
+      );
     }
   }, []);
 
@@ -158,7 +179,11 @@ const ExpenseBoxTab = ({
           activeTab={inputExpenseData.activeTab}
         />
       </div>
-      <form>
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+        }}
+      >
         <fieldset onClick={() => setChipGroupOpenStatus('')}>
           <legend className="text-0px">수입</legend>
 
@@ -309,7 +334,7 @@ const ExpenseBoxTab = ({
                 ? INCOME_DATA
                 : EXPENDITURE_DATA
             }
-            currentValue={expenseData?.classification}
+            currentValue={inputExpenseData?.classification}
             changeValue={(classification, classificationSrc) =>
               setInputExpenseData({
                 ...inputExpenseData,
@@ -325,7 +350,7 @@ const ExpenseBoxTab = ({
           <ChipGroup
             size="sm"
             ChipData={ASSET_DATA}
-            currentValue={expenseData?.asset}
+            currentValue={inputExpenseData?.asset}
             changeValue={(asset, assetSrc) =>
               setInputExpenseData({
                 ...inputExpenseData,

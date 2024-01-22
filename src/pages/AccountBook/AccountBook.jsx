@@ -56,9 +56,11 @@ const AccountBook = () => {
     // 모든 수입/지출 데이터를 가져옵니다.
     getAllMoneyData().then(data => {
       // 날짜를 기준으로 내림차순 정렬합니다.
-      setExpenseList(data.data.sort((a, b) => {
-        return new Date(b.date) - new Date(a.date);
-      }));
+      setExpenseList(
+        data.data.sort((a, b) => {
+          return new Date(b.date) - new Date(a.date);
+        }),
+      );
     });
 
     // 모든 수입 총합 금액을 가져옵니다.
@@ -84,7 +86,7 @@ const AccountBook = () => {
 
   /**
    * id에 해당하는 데이터를 삭제합니다.
-   * @param {*} id 
+   * @param {*} id
    * 데이터를 삭제하면 DB에서 삭제된 데이터를 제외한 데이터를 가져옵니다.
    */
   const deleteExpenseData = id => {
@@ -155,7 +157,7 @@ const AccountBook = () => {
         </div>
       </section>
 
-      <section className="mt-8 border-collapse">
+      <section className="mb-32 mt-8 border-collapse">
         <table className="w-full table-auto">
           <thead>
             <tr>
