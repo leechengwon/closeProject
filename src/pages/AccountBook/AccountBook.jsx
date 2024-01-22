@@ -53,55 +53,82 @@ const AccountBook = () => {
    */
 
   const getExpenseInfo = useCallback(() => {
+    // 모든 수입/지출 데이터를 가져옵니다.
     getAllMoneyData().then(data => {
+      // 날짜를 기준으로 내림차순 정렬합니다.
       setExpenseList(data.data.sort((a, b) => {
         return new Date(b.date) - new Date(a.date);
       }));
-      console.log(data.data);
     });
 
+    // 모든 수입 총합 금액을 가져옵니다.
     getIncomeTotalMoney().then(data => {
       setIncomeTotal(data.data);
     });
 
+    // 모든 지출 총합 금액을 가져옵니다.
     getExpenditureTotalMoney().then(data => {
       setExpenditureTotal(data.data);
     });
 
+    // 모든 수입 - 지출 총합 금액을 가져옵니다.
     getTotalMoney().then(data => {
       setTotal(data.data);
     });
   }, []);
 
   useEffect(() => {
+    // 필요한 모든 데이터를 가져옵니다.
     getExpenseInfo();
   }, []);
 
+  /**
+   * id에 해당하는 데이터를 삭제합니다.
+   * @param {*} id 
+   * 데이터를 삭제하면 DB에서 삭제된 데이터를 제외한 데이터를 가져옵니다.
+   */
   const deleteExpenseData = id => {
-    deleteMoneyDataById(id);
-    setEditModalPageToggle(false);
-    getExpenseInfo();
+    deleteMoneyDataById(id).then(data => {
+      data.status === 200 && alert('삭제되었습니다.');
+      setEditModalPageToggle(false);
+      getExpenseInfo();
+    });
   };
 
+  /**
+   * Modal을 열어줍니다.
+   * @param {*} data
+   * data가 있으면 DETAIL 모달을, (수정을 위함)
+   * data가 없으면 NEW 모달을 엽니다. (새로운 데이터를 추가하기 위함)
+   */
   const showExpenseModal = data => {
     setModalType(data ? MODAL_TYPE.DETAIL : MODAL_TYPE.NEW);
     setClickedExpense(data);
     setEditModalPageToggle(true);
   };
 
+  /**
+   * 데이터를 저장합니다.
+   * @param {*} data
+   * data가 있으면 기존 데이터를 수정하고,
+   * data가 없으면 새로운 데이터를 추가합니다.
+   * 데이터가 저장되면 DB에서 업데이트된 데이터를 가져옵니다.
+   * 데이터가 저장되면 모달을 닫습니다.
+   */
   const requestSaveData = data => {
     if (modalType === MODAL_TYPE.NEW) {
       // 새로운 데이터를 업로드합니다.
       postMoneyData(data).then(data => {
         data.status === 200 && alert('저장되었습니다.');
+        getExpenseInfo();
       });
     } else {
       // 기존 데이터를 업데이트합니다.
       putMoneyDataById(data.id, data).then(data => {
         data.status === 200 && alert('수정되었습니다.');
+        getExpenseInfo();
       });
     }
-    getExpenseInfo();
   };
 
   return (

@@ -5,7 +5,9 @@ import {
   getAllExpenditureByMonth,
 } from '../../../../API/TEST_API';
 
-
+/**
+ * Bar Chart의 기본 설정을 저장합니다.
+ */
 const BAR_CHART_CONFIG = {
   tooltip: {
     trigger: 'axis',
