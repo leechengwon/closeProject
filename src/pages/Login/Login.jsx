@@ -14,9 +14,6 @@ const Login = () => {
   /**아이디 저장 유무를 상태를 저장하는 useState를 정의합니다.*/
   const [isRemember, setIsRemember] = useState(false);
 
-  /**아이디 저장 유무를 상태를 저장하는 useState를 정의합니다.*/
-  const [autoLogin, setAutoLogin] = useState(false);
-
   /**아이디 에러케이스를 저장하는 useState를 정의합니다.*/
   const [errorCase, setErrorCase] = useState('');
 
@@ -30,8 +27,8 @@ const Login = () => {
    * 2.여러개의 값을 저장하기위해 객체형태로 초기값을 정의했습니다.
    */
   const [userLoginInfo, setUserLoginInfo] = useState({
-    id: '',
-    password: '',
+    id: 'AdminId123',
+    password: 'AdminId123',
   });
 
   /**
@@ -121,12 +118,11 @@ const Login = () => {
             removeCookie('rememberUserId');
           }
           localStorage.setItem('accessToken', res.token);
-          navigate('/');
+          navigate('/AccountBook');
           window.location.reload();
         })
         .catch(error => {
           alert('아이디 또는 비밀번호가 틀립니다.');
-          window.scrollTo({ top: 0, behavior: 'smooth' });
           setErrorCase(error);
         });
     }
@@ -181,6 +177,7 @@ const Login = () => {
                 size="md"
                 placeholder="비밀번호를 입력해주세요."
                 name="password"
+                value={userLoginInfo.password}
                 //패스워드를 보여줄지말지 토글합니다.
                 type={eyeToggle === false ? 'password' : 'text'}
                 errorMsg="비밀번호를 확인해주세요."
@@ -204,13 +201,6 @@ const Login = () => {
                   setIsRemember(e.target.checked);
                 }}
                 checked={isRemember}
-              />
-              <Checkbox
-                label="자동 로그인"
-                onChange={e => {
-                  setAutoLogin(e.target.checked);
-                }}
-                checked={autoLogin}
               />
             </div>
 

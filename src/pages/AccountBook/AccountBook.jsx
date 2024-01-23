@@ -1,4 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
+import { addMonths, subMonths } from 'date-fns';
+import RenderHeader from '../../pages/Calender/components/RenderHeader';
+
 import Tap from '../../components/Tab/Tab';
 import AccountBookItem from './components/AccountBookItem';
 import { TAP_ACCOUNTBOOK_DATA } from '../../data/TapGroup';
@@ -15,6 +18,7 @@ import {
 
 import Modal from '../../components/Modal/Modal';
 import ExpenseBoxTab from '../../components/Modal/ExpenseBoxTab/ExpenseBoxTab';
+import Pagination from '../../components/Pagination/Pagination';
 
 const MODAL_TYPE = {
   NEW: {
@@ -25,14 +29,20 @@ const MODAL_TYPE = {
   },
 };
 
+const pageSize = 6; // 페이지당 항목 수
+
 const AccountBook = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+
   /** Tab 컴포넌트에 필요한 useState 를 정의합니다.   */
   const [modalType, setModalType] = useState(MODAL_TYPE.NEW);
 
-  const [activeTab, setActiveTab] = useState('수입');
+  const [activeTab, setActiveTab] = useState('통합');
   /**클릭이벤트로 value값을 받는 클릭함수입니다. Tab 컴포넌트에서 사용합니다. */
   const handleTapClick = value => {
     setActiveTab(value);
+    setCurrentPage(1);
   };
 
   const [editModalPageToggle, setEditModalPageToggle] = useState(false);
@@ -44,6 +54,9 @@ const AccountBook = () => {
   const [expenditureTotal, setExpenditureTotal] = useState(0);
   const [total, setTotal] = useState(0);
 
+  /** 현재 실제 날짜의 데이터를 저장합니다.  */
+  const [currentDate, setCurrentDate] = useState(new Date());
+
   /**
    * 필요한 데이터를 가져옵니다.
    * 1. 모든 수입/지출 데이터
@@ -51,16 +64,16 @@ const AccountBook = () => {
    * 3. 모든 지출 총합 금액
    * 4. 모든 수입+지출 총합 금액
    */
-
   const getExpenseInfo = useCallback(() => {
-    // 모든 수입/지출 데이터를 가져옵니다.
-    getAllMoneyData().then(data => {
-      // 날짜를 기준으로 내림차순 정렬합니다.
-      setExpenseList(
-        data.data.sort((a, b) => {
-          return new Date(b.date) - new Date(a.date);
-        }),
-      );
+    getAllMoneyData(
+      currentPage,
+      pageSize,
+      activeTab,
+      currentDate.getFullYear(),
+      currentDate.getMonth() + 1,
+    ).then(response => {
+      setExpenseList(response.data);
+      setTotalPages(Math.ceil(response.totalItems / pageSize));
     });
 
     // 모든 수입 총합 금액을 가져옵니다.
@@ -77,12 +90,12 @@ const AccountBook = () => {
     getTotalMoney().then(data => {
       setTotal(data.data);
     });
-  }, []);
+  }, [currentPage, pageSize, activeTab, currentDate]);
 
   useEffect(() => {
     // 필요한 모든 데이터를 가져옵니다.
     getExpenseInfo();
-  }, []);
+  }, [getExpenseInfo, currentPage, currentDate]);
 
   /**
    * id에 해당하는 데이터를 삭제합니다.
@@ -133,9 +146,28 @@ const AccountBook = () => {
     }
   };
 
+  // 날짜 제어
+  /** onClick 시 이전 달로 이동 시키기 위한 함수 입니다.
+   * subMonths 함수는 date-fns 라이브러리에서 제공하는 함수로 현재 날짜에서 원하는 달 만큼 빼는 함수 입니다.
+   */
+  const prevMonth = () => {
+    setCurrentDate(subMonths(currentDate, 1));
+  };
+  /** onClick 시 다음 달로 이동 시키기 위한 함수 입니다.
+   * addMonths 함수는 date-fns 라이브러리에서 제공하는 함수로 현재 날짜에서 원하는 달 만큼 더하는 함수 입니다.
+   */
+  const nextMonth = () => {
+    setCurrentDate(addMonths(currentDate, 1));
+  };
+
   return (
     <main className="relative">
-      <section className="mt-28">
+      <RenderHeader
+        currentMonth={currentDate}
+        prevMonth={prevMonth}
+        nextMonth={nextMonth}
+      />
+      <section className="mt-15">
         <Tap
           tapListData={TAP_ACCOUNTBOOK_DATA}
           onClick={handleTapClick}
@@ -144,16 +176,16 @@ const AccountBook = () => {
       </section>
 
       <section className="mt-8 flex w-full text-center">
+        <div className="w-full text-[green] sm:text-11px ">
+          {`${total?.toLocaleString('ko-KR')}원`}
+        </div>
+
         <div className="w-full text-[blue] sm:text-11px">
           {`${incomeTotal?.toLocaleString('ko-KR')}원`}
         </div>
 
         <div className="w-full text-[red] sm:text-11px ">
           {`${expenditureTotal?.toLocaleString('ko-KR')}원`}
-        </div>
-
-        <div className="w-full text-[green] sm:text-11px ">
-          {`${total?.toLocaleString('ko-KR')}원`}
         </div>
       </section>
 
@@ -204,6 +236,14 @@ const AccountBook = () => {
             })}
           </tbody>
         </table>
+
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalPage={totalPages}
+          pageLimit={5} // 이 예에서는 페이지네이션 컨트롤에 5개의 페이지 번호를 표시합니다
+        />
+
         <IconButton
           className="absolute bottom-2 right-0 transition-all duration-300 hover:rotate-90 hover:scale-110"
           shape="add"
