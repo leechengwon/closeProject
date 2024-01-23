@@ -56,7 +56,7 @@ const SHAPE = {
   eye: "h-8 w-8 bg-[url('../money-protector/svg/IconButton/pwEye.svg')] back-center",
   eyeSlash:
     "h-8 w-8 bg-[url('../money-protector/svg/IconButton/pwEyeSlash.svg')] back-center",
-  left: "h-6 w-6 bg-[url('../money-protector/svg/IconButton/cale_left.svg')] back-center",
+  left: "h-8 w-8 bg-[url('../money-protector/svg/IconButton/cale_left.svg')] back-center",
   right:
-    "h-6 w-6 bg-[url('../money-protector/svg/IconButton/cale_right.svg')] back-center",
+    "h-8 w-8 bg-[url('../money-protector/svg/IconButton/cale_right.svg')] back-center",
 };
