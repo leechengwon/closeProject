@@ -98,7 +98,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, data }) => {
 
       days.push(
         <div
-          className={`shadow-calender m-1 flex w-full flex-col items-center gap-2 pt-7 sm:h-32 sm:text-10px md:h-36 lg:h-40 
+          className={`shadow-calender m-1 flex w-full cursor-pointer flex-col items-center gap-2 pt-7 hover:bg-grayscaleC sm:h-32 sm:text-10px md:h-36 lg:h-40
           ${
             isSaturdayDate && isSameMonth(day, monthStart)
               ? 'text-primaryColor'
@@ -140,7 +140,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, data }) => {
     }
     /** 2. days 배열에 저장된 요일을 rows 배열에 push 합니다. */
     rows.push(
-      <div className="flex h-1/5 w-full justify-around" key={day}>
+      <div className="flex h-1/5 w-full justify-around " key={day}>
         {days}
       </div>,
     );
@@ -148,7 +148,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, data }) => {
     days = [];
   }
 
-  return <div className="h-full w-full">{rows}</div>;
+  return <div className="h-full w-full ">{rows}</div>;
 };
 
 export default RenderCells;

@@ -20,10 +20,10 @@ const ExpenseListTab = ({ selectDate, expenseList, showExpenseBoxModal }) => {
     return price;
   }, [expenseList]);
 
-/**
- * expenseList의 총 지출금액을 구합니다.
- * expenseList가 변경될 때마다 총 금액을 다시 계산합니다.
- */
+  /**
+   * expenseList의 총 지출금액을 구합니다.
+   * expenseList가 변경될 때마다 총 금액을 다시 계산합니다.
+   */
   const expenditureTotal = useMemo(() => {
     let price = 0;
     if (expenseList && expenseList.length > 0) {
@@ -37,7 +37,7 @@ const ExpenseListTab = ({ selectDate, expenseList, showExpenseBoxModal }) => {
   /**
    * 수입 - 지출 = 합계
    * useMemo를 사용해서  수입, 지출이 변경될때마다 합계를 계산합니다.
-   * 
+   *
    */
   const total = useMemo(
     () => incomeTotal - expenditureTotal,
@@ -104,7 +104,7 @@ const ExpenseListTab = ({ selectDate, expenseList, showExpenseBoxModal }) => {
           return (
             <tbody
               key={id}
-              className="h-28 w-full border-b border-grayscaleC"
+              className="h-28 w-full cursor-pointer border-b border-grayscaleC hover:bg-grayscaleC"
               onClick={() => showExpenseBoxModal(expense)}
             >
               <tr>

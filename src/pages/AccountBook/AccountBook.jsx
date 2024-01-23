@@ -177,7 +177,8 @@ const AccountBook = () => {
         prevMonth={prevMonth}
         nextMonth={nextMonth}
       />
-      <section className="mt-15">
+
+      <section className="mt-16">
         <Tap
           tapListData={TAP_ACCOUNTBOOK_DATA}
           onClick={handleTapClick}
@@ -248,8 +249,8 @@ const AccountBook = () => {
         </table>
 
         {expenseList.length === 0 ? (
-          <div className="mt-10 flex w-full justify-center">
-            <span className="text-20px">등록된 가계부 내역이 없습니다.</span>
+          <div className="mt-10 flex justify-center text-20px text-grayscaleD">
+            <h3>등록된 가계부 내역이 없습니다.</h3>
           </div>
         ) : (
           <Pagination

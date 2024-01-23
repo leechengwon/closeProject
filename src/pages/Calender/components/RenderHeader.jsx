@@ -15,12 +15,15 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
     <section className="flex items-center justify-center">
       <div className="flex w-full items-center justify-center">
         <IconButton shape="left" onClick={prevMonth} />
+
         <h2 className="pl-10 text-center sm:text-20px md:text-24px lg:text-30px">
           {format(currentMonth, 'M')}월
         </h2>
+
         <span className="pr-10 align-bottom sm:text-12px md:text-14px lg:text-16px">
           {format(currentMonth, 'yyyy')}
         </span>
+
         <IconButton shape="right" onClick={nextMonth} />
       </div>
     </section>

@@ -21,7 +21,7 @@ const RenderDays = () => {
     );
   }
   return (
-    <div className="flex justify-around sm:py-5 md:py-8 lg:py-10">{days}</div>
+    <div className="flex justify-around sm:py-5 md:py-8 lg:py-10 ">{days}</div>
   );
 };
 
