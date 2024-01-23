@@ -28,7 +28,7 @@ const Login = () => {
    */
   const [userLoginInfo, setUserLoginInfo] = useState({
     id: 'AdminId123',
-    password: 'AdminId123',
+    password: 'AdminId123!',
   });
 
   /**
@@ -168,7 +168,7 @@ const Login = () => {
               onChange={saveUserLoginInfo}
               //포커스가 잡히면 실행됩니다.
               onFocus={saveUserLoginInfo}
-              status={errorCase.status === 400 ? 'false' : true}
+              status={errorCase.status === 400 ? 'false' : 'true'}
             />
 
             <div className="relative">
@@ -184,7 +184,7 @@ const Login = () => {
                 onChange={saveUserLoginInfo}
                 //포커스가 잡히면 실행됩니다.
                 onFocus={saveUserLoginInfo}
-                status={errorCase.status === 401 ? 'false' : true}
+                status={errorCase.status === 401 ? 'false' : 'true'}
               />
               <IconButton
                 //패스워드 이미지를 보여줄지 결정하는 반전 아이콘 버튼입니다.
