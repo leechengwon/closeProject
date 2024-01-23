@@ -28,11 +28,11 @@ const Gateway = ({ isLogin }) => {
               />
             </h2>
 
-            <span className="align-center pt-10 text-center sm:text-16px md:text-20px md:text-grayscaleA lg:text-30px">
+            <span className="align-center pt-10 text-center sm:text-16px md:text-20px  lg:text-30px">
               당신의 지갑은 안녕하신가요? 👋
             </span>
 
-            <span className="text-gray-800 align-center w-full text-center sm:pt-2 sm:text-14px md:pt-3 md:text-16px md:text-grayscaleA lg:pt-5 lg:text-20px">
+            <span className="text-gray-800 align-center w-full text-center sm:pt-2 sm:text-14px md:pt-3 md:text-16px  lg:pt-5 lg:text-20px">
               저희 『지갑지켜!』 에서 당신의 지갑을 지켜드립니다.
             </span>
           </div>
