@@ -20,11 +20,14 @@ const AccountBookItem = ({
   onClick,
 }) => {
   return (
-    <tr className="border-b" onClick={onClick}>
+    <tr
+      className="cursor-pointer border-b hover:bg-primaryColor hover:opacity-80"
+      onClick={onClick}
+    >
       <td className="py-2 text-center md:text-center">
-        {daysOfWeek}
-        <br />
         {date}
+        <br />
+        {daysOfWeek}요일
       </td>
 
       <td className="flex flex-col items-center justify-center gap-1 py-2 text-center lg:flex lg:flex-col">

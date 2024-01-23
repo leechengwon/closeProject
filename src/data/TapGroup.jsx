@@ -35,20 +35,20 @@ export const TAP_ACCOUNTBOOK_DATA = [
   {
     id: 0,
     name: 'accountBook',
-    value: '수입',
-    text: '수입',
+    value: '통합',
+    text: '통합',
   },
   {
     id: 1,
     name: 'accountBook',
-    value: '지출',
-    text: '지출',
+    value: '수입',
+    text: '수입',
   },
   ,
   {
     id: 2,
     name: 'accountBook',
-    value: '통합',
-    text: '통합',
+    value: '지출',
+    text: '지출',
   },
 ];

@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import ECharts from 'echarts-for-react';
 import {
   getAllIncomeByMonth,
   getAllExpenditureByMonth,
 } from '../../../../API/TEST_API';
+// 화면 크기를 가져와 주는 라이브러리
+import { useWindowSize } from '@uidotdev/usehooks';
 
 /**
  * Bar Chart의 기본 설정을 저장합니다.
@@ -35,19 +37,54 @@ const BAR_CHART_CONFIG = {
         .map((_, i) => i + 1 + '월'), // 1월부터 12월까지 배열로 만들어줌
     },
   ],
-  yAxis: [
-    {
-      type: 'value',
-      width: 'auto',
-    },
-  ],
 };
 
-const { tooltip, legend, toolbox, calculable, xAxis, yAxis } = BAR_CHART_CONFIG;
+const { tooltip, legend, toolbox, calculable, xAxis } = BAR_CHART_CONFIG;
 
 const BarChart = () => {
   const [incomeChartData, setIncomeChartData] = useState(null);
   const [expenditureChartData, setExpenditureChartData] = useState(null);
+
+  /**
+   * 화면 크기를 가져온다.
+   * { width, height } 값을 받을 수 있습니다.
+   * 여기서는 너비만 필요합니다.
+   */
+  const { width } = useWindowSize();
+
+  /**
+   * 차트의 y축인 yAxis값을 화면 크기에 따라서 변경합니다.
+   * 화면의 너비가 768 초과면 전체 금액을 보여줍니다. (예시. 150,000원)
+   * 화면의 너비가 768 이하 ~ 480 초과면 만원단위로 금액을 보여줍니다 (예시 15만원, 0.3만원)
+   * 화면 너비가 480이하면 y축에 아무것도 보여주지 않습니다.
+   */
+  const yAxis = useMemo(() => {
+    if (width > 768) {
+      return {
+        show: true,
+        type: 'value',
+        axisLabel: {
+          formatter: function (value) {
+            return value.toLocaleString() + '원';
+          },
+        },
+      };
+    } else if (width > 480) {
+      return {
+        show: true,
+        type: 'value',
+        axisLabel: {
+          formatter: function (value) {
+            return value / 10000 + '만원';
+          },
+        },
+      };
+    } else {
+      return {
+        show: false,
+      };
+    }
+  }, [width]);
 
   useEffect(() => {
     getAllIncomeByMonth().then(res => {
@@ -72,7 +109,7 @@ const BarChart = () => {
           toolbox,
           calculable,
           xAxis,
-          yAxis,
+          yAxis: yAxis,
           series: [
             {
               name: '수입',

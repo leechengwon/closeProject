@@ -45,6 +45,7 @@ const Header = () => {
    * 3.메인페이지로 네비게이트를 해줍니다.
    */
   const handleLoginOut = () => {
+    window.location.reload();
     localStorage.clear();
     navigate('/');
   };
@@ -52,8 +53,8 @@ const Header = () => {
   return (
     <header className="mx-auto my-0 flex h-[100px] w-full max-w-[1200px] items-center justify-between px-5 ">
       <div className="flex items-center justify-between gap-5 md:w-[400px] lg:w-[400px] ">
-        <h1>
-          <Link to="/" className="h-[80px] w-[140px]">
+        <h1 className="sm:hidden">
+          <Link to="/accountbook" className="h-[80px] w-[140px]">
             <img
               src="../../money-protector/images/mainLogo.png"
               alt="메인로고 이미지"
