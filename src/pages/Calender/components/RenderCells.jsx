@@ -129,7 +129,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, data }) => {
               </span>
             )}
             {totalExpenditurePrice > 0 && (
-              <span className="ellipsis bg-opacity-80 text-center font-RubikRegular font-bold text-secondaryColor">
+              <span className="ellipsis bg-opacity-80 text-center font-RubikRegular font-bold text-secondaryColor sm:w-10">
                 -{totalExpenditurePrice.toLocaleString('ko-KR')}원
               </span>
             )}

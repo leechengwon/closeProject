@@ -1,3 +1,5 @@
+import { de } from 'date-fns/locale';
+
 /**
  * 테스트용 api 입니다.
  * 1.인자로 status 값을 받습니다.
@@ -312,18 +314,66 @@ const ALL_DATA = [
     asset: '카드',
     assetSrc: '../money-protector/images/Chip/credit_card.png',
   },
-].sort((a, b) => new Date(b.date) - new Date(a.date));
+  {
+    id: 17,
+    activeTab: '수입',
+    incomePrice: 10000,
+    expenditurePrice: 0,
+    date: '2023-12-01',
+    hour: 9,
+    minute: 0,
+    daysOfWeek: '금',
+    amPm: '오전',
+    classification: '용돈',
+    classificationSrc: '../money-protector/images/Chip/pocket.png',
+    asset: '현금',
+    assetSrc: '../money-protector/images/Chip/cash.png',
+    memo: '현금',
+  },
+  {
+    id: 18,
+    activeTab: '지출',
+    incomePrice: 0,
+    expenditurePrice: 5000,
+    date: '2023-12-02',
+    hour: 9,
+    minute: 0,
+    daysOfWeek: '토',
+    amPm: '오전',
+    classification: '교통차량',
+    classificationSrc: '../money-protector/images/Chip/car.png',
+    asset: '현금',
+    assetSrc: '../money-protector/images/Chip/cash.png',
+    memo: '택시비',
+  },
+  {
+    id: 19,
+    activeTab: '지출',
+    incomePrice: 0,
+    expenditurePrice: 6000,
+    date: '2023-12-05',
+    hour: 9,
+    minute: 0,
+    daysOfWeek: '화',
+    amPm: '오전',
+    classification: '식비',
+    classificationSrc: '../money-protector/images/Chip/food.png',
+    asset: '카드',
+    assetSrc: '../money-protector/images/Chip/credit_card.png',
+    memo: '비빔밥',
+  },
+];
 
 /**
  * 전체 수입/지출 데이터를 가져옵니다.
  * @returns {Promise}
+ * 전체 데이터 개수 -> 날짜(year와 month) + activeTab 으로만 필터링 해야한다.
+ * 그리고 pagination 한거는 page와 pageSize가 먹어야한다.
  */
 export const getAllMoneyData = (page, pageSize, activeTab, year, month) => {
-  let filteredData = ALL_DATA;
-  let data = filteredData;
+  let totalData = ALL_DATA.sort((a, b) => new Date(b.date) - new Date(a.date));
   if (year && month) {
-    //년도와 월이 있으면 해당 년도와 월에 해당하는 데이터만 필터링
-    filteredData = ALL_DATA.filter(item => {
+    totalData = totalData.filter(item => {
       const itemDate = new Date(item.date);
       if (
         itemDate.getFullYear() === year &&
@@ -333,23 +383,25 @@ export const getAllMoneyData = (page, pageSize, activeTab, year, month) => {
       }
     });
   }
-  if (page && pageSize && activeTab) {
-    // activeTab에 따라 데이터 필터링
-    if (activeTab !== '통합') {
-      filteredData = ALL_DATA.filter(item => item.activeTab === activeTab);
-    }
+
+  if (activeTab && activeTab !== '통합') {
+    totalData = totalData.filter(item => item.activeTab === activeTab);
+  }
+
+  let filteredData = totalData;
+
+  if (page && pageSize) {
     // 페이지네이션 적용
     const startIndex = (page - 1) * pageSize;
     const endIndex = startIndex + pageSize;
-    data = filteredData.slice(startIndex, endIndex);
-  } else {
-    data = filteredData;
+    filteredData = filteredData.slice(startIndex, endIndex);
   }
+
   return new Promise((resolve, reject) => {
     resolve({
       status: 200,
-      data,
-      totalItems: filteredData.length, // 필터링된 데이터의 총 수
+      data: filteredData,
+      totalItems: totalData.length, // 필터링된 데이터의 총 수
     });
   });
 };
@@ -390,15 +442,28 @@ export const postMoneyData = data => {
  * expenditurePrice가 있으면 빼서
  * 전체 금액을 구합니다.
  */
-export const getTotalMoney = () => {
+export const getTotalMoney = (year, month) => {
   let totalIncome = 0;
   let totalExpenditure = 0;
-  ALL_DATA.forEach(item => {
+  let filteredData = ALL_DATA;
+  if (year && month) {
+    filteredData = ALL_DATA.filter(item => {
+      const itemDate = new Date(item.date);
+      if (
+        itemDate.getFullYear() === year &&
+        itemDate.getMonth() === month - 1
+      ) {
+        return item;
+      }
+    });
+  }
+  filteredData.forEach(item => {
     if (item.activeTab == '수입' && item.incomePrice)
       totalIncome += Number(item.incomePrice);
     if (item.activeTab == '지출' && item.expenditurePrice)
       totalExpenditure += Number(item.expenditurePrice);
   });
+
   const totalMoney = totalIncome - totalExpenditure;
   return new Promise((resolve, reject) => {
     resolve({
@@ -412,9 +477,21 @@ export const getTotalMoney = () => {
  * 전체 수입 금액만 구합니다.
  * @returns
  */
-export const getIncomeTotalMoney = () => {
+export const getIncomeTotalMoney = (year, month) => {
   let totalIncome = 0;
-  ALL_DATA.forEach(item => {
+  let filteredData = ALL_DATA;
+  if (year && month) {
+    filteredData = ALL_DATA.filter(item => {
+      const itemDate = new Date(item.date);
+      if (
+        itemDate.getFullYear() === year &&
+        itemDate.getMonth() === month - 1
+      ) {
+        return item;
+      }
+    });
+  }
+  filteredData.forEach(item => {
     if (item.activeTab == '수입' && item.incomePrice)
       totalIncome += Number(item.incomePrice);
   });
@@ -430,9 +507,21 @@ export const getIncomeTotalMoney = () => {
  * 전체 지출 금액만 구합니다.
  * @returns
  */
-export const getExpenditureTotalMoney = () => {
+export const getExpenditureTotalMoney = (year, month) => {
   let totalExpenditure = 0;
-  ALL_DATA.forEach(item => {
+  let filteredData = ALL_DATA;
+  if (year && month) {
+    filteredData = ALL_DATA.filter(item => {
+      const itemDate = new Date(item.date);
+      if (
+        itemDate.getFullYear() === year &&
+        itemDate.getMonth() === month - 1
+      ) {
+        return item;
+      }
+    });
+  }
+  filteredData.forEach(item => {
     if (item.activeTab == '지출' && item.expenditurePrice)
       totalExpenditure += Number(item.expenditurePrice);
   });

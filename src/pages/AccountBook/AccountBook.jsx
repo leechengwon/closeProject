@@ -77,19 +77,27 @@ const AccountBook = () => {
     });
 
     // 모든 수입 총합 금액을 가져옵니다.
-    getIncomeTotalMoney().then(data => {
+    getIncomeTotalMoney(
+      currentDate.getFullYear(),
+      currentDate.getMonth() + 1,
+    ).then(data => {
       setIncomeTotal(data.data);
     });
 
     // 모든 지출 총합 금액을 가져옵니다.
-    getExpenditureTotalMoney().then(data => {
+    getExpenditureTotalMoney(
+      currentDate.getFullYear(),
+      currentDate.getMonth() + 1,
+    ).then(data => {
       setExpenditureTotal(data.data);
     });
 
     // 모든 수입 - 지출 총합 금액을 가져옵니다.
-    getTotalMoney().then(data => {
-      setTotal(data.data);
-    });
+    getTotalMoney(currentDate.getFullYear(), currentDate.getMonth() + 1).then(
+      data => {
+        setTotal(data.data);
+      },
+    );
   }, [currentPage, pageSize, activeTab, currentDate]);
 
   useEffect(() => {
@@ -152,12 +160,14 @@ const AccountBook = () => {
    */
   const prevMonth = () => {
     setCurrentDate(subMonths(currentDate, 1));
+    setCurrentPage(1);
   };
   /** onClick 시 다음 달로 이동 시키기 위한 함수 입니다.
    * addMonths 함수는 date-fns 라이브러리에서 제공하는 함수로 현재 날짜에서 원하는 달 만큼 더하는 함수 입니다.
    */
   const nextMonth = () => {
     setCurrentDate(addMonths(currentDate, 1));
+    setCurrentPage(1);
   };
 
   return (
@@ -237,12 +247,18 @@ const AccountBook = () => {
           </tbody>
         </table>
 
-        <Pagination
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          totalPage={totalPages}
-          pageLimit={5} // 이 예에서는 페이지네이션 컨트롤에 5개의 페이지 번호를 표시합니다
-        />
+        {expenseList.length === 0 ? (
+          <div className="mt-10 flex w-full justify-center">
+            <span className="text-20px">등록된 가계부 내역이 없습니다.</span>
+          </div>
+        ) : (
+          <Pagination
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            totalPage={totalPages}
+            pageLimit={5} // 이 예에서는 페이지네이션 컨트롤에 5개의 페이지 번호를 표시합니다
+          />
+        )}
 
         <IconButton
           className="absolute bottom-2 right-0 transition-all duration-300 hover:rotate-90 hover:scale-110"
