@@ -21,7 +21,7 @@ const AccountBookItem = ({
 }) => {
   return (
     <tr
-      className="cursor-pointer border-b hover:bg-primaryColor hover:opacity-80"
+      className="cursor-pointer border-b hover:bg-grayscaleC hover:opacity-80"
       onClick={onClick}
     >
       <td className="py-2 text-center md:text-center">
