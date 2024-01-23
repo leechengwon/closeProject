@@ -49,6 +49,7 @@ const AccountBook = () => {
 
   const [expenseList, setExpenseList] = useState([]);
   const [clickedExpense, setClickedExpense] = useState({});
+  console.log(expenseList);
 
   const [incomeTotal, setIncomeTotal] = useState(0);
   const [expenditureTotal, setExpenditureTotal] = useState(0);
@@ -237,12 +238,18 @@ const AccountBook = () => {
           </tbody>
         </table>
 
-        <Pagination
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          totalPage={totalPages}
-          pageLimit={5} // 이 예에서는 페이지네이션 컨트롤에 5개의 페이지 번호를 표시합니다
-        />
+        {expenseList.length === 0 ? (
+          <div className="mt-10 flex w-full justify-center">
+            <span className="text-20px">등록된 가계부 내역이 없습니다.</span>
+          </div>
+        ) : (
+          <Pagination
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            totalPage={totalPages}
+            pageLimit={5} // 이 예에서는 페이지네이션 컨트롤에 5개의 페이지 번호를 표시합니다
+          />
+        )}
 
         <IconButton
           className="absolute bottom-2 right-0 transition-all duration-300 hover:rotate-90 hover:scale-110"

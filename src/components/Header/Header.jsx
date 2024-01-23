@@ -45,9 +45,9 @@ const Header = () => {
    * 3.메인페이지로 네비게이트를 해줍니다.
    */
   const handleLoginOut = () => {
-    window.location.reload();
     localStorage.clear();
     navigate('/');
+    window.location.reload();
   };
 
   return (

@@ -149,7 +149,7 @@ const Login = () => {
   // };
 
   return (
-    <main className="w-2xl flex min-w-80 max-w-2xl flex-col items-center sm:mb-8 sm:mt-8 md:mb-12 md:mt-12 lg:mb-24 lg:mt-24">
+    <main className="w-2xl flex min-w-80 max-w-2xl flex-col items-center sm:mt-28  md:mt-32 lg:mt-44">
       <h2 className="text-30px sm:text-24px">로그인</h2>
 
       <section className="flex w-full flex-col justify-center sm:w-80 md:w-96 lg:w-9/12">
