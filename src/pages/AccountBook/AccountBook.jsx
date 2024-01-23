@@ -1,4 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
+import { addMonths, subMonths } from 'date-fns';
+import RenderHeader from '../../pages/Calender/components/RenderHeader';
+
 import Tap from '../../components/Tab/Tab';
 import AccountBookItem from './components/AccountBookItem';
 import { TAP_ACCOUNTBOOK_DATA } from '../../data/TapGroup';
@@ -51,6 +54,9 @@ const AccountBook = () => {
   const [expenditureTotal, setExpenditureTotal] = useState(0);
   const [total, setTotal] = useState(0);
 
+  /** 현재 실제 날짜의 데이터를 저장합니다.  */
+  const [currentDate, setCurrentDate] = useState(new Date());
+
   /**
    * 필요한 데이터를 가져옵니다.
    * 1. 모든 수입/지출 데이터
@@ -59,7 +65,13 @@ const AccountBook = () => {
    * 4. 모든 수입+지출 총합 금액
    */
   const getExpenseInfo = useCallback(() => {
-    getAllMoneyData(currentPage, pageSize, activeTab).then(response => {
+    getAllMoneyData(
+      currentPage,
+      pageSize,
+      activeTab,
+      currentDate.getFullYear(),
+      currentDate.getMonth() + 1,
+    ).then(response => {
       setExpenseList(response.data);
       setTotalPages(Math.ceil(response.totalItems / pageSize));
     });
@@ -78,12 +90,12 @@ const AccountBook = () => {
     getTotalMoney().then(data => {
       setTotal(data.data);
     });
-  }, [currentPage, pageSize, activeTab]);
+  }, [currentPage, pageSize, activeTab, currentDate]);
 
   useEffect(() => {
     // 필요한 모든 데이터를 가져옵니다.
     getExpenseInfo();
-  }, [getExpenseInfo, currentPage]);
+  }, [getExpenseInfo, currentPage, currentDate]);
 
   /**
    * id에 해당하는 데이터를 삭제합니다.
@@ -134,9 +146,28 @@ const AccountBook = () => {
     }
   };
 
+  // 날짜 제어
+  /** onClick 시 이전 달로 이동 시키기 위한 함수 입니다.
+   * subMonths 함수는 date-fns 라이브러리에서 제공하는 함수로 현재 날짜에서 원하는 달 만큼 빼는 함수 입니다.
+   */
+  const prevMonth = () => {
+    setCurrentDate(subMonths(currentDate, 1));
+  };
+  /** onClick 시 다음 달로 이동 시키기 위한 함수 입니다.
+   * addMonths 함수는 date-fns 라이브러리에서 제공하는 함수로 현재 날짜에서 원하는 달 만큼 더하는 함수 입니다.
+   */
+  const nextMonth = () => {
+    setCurrentDate(addMonths(currentDate, 1));
+  };
+
   return (
     <main className="relative">
-      <section className="mt-28">
+      <RenderHeader
+        currentMonth={currentDate}
+        prevMonth={prevMonth}
+        nextMonth={nextMonth}
+      />
+      <section className="mt-15">
         <Tap
           tapListData={TAP_ACCOUNTBOOK_DATA}
           onClick={handleTapClick}

@@ -318,9 +318,21 @@ const ALL_DATA = [
  * 전체 수입/지출 데이터를 가져옵니다.
  * @returns {Promise}
  */
-export const getAllMoneyData = (page, pageSize, activeTab) => {
+export const getAllMoneyData = (page, pageSize, activeTab, year, month) => {
   let filteredData = ALL_DATA;
   let data = filteredData;
+  if (year && month) {
+    //년도와 월이 있으면 해당 년도와 월에 해당하는 데이터만 필터링
+    filteredData = ALL_DATA.filter(item => {
+      const itemDate = new Date(item.date);
+      if (
+        itemDate.getFullYear() === year &&
+        itemDate.getMonth() === month - 1
+      ) {
+        return item;
+      }
+    });
+  }
   if (page && pageSize && activeTab) {
     // activeTab에 따라 데이터 필터링
     if (activeTab !== '통합') {
@@ -330,8 +342,9 @@ export const getAllMoneyData = (page, pageSize, activeTab) => {
     const startIndex = (page - 1) * pageSize;
     const endIndex = startIndex + pageSize;
     data = filteredData.slice(startIndex, endIndex);
+  } else {
+    data = filteredData;
   }
-
   return new Promise((resolve, reject) => {
     resolve({
       status: 200,

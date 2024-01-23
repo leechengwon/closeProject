@@ -11,9 +11,6 @@ import IconButton from '../../../components/IconButton/IconButton';
  * @returns
  */
 const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
-  useEffect(() => {
-    console.log(currentMonth, prevMonth, nextMonth);
-  }, [currentMonth]);
   return (
     <section className="flex items-center justify-center">
       <div className="flex w-full items-center justify-center">
