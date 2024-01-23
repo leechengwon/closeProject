@@ -595,9 +595,21 @@ export const getMoneyDataListByDate = dateStr => {
  * 모든 classification별 지출을 리턴합니다.
  * classification별로 지출을 더해서 리턴합니다.
  */
-export const getAllExpenditureByClassification = () => {
+export const getAllExpenditureByClassification = (year, month) => {
   const classificationList = [];
-  ALL_DATA.forEach(item => {
+  let filteredData = ALL_DATA;
+  if (year && month) {
+    filteredData = filteredData.filter(item => {
+      const itemDate = new Date(item.date);
+      if (
+        itemDate.getFullYear() === year &&
+        itemDate.getMonth() === month - 1
+      ) {
+        return item;
+      }
+    });
+  }
+  filteredData.forEach(item => {
     if (item.activeTab === '지출') {
       const index = classificationList.findIndex(
         classificationItem =>
@@ -625,9 +637,21 @@ export const getAllExpenditureByClassification = () => {
  * 모든 classification별 수입을 리턴합니다.
  * classification별로 수입을 더해서 리턴합니다.
  */
-export const getAllIncomeByClassification = () => {
+export const getAllIncomeByClassification = (year, month) => {
   const classificationList = [];
-  ALL_DATA.forEach(item => {
+  let filteredData = ALL_DATA;
+  if (year && month) {
+    filteredData = filteredData.filter(item => {
+      const itemDate = new Date(item.date);
+      if (
+        itemDate.getFullYear() === year &&
+        itemDate.getMonth() === month - 1
+      ) {
+        return item;
+      }
+    });
+  }
+  filteredData.forEach(item => {
     if (item.activeTab === '수입') {
       const index = classificationList.findIndex(
         classificationItem =>
