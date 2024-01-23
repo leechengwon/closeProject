@@ -9,20 +9,20 @@ import Join from './pages/Join/Join';
 import Statistics from './pages/Statistics/Statistics';
 import AccountBook from './pages/AccountBook/AccountBook';
 
-const Router = () => {
+const Router = ({ isLogin }) => {
   return (
     <BrowserRouter basename="/money-protector">
       <ScrollToTop />
-      <Header />
+      {isLogin && <Header />}
       <Routes>
-        <Route path="/" element={<Gateway />} />
+        <Route path="/" element={<Gateway isLogin={isLogin} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/calender" element={<Calender />} />
         <Route path="/join" element={<Join />} />
         <Route path="/statistics" element={<Statistics />} />
         <Route path="/accountbook" element={<AccountBook />} />
       </Routes>
-      <Footer />
+      {isLogin && <Footer />}
     </BrowserRouter>
   );
 };

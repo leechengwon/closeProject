@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import IconButton from '../IconButton/IconButton';
 
 /** Nav Component 입니다.
@@ -8,6 +8,15 @@ import IconButton from '../IconButton/IconButton';
  * 4. props로 onClose, className, navOpen을 받습니다.
  */
 const Nav = ({ onClose, className, navOpen }) => {
+  const isLogin = localStorage.getItem('accessToken');
+  const navigate = useNavigate();
+
+  const handleLogOut = () => {
+    localStorage.clear();
+    navigate('/');
+    window.location.reload();
+  };
+
   return (
     <>
       <div
@@ -29,30 +38,67 @@ const Nav = ({ onClose, className, navOpen }) => {
             onClick={onClose}
           />
 
-          <div className="flex items-center justify-center py-16 text-grayscaleH">
-            <Link
-              to="/login"
-              className="relative px-5 text-20px font-bold text-grayscaleH after:absolute after:right-0 after:top-1 after:h-6 after:w-[1px] after:bg-grayscaleD after:opacity-50 after:content-[''] hover:text-primaryColor"
-              onClick={onClose}
-            >
-              Login
-            </Link>
+          {isLogin ? (
+            <>
+              <div className="flex items-center justify-center py-16 text-grayscaleH">
+                <button
+                  to="/"
+                  className="relative px-5 text-20px font-bold text-grayscaleH after:absolute after:right-0 after:top-1 after:h-6 after:w-[1px] after:bg-grayscaleD after:opacity-50 after:content-[''] hover:text-primaryColor"
+                  onClick={handleLogOut}
+                >
+                  Logout
+                </button>
 
-            <Link
-              to="/join"
-              className="px-5 text-20px font-bold text-grayscaleH hover:text-primaryColor"
-              onClick={onClose}
-            >
-              Join
-            </Link>
-          </div>
+                <Link
+                  to="#"
+                  className="px-5 text-20px font-bold text-grayscaleH hover:text-primaryColor"
+                  onClick={onClose}
+                >
+                  MyPage
+                </Link>
+              </div>
 
-          <div className="flex items-center justify-center text-16px text-secondaryColor">
-            <span className="border-b pt-0 text-16px">로그인 해주세요.</span>
-          </div>
+              <div className="flex items-center justify-center text-16px text-primaryColor">
+                <span className="border-b pt-0 text-16px">
+                  회원님 반갑습니다!
+                </span>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="flex items-center justify-center py-16 text-grayscaleH">
+                <Link
+                  to="/login"
+                  className="relative px-5 text-20px font-bold text-grayscaleH after:absolute after:right-0 after:top-1 after:h-6 after:w-[1px] after:bg-grayscaleD after:opacity-50 after:content-[''] hover:text-primaryColor"
+                  onClick={onClose}
+                >
+                  Login
+                </Link>
+
+                <Link
+                  to="/join"
+                  className="px-5 text-20px font-bold text-grayscaleH hover:text-primaryColor"
+                  onClick={onClose}
+                >
+                  Join
+                </Link>
+              </div>
+
+              <div className="flex items-center justify-center text-16px text-secondaryColor">
+                <span className="border-b pt-0 text-16px">
+                  로그인 해주세요.
+                </span>
+              </div>
+            </>
+          )}
 
           <div className="pt-12">
             <ul className="flex h-full flex-col items-center justify-center ">
+              <li className="text-center text-16px text-secondaryColor sm:text-0px">
+                링크 이동과 관련된 내용은
+                <br /> 모바일 버전에서만 <br />
+                확인 가능합니다.
+              </li>
               <li className="flex w-full items-center justify-center py-7">
                 <Link
                   to="/accountbook"
