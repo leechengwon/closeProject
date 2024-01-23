@@ -29,7 +29,7 @@ const MODAL_TYPE = {
   },
 };
 
-const pageSize = 6; // 페이지당 항목 수
+const pageSize = 5; // 페이지당 항목 수
 
 const AccountBook = () => {
   const [currentPage, setCurrentPage] = useState(1);
