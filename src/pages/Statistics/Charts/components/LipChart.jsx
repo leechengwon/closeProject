@@ -8,6 +8,9 @@ import {
 /**
  * Lip Chart의 기본 설정을 저장합니다.
  */
+
+const today = new Date();
+
 const LIP_CHART_CONFIG = {
   tooltip: {
     trigger: 'item',
@@ -26,24 +29,27 @@ const LIP_CHART_CONFIG = {
     center: 'center',
   },
   label: {
-        show: true,
-        formatter: function (params) {
-          return `${params.name}: ${params.data.formattedValue}원`;
-        },
-        fontFamily: 'Tenada', // 라벨에 폰트 체를 적용합니다.
-        fontSize: 12, // 라벨에 폰트사이즈를 적용합니다.
-        fontWeight: 'bold', // 라벨에 폰트 굵기를 적용합니다.
-      },
-}
+    show: true,
+    formatter: function (params) {
+      return `${params.name}: ${params.data.formattedValue}원`;
+    },
+    fontFamily: 'Tenada', // 라벨에 폰트 체를 적용합니다.
+    fontSize: 12, // 라벨에 폰트사이즈를 적용합니다.
+    fontWeight: 'bold', // 라벨에 폰트 굵기를 적용합니다.
+  },
+};
 
 const { tooltip, legend, label } = LIP_CHART_CONFIG;
 
 const Chart = () => {
-  const [incomeChartData, setIncomeChartData] = useState(null);
-  const [expenditureChartData, setExpenditureChartData] = useState(null);
+  const [incomeChartData, setIncomeChartData] = useState([]);
+  const [expenditureChartData, setExpenditureChartData] = useState([]);
 
   useEffect(() => {
-    getAllIncomeByClassification().then(res => {
+    getAllIncomeByClassification(
+      today.getFullYear(),
+      today.getMonth() + 1,
+    ).then(res => {
       const data = res.data.map(item => ({
         value: item.price,
         name: item.classification,
@@ -52,7 +58,10 @@ const Chart = () => {
       setIncomeChartData(data);
     });
 
-    getAllExpenditureByClassification().then(res => {
+    getAllExpenditureByClassification(
+      today.getFullYear(),
+      today.getMonth() + 1,
+    ).then(res => {
       const data = res.data.map(item => ({
         value: item.price,
         name: item.classification,
@@ -65,9 +74,9 @@ const Chart = () => {
   return (
     <div className="mb-20 w-full">
       <div className="my-14 flex w-full justify-center">
-        <h2 className="text-30px">수입 내역</h2>
+        <h2 className="text-30px">이번 달 수입 내역</h2>
       </div>
-      {incomeChartData ? (
+      {incomeChartData.length > 0 ? (
         <ECharts
           option={{
             tooltip,
@@ -86,31 +95,39 @@ const Chart = () => {
           opts={{ width: 'auto', height: 'auto' }}
           className="text-sm md:text-[6px] lg:text-[4px]"
         />
-      ) : null}
+      ) : (
+        <div className="flex justify-center text-20px text-grayscaleD">
+          <h3>표시할 차트 내용이 없습니다.</h3>
+        </div>
+      )}
 
       <div className="my-14 flex w-full justify-center">
-        <h2 className="text-30px">지출 내역</h2>
+        <h2 className="text-30px">이번 달 지출 내역</h2>
       </div>
 
-      {expenditureChartData ? (
+      {expenditureChartData.length > 0 ? (
         <ECharts
-        option={{
-          tooltip,
-          legend,
-          series: [
-            {
-              name: '지출 내역',
-              type: 'pie',
-              radius: '80%',
-              top: '100',
-              data: expenditureChartData,
-              label: label,
-            },
-          ],
-        }}
+          option={{
+            tooltip,
+            legend,
+            series: [
+              {
+                name: '지출 내역',
+                type: 'pie',
+                radius: '80%',
+                top: '100',
+                data: expenditureChartData,
+                label: label,
+              },
+            ],
+          }}
           opts={{ width: 'auto', height: 'auto' }}
         />
-      ) : null}
+      ) : (
+        <div className="flex justify-center text-20px text-grayscaleD">
+          <h3>표시할 차트 내용이 없습니다.</h3>
+        </div>
+      )}
     </div>
   );
 };

@@ -42,8 +42,8 @@ const BAR_CHART_CONFIG = {
 const { tooltip, legend, toolbox, calculable, xAxis } = BAR_CHART_CONFIG;
 
 const BarChart = () => {
-  const [incomeChartData, setIncomeChartData] = useState(null);
-  const [expenditureChartData, setExpenditureChartData] = useState(null);
+  const [incomeChartData, setIncomeChartData] = useState([]);
+  const [expenditureChartData, setExpenditureChartData] = useState([]);
 
   /**
    * 화면 크기를 가져온다.
