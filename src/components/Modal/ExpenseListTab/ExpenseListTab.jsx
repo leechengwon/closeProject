@@ -2,6 +2,12 @@ import React, { useMemo } from 'react';
 import IconButton from '../../IconButton/IconButton';
 import 'react-datepicker/dist/react-datepicker.css';
 
+/** ExpenseListTab 대한 props 리스트 입니다.
+ *@property {string} selectDate                            - selectDate 선택된 날짜데이터를 정의합니다.
+ *@property {string} expenseList                           - expenseData 비용(수입,지출)에 대한 데이터를 정의합니다.
+ *@property {function} showExpenseBoxModal                 - 부모컴포넌트에 정의되어있는 모달 토글 함수를 정의합니다.
+ */
+
 /**
  * 선택한 날짜의 목록을 보여줍니다.
  */
@@ -37,7 +43,6 @@ const ExpenseListTab = ({ selectDate, expenseList, showExpenseBoxModal }) => {
   /**
    * 수입 - 지출 = 합계
    * useMemo를 사용해서  수입, 지출이 변경될때마다 합계를 계산합니다.
-   *
    */
   const total = useMemo(
     () => incomeTotal - expenditureTotal,
@@ -156,6 +161,7 @@ const ExpenseListTab = ({ selectDate, expenseList, showExpenseBoxModal }) => {
           );
         })}
       </table>
+
       <IconButton
         className="absolute bottom-5 right-5 transition-all duration-300 hover:rotate-90 hover:scale-110"
         shape="add"
