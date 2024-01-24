@@ -86,8 +86,8 @@ const Chart = () => {
       {incomeChartData.length > 0 ? (
         <ECharts
           option={{
-            tooltip,
-            legend,
+            tooltip, // 15.line ~ 25.line 참고
+            legend, // 26.line ~ 30.line 참고
             series: [
               {
                 name: '소비 내역',
@@ -99,7 +99,7 @@ const Chart = () => {
               },
             ],
           }}
-          opts={{ width: 'auto', height: 'auto' }}
+          opts={{ width: 'auto', height: 'auto' }} //반응형 옵션을 줍니다.
           className="text-sm md:text-[6px] lg:text-[4px]"
         />
       ) : (
@@ -115,8 +115,8 @@ const Chart = () => {
       {expenditureChartData.length > 0 ? (
         <ECharts
           option={{
-            tooltip,
-            legend,
+            tooltip, // 15.line ~ 25.line 참고
+            legend, // 26.line ~ 30.line 참고
             series: [
               {
                 name: '지출 내역',
@@ -128,7 +128,7 @@ const Chart = () => {
               },
             ],
           }}
-          opts={{ width: 'auto', height: 'auto' }}
+          opts={{ width: 'auto', height: 'auto' }} //반응형 옵션을 줍니다.
         />
       ) : (
         <div className="flex justify-center text-20px text-grayscaleD">
