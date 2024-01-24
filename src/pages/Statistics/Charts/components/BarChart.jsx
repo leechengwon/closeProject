@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import ECharts from 'echarts-for-react';
+import ECharts from 'echarts-for-react'; //다양한 차트를 사용할수있는 차트 라이브러리
 import {
   getAllIncomeByMonth,
   getAllExpenditureByMonth,
@@ -16,14 +16,14 @@ const BAR_CHART_CONFIG = {
   },
   legend: {
     data: ['수입', '지출'],
-    top: '0', // 탑 바텀 라이트 레프트 다양
-    center: 'center', // 라이트 레프트 센터등 정렬
+    top: '0', // top bottom right left 위치
+    center: 'center', // right left center 위치
   },
   toolbox: {
-    show: true,
+    show: true, // 보여줄지 말지를 블리언값 으로 결정
     feature: {
-      // dataView: { show: true, readOnly: false },
-      magicType: { show: true, type: ['line', 'bar'] },
+      magicType: { show: true, type: ['line', 'bar'] }, // bar타입 , line 타입 두가지로 설정
+      // dataView: { show: true, readOnly: false }, 메모 기능 유무
       // restore: { show: true }, 새로고침을 기능 유무
       // saveAsImage: { show: true }, 그래프를 캡쳐나 저장할수있는 기능 유무
     },
@@ -34,15 +34,18 @@ const BAR_CHART_CONFIG = {
       type: 'category',
       data: Array(12)
         .fill()
-        .map((_, i) => i + 1 + '월'), // 1월부터 12월까지 배열로 만들어줌
+        .map((_, i) => i + 1 + '월'), // x축 데이터 1월부터 12월까지 배열로 만들어줌
     },
   ],
 };
 
+/** 구조 분해 할당을 정의합니다. */
 const { tooltip, legend, toolbox, calculable, xAxis } = BAR_CHART_CONFIG;
 
 const BarChart = () => {
+  /** 수입에 대한 데이터를 useState에 정의합니다. */
   const [incomeChartData, setIncomeChartData] = useState([]);
+  /** 지출에 대한 데이터를 useState에 정의합니다. */
   const [expenditureChartData, setExpenditureChartData] = useState([]);
 
   /**
@@ -104,26 +107,27 @@ const BarChart = () => {
 
       <ECharts
         option={{
-          tooltip,
-          legend,
-          toolbox,
-          calculable,
-          xAxis,
-          yAxis: yAxis,
+          //43.line 구조분해 할당 정의 해놓았습니다.
+          tooltip, // 14.line ~ 16.line 참고
+          legend, // 17.line ~ 21.line 참고
+          toolbox, // 22.line ~ 30.line 참고
+          calculable, // 31.line 참고
+          xAxis, // 32.line ~ 40.line 참고
+          yAxis: yAxis, // 58.line ~ 90.line 참고
           series: [
             {
               name: '수입',
               type: 'bar',
-              data: incomeChartData,
+              data: incomeChartData, // 47.line 에 정의해놓은 useState 값을 할당합니다.
             },
             {
               name: '지출',
               type: 'bar',
-              data: expenditureChartData,
+              data: expenditureChartData, // 49.line 에 정의해놓은 useState 값을 할당합니다.
             },
           ],
         }}
-        opts={{ width: 'auto', height: 'auto' }}
+        opts={{ width: 'auto', height: 'auto' }} //반응형 옵션을 줍니다.
         className="text-sm md:text-[6px] lg:text-[4px]"
       />
     </div>

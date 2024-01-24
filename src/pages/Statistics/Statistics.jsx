@@ -4,8 +4,8 @@ import BarChart from './Charts/components/BarChart';
 import Tab from '../../components/Tab/Tab';
 import { TAP_CHART_DATA } from '../../data/TapGroup';
 
-/** Tab 컴포넌트에 필요한 useState 를 정의합니다.   */
 const Statistics = () => {
+  /** Tab 컴포넌트에 필요한 useState 를 정의합니다.   */
   const [activeTab, setActiveTab] = useState('LIP');
 
   /**클릭이벤트로 value값을 받는 클릭함수입니다. Tab 컴포넌트에서 사용합니다. */

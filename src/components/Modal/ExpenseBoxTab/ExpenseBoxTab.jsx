@@ -1,23 +1,28 @@
 import React, { useEffect, useMemo, useState } from 'react';
-
-import { TAP_DATA } from '../../../data/TapGroup';
-
 import Tab from '../../Tab/Tab';
 import Button from '../../Button/Button';
 import CustomInput from '../contentModal/CustomInput';
+import { TAP_DATA } from '../../../data/TapGroup';
 import ChipGroup from '../../Chip/ChipGroup';
-
 import INCOME_DATA from '../../../data/IncomeChipData';
 import EXPENDITURE_DATA from '../../../data/ExpenditureChipData';
 import ASSET_DATA from '../../../data/AssetData';
-
 import DatePicker from 'react-datepicker';
 import { ko } from 'date-fns/locale';
 import 'react-datepicker/dist/react-datepicker.css';
 
+/** ExpenseBoxTab 대한 props 리스트 입니다.
+ *@property {string} expenseData                      - expenseData 비용(수입,지출)에 대한 데이터를 정의합니다.
+ *@property {string} selectDate                       - selectDate 선택된 날짜데이터를 정의합니다.
+ *@property {function} saveInputExpenseData           - 수정 / 저장 할수있는 함수를 정의합니다.
+ *@property {function} removeExpenseData              - 삭제할수있는 함수를 정의합니다.
+ *@property {function} cancel                         - 취소버튼 클릭시 부모에 정의되어있는 useState 값을 변경해주는 set함수를 정의합니다.
+ */
+
 /**
  * 현재 이 컴포넌트가
- * 새로운걸 등록하기 위한것인지, 기존 데이터를 수정하기 위한것인지를
+ * 새로운걸 등록하기 위한것인지,
+ * 기존 데이터를 수정하기 위한것인지를
  * 구분하기 위한 상수입니다.
  */
 const BOX_TYPE = {
@@ -69,6 +74,7 @@ const ExpenseBoxTab = ({
     expenditurePrice: '',
   });
 
+  /**탭 타입을 정의합니다.  */
   const [tabType, setTabType] = useState(BOX_TYPE.NEW);
 
   useEffect(() => {
@@ -312,14 +318,18 @@ const ExpenseBoxTab = ({
 
           <div className="flex w-full items-center justify-center gap-3 pt-5">
             <Button type="submit" text={tabType.save} onClick={save} />
+
             {tabType == BOX_TYPE.NEW ? (
               <Button text="취소" color="white" onClick={cancel} />
             ) : (
-              <Button
-                text="삭제"
-                color="tertiary"
-                onClick={removeExpenseData}
-              />
+              <>
+                <Button
+                  text="삭제"
+                  color="tertiary"
+                  onClick={removeExpenseData}
+                />
+                <Button text="취소" color="white" onClick={cancel} />
+              </>
             )}
           </div>
         </fieldset>

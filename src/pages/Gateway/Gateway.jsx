@@ -3,12 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 
 const Gateway = ({ isLogin }) => {
+  /** useNavigate를  navigate변수에 정읩합니다.*/
   const navigate = useNavigate();
+
+  /**로그인 상태라면 가계부 페이지로 이동합니다. */
   useEffect(() => {
     if (isLogin) {
       navigate('/accountbook');
     }
   }, []);
+
   return (
     <section className="flex h-screen w-screen items-center justify-center bg-[#fbf5f0]">
       <div
