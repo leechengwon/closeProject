@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ECharts from 'echarts-for-react';
+import ECharts from 'echarts-for-react'; //다양한 차트를 사용할수있는 차트 라이브러리
 import {
   getAllIncomeByClassification,
   getAllExpenditureByClassification,

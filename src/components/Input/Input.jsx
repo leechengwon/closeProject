@@ -1,4 +1,4 @@
-/**
+/** Input 대한 props 리스트 입니다.
  *@property {string} type: text, password , number , email  - 인풋의 타입을 정의합니다.
  *@property {string} placeholder                            - 인풋의 입력될 값에 대한 짧은 힌트를 정의합니다.
  *@property {string} name                                   - 인풋의 이름을 정의합니다.
