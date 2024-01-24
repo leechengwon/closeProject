@@ -118,7 +118,7 @@ const Login = () => {
             removeCookie('rememberUserId');
           }
           localStorage.setItem('accessToken', res.token);
-          navigate('/AccountBook');
+          navigate('/accountbook');
           window.location.reload();
         })
         .catch(error => {
