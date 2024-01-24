@@ -325,7 +325,7 @@ const ExpenseBoxTab = ({
               <>
                 <Button
                   text="삭제"
-                  color="tertiary"
+                  color="secondary"
                   onClick={removeExpenseData}
                 />
                 <Button text="취소" color="white" onClick={cancel} />
