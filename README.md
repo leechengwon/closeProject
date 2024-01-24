@@ -1,6 +1,8 @@
 # React + Vite 세팅
 <img width="1677" alt="스크린샷 2024-01-24 오후 7 02 57" src="https://github.com/leechengwon/money-protector/assets/141094801/abdfcc32-b441-4187-9778-a1f9acfa5eb6">
 
+- Period
+
   - 20240102 ~ 20240124
 
 - Developers & parts
