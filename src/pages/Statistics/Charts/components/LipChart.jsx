@@ -86,6 +86,7 @@ const Chart = () => {
       {incomeChartData.length > 0 ? (
         <ECharts
           option={{
+            //43.line 구조분해 할당 정의 해놓았습니다.
             tooltip, // 15.line ~ 25.line 참고
             legend, // 26.line ~ 30.line 참고
             series: [
